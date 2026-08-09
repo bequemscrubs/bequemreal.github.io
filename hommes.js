@@ -1,78 +1,287 @@
-let topIndex = 0;
-let pantIndex = 0;
+/* =========================================
+   BEQUEM SCRUBS — MEN'S COLLECTION
+========================================= */
 
-const tops = document.querySelectorAll("#tops .product");
-const pants = document.querySelectorAll("#pants .product");
+document.addEventListener("DOMContentLoaded", () => {
 
-function showTop() {
+    const tops = Array.from(
+        document.querySelectorAll("#tops .product")
+    );
 
-    tops.forEach((item, index) => {
-        item.classList.toggle("active", index === topIndex);
+    const pants = Array.from(
+        document.querySelectorAll("#pants .product")
+    );
+
+    let topIndex = 0;
+    let pantIndex = 0;
+
+
+    /* =========================================
+       DISPLAY TOPS
+    ========================================= */
+
+    function displayTops() {
+
+        tops.forEach((product, index) => {
+
+            product.classList.remove("active");
+
+            if (index === topIndex) {
+                product.classList.add("active");
+            }
+
+        });
+
+        document.getElementById("summaryTop").textContent =
+            tops[topIndex].dataset.name;
+
+    }
+
+
+    /* =========================================
+       DISPLAY PANTS
+    ========================================= */
+
+    function displayPants() {
+
+        pants.forEach((product, index) => {
+
+            product.classList.remove("active");
+
+            if (index === pantIndex) {
+                product.classList.add("active");
+            }
+
+        });
+
+        document.getElementById("summaryPant").textContent =
+            pants[pantIndex].dataset.name;
+
+    }
+
+
+    /* =========================================
+       NEXT / PREVIOUS TOP
+    ========================================= */
+
+    window.nextTop = function () {
+
+        topIndex++;
+
+        if (topIndex >= tops.length) {
+            topIndex = 0;
+        }
+
+        displayTops();
+
+    };
+
+
+    window.previousTop = function () {
+
+        topIndex--;
+
+        if (topIndex < 0) {
+            topIndex = tops.length - 1;
+        }
+
+        displayTops();
+
+    };
+
+
+    /* =========================================
+       NEXT / PREVIOUS PANTS
+    ========================================= */
+
+    window.nextPant = function () {
+
+        pantIndex++;
+
+        if (pantIndex >= pants.length) {
+            pantIndex = 0;
+        }
+
+        displayPants();
+
+    };
+
+
+    window.previousPant = function () {
+
+        pantIndex--;
+
+        if (pantIndex < 0) {
+            pantIndex = pants.length - 1;
+        }
+
+        displayPants();
+
+    };
+
+
+    /* =========================================
+       CLICK DIRECTLY ON A TOP
+    ========================================= */
+
+    tops.forEach((product, index) => {
+
+        product.addEventListener("click", () => {
+
+            topIndex = index;
+
+            displayTops();
+
+        });
+
     });
 
-    document.getElementById("summaryTop").textContent =
-        tops[topIndex].dataset.name;
-}
 
+    /* =========================================
+       CLICK DIRECTLY ON PANTS
+    ========================================= */
 
-function showPant() {
+    pants.forEach((product, index) => {
 
-    pants.forEach((item, index) => {
-        item.classList.toggle("active", index === pantIndex);
+        product.addEventListener("click", () => {
+
+            pantIndex = index;
+
+            displayPants();
+
+        });
+
     });
 
-    document.getElementById("summaryPant").textContent =
-        pants[pantIndex].dataset.name;
-}
+
+    /* =========================================
+       COLOR SELECTION
+    ========================================= */
+
+    const colorButtons =
+        document.querySelectorAll(".option:nth-of-type(1) .choices button");
+
+    let selectedColor = "BLACK";
 
 
-function nextTop() {
+    colorButtons.forEach(button => {
 
-    topIndex++;
+        button.addEventListener("click", () => {
 
-    if (topIndex >= tops.length) {
-        topIndex = 0;
-    }
+            colorButtons.forEach(btn =>
+                btn.classList.remove("selected")
+            );
 
-    showTop();
-}
+            button.classList.add("selected");
 
+            selectedColor = button.textContent.trim();
 
-function previousTop() {
+        });
 
-    topIndex--;
-
-    if (topIndex < 0) {
-        topIndex = tops.length - 1;
-    }
-
-    showTop();
-}
+    });
 
 
-function nextPant() {
+    /* =========================================
+       SIZE SELECTION
+    ========================================= */
 
-    pantIndex++;
+    const sizeButtons =
+        document.querySelectorAll(".option:nth-of-type(2) .choices button");
 
-    if (pantIndex >= pants.length) {
-        pantIndex = 0;
-    }
-
-    showPant();
-}
+    let selectedSize = "M";
 
 
-function previousPant() {
+    sizeButtons.forEach(button => {
 
-    pantIndex--;
+        button.addEventListener("click", () => {
 
-    if (pantIndex < 0) {
-        pantIndex = pants.length - 1;
-    }
+            sizeButtons.forEach(btn =>
+                btn.classList.remove("selected")
+            );
 
-    showPant();
-}
+            button.classList.add("selected");
+
+            selectedSize = button.textContent.trim();
+
+        });
+
+    });
 
 
-showTop();
-showPant();
+    /* =========================================
+       ADD TO CART
+    ========================================= */
+
+    const cartButton =
+        document.querySelector(".cart");
+
+
+    cartButton.addEventListener("click", () => {
+
+        const product = {
+
+            category: "HOMMES",
+
+            top: tops[topIndex].dataset.name,
+
+            pants: pants[pantIndex].dataset.name,
+
+            color: selectedColor,
+
+            size: selectedSize,
+
+            quantity: 1
+
+        };
+
+
+        /* Get existing cart */
+
+        let cart =
+            JSON.parse(localStorage.getItem("bequemCart")) || [];
+
+
+        /* Add product */
+
+        cart.push(product);
+
+
+        /* Save cart */
+
+        localStorage.setItem(
+            "bequemCart",
+            JSON.stringify(cart)
+        );
+
+
+        /* Confirmation */
+
+        cartButton.textContent =
+            "ADDED ✓";
+
+
+        setTimeout(() => {
+
+            cartButton.textContent =
+                "ADD TO CART →";
+
+        }, 1800);
+
+
+        console.log(
+            "Added to cart:",
+            product
+        );
+
+    });
+
+
+    /* =========================================
+       INITIAL DISPLAY
+    ========================================= */
+
+    displayTops();
+
+    displayPants();
+
+});
