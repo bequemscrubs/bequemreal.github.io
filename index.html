@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,418 +8,406 @@
     <title>BEQUEM SCRUBS — Medical Wear</title>
 
     <link rel="stylesheet" href="style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
 
-<header class="header">
+    <!-- =========================
+         HEADER
+    ========================== -->
 
-    <a href="index.html" class="brand">
-        BEQUEM SCRUBS
-    </a>
+    <header class="site-header">
 
-    <nav class="nav">
-        <a href="#shop">SHOP</a>
-        <a href="#reviews">REVIEWS</a>
-        <a href="#about">ABOUT US</a>
-    </nav>
-
-    <button class="cart-button" onclick="openCart()">
-        CART <span id="cartCount">0</span>
-    </button>
-
-    <button class="menu-button" onclick="toggleMenu()">
-        ☰
-    </button>
-
-</header>
-
-
-<!-- ================= MOBILE MENU ================= -->
-
-<div class="mobile-menu" id="mobileMenu">
-
-    <button onclick="toggleMenu()" class="close-menu">
-        ×
-    </button>
-
-    <a href="#shop" onclick="toggleMenu()">SHOP</a>
-    <a href="#reviews" onclick="toggleMenu()">REVIEWS</a>
-    <a href="#about" onclick="toggleMenu()">ABOUT US</a>
-
-</div>
-
-
-<!-- ================= HERO ================= -->
-
-<main>
-
-<section class="hero">
-
-    <div class="hero-grid"></div>
-
-    <div class="hero-content">
-
-        <p class="small-title">
-            MEDICAL WEAR • EST. 2026
-        </p>
-
-        <h1>
-            BEQUEM<br>
-            SCRUBS
-        </h1>
-
-        <p class="hero-text">
-            Medical wear designed around you.
-        </p>
-
-        <a href="#shop" class="main-button">
-            DISCOVER OUR SCRUBS
-        </a>
-
-    </div>
-
-    <div class="hero-logo">
-        ✦
-    </div>
-
-</section>
-
-
-<!-- ================= SHOP ================= -->
-
-<section class="shop-section" id="shop">
-
-    <div class="section-heading">
-
-        <p>01 / COLLECTION</p>
-
-        <h2>
-            CHOOSE YOUR<br>
-            SCRUBS
-        </h2>
-
-    </div>
-
-
-    <div class="categories">
-
-
-        <!-- HOMMES -->
-
-        <a href="hommes.html" class="category-card">
-
-            <div class="category-image">
-
-                <div class="image-placeholder">
-                    <span>MEN</span>
-                </div>
-
-                <div class="image-number">
-                    01
-                </div>
-
-            </div>
-
-            <div class="category-info">
-
-                <h3>HOMMES</h3>
-
-                <span>
-                    DISCOVER →
-                </span>
-
-            </div>
-
-        </a>
-
-
-
-        <!-- FEMMES -->
-
-        <a href="femmes.html" class="category-card">
-
-            <div class="category-image">
-
-                <div class="image-placeholder">
-                    <span>WOMEN</span>
-                </div>
-
-                <div class="image-number">
-                    02
-                </div>
-
-            </div>
-
-            <div class="category-info">
-
-                <h3>FEMMES</h3>
-
-                <span>
-                    DISCOVER →
-                </span>
-
-            </div>
-
-        </a>
-
-
-
-        <!-- HIJABI -->
-
-        <a href="hijabi.html" class="category-card">
-
-            <div class="category-image">
-
-                <div class="image-placeholder">
-                    <span>HIJABI</span>
-                </div>
-
-                <div class="image-number">
-                    03
-                </div>
-
-            </div>
-
-            <div class="category-info">
-
-                <h3>HIJABI</h3>
-
-                <span>
-                    DISCOVER →
-                </span>
-
-            </div>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= undersrubsTS ================= -->
-
-<section class="undersrubsts-section">
-
-    <div class="undersrubsts-text">
-
-        <p>02 / ACCESSORIES</p>
-
-        <h2>
-            COMPLETE<br>
-            YOUR LOOK.
-        </h2>
-
-        <p class="description">
-            Discover our collection of undersrubsts,
-            designed to complete your medical look.
-        </p>
-
-        <a href="undersrubsts.html" class="outline-button">
-            DISCOVER undersrubsTS →
-        </a>
-
-    </div>
-
-
-    <div class="undersrubsts-animation">
-
-        <div class="floating-item item-one">
-            undersrubsT
+        <div class="logo">
+            BEQUEM SCRUBS
         </div>
 
-        <div class="floating-item item-two">
-            bas de contention
-        </div>
+        <nav class="main-nav">
 
-        <div class="floating-item item-three">
-            undersrubsT
-        </div>
+            <a href="index.html">SHOP</a>
+            <a href="#reviews">REVIEWS</a>
+            <a href="#about">ABOUT US</a>
 
-    </div>
+        </nav>
 
-</section>
-
-
-
-<!-- ================= REVIEWS ================= -->
-
-<section class="reviews-section" id="reviews">
-
-    <div class="section-heading">
-
-        <p>03 / REVIEWS</p>
-
-        <h2>
-            WHAT THEY<br>
-            SAY.
-        </h2>
-
-    </div>
-
-
-    <div class="reviews-grid">
-
-        <article class="review-card">
-
-            <div class="stars">
-                ★★★★★
-            </div>
-
-            <p>
-                "Une tenue confortable et élégante.
-                La qualité est incroyable."
-            </p>
-
-            <span>
-                — CLIENT BEQUEM
-            </span>
-
-        </article>
-
-
-        <article class="review-card">
-
-            <div class="stars">
-                ★★★★★
-            </div>
-
-            <p>
-                "J'adore la coupe et les possibilités
-                de personnalisation."
-            </p>
-
-            <span>
-                — CLIENT BEQUEM
-            </span>
-
-        </article>
-
-
-        <article class="review-card">
-
-            <div class="stars">
-                ★★★★★
-            </div>
-
-            <p>
-                "Enfin des tenues médicales qui
-                correspondent vraiment à mon style."
-            </p>
-
-            <span>
-                — CLIENT BEQUEM
-            </span>
-
-        </article>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= ABOUT ================= -->
-
-<section class="about-section" id="about">
-
-    <div class="about-number">
-        04
-    </div>
-
-    <div>
-
-        <p>ABOUT BEQUEM</p>
-
-        <h2>
-            MEDICAL WEAR.<br>
-            REDEFINED.
-        </h2>
-
-        <p class="about-text">
-            BEQUEM SCRUBS crée des tenues médicales
-            pensées pour accompagner les professionnels
-            de santé dans leur quotidien.
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-    <div class="footer-brand">
-        BEQUEM SCRUBS
-    </div>
-
-    <div class="footer-links">
-
-        <a href="hommes.html">HOMMES</a>
-        <a href="femmes.html">FEMMES</a>
-        <a href="hijabi.html">HIJABI</a>
-        <a href="undersrubsts.html">undersrubsTS</a>
-
-    </div>
-
-    <div class="footer-bottom">
-
-        <span>
-            MEDICAL WEAR • EST. 2026
-        </span>
-
-        <span>
-            © 2026 BEQUEM SCRUBS
-        </span>
-
-    </div>
-
-</footer>
-
-
-<!-- ================= CART ================= -->
-
-<div class="cart-overlay" id="cartOverlay">
-
-    <div class="cart-panel">
-
-        <button class="close-cart" onclick="closeCart()">
-            ×
+        <button class="cart-button" id="cartButton">
+            CART <span id="cartCount">0</span>
         </button>
 
-        <p>YOUR CART</p>
+        <button class="menu-button">
+            ☰
+        </button>
 
-        <h2>
-            SHOPPING CART
-        </h2>
+    </header>
 
-        <div id="cartItems">
 
-            <div class="empty-cart">
-                Your cart is empty.
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    MEDICAL WEAR • EST. 2026
+                </p>
+
+                <h1>
+                    BEQUEM<br>
+                    SCRUBS
+                </h1>
+
+                <p class="hero-description">
+                    Medical wear designed around you.
+                </p>
+
+                <a href="#collection" class="hero-button">
+                    SHOP NOW →
+                </a>
+
             </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             COLLECTION
+        ========================== -->
+
+        <section class="collection" id="collection">
+
+            <div class="collection-header">
+
+                <p class="section-number">
+                    01 / COLLECTION
+                </p>
+
+                <h2>
+                    CHOOSE YOUR<br>
+                    SCRUBS
+                </h2>
+
+            </div>
+
+
+            <div class="collection-grid">
+
+
+                <!-- HOMMES -->
+
+                <a href="hommes.html" class="collection-card">
+
+                    <div class="collection-image">
+                        <span>MEN</span>
+                    </div>
+
+                    <div class="collection-info">
+
+                        <h3>
+                            HOMMES
+                        </h3>
+
+                        <span>
+                            DISCOVER →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- FEMMES -->
+
+                <a href="femmes.html" class="collection-card">
+
+                    <div class="collection-image">
+                        <span>WOMEN</span>
+                    </div>
+
+                    <div class="collection-info">
+
+                        <h3>
+                            FEMMES
+                        </h3>
+
+                        <span>
+                            DISCOVER →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- HIJABI -->
+
+                <a href="hijabi.html" class="collection-card">
+
+                    <div class="collection-image">
+                        <span>HIJABI</span>
+                    </div>
+
+                    <div class="collection-info">
+
+                        <h3>
+                            HIJABI
+                        </h3>
+
+                        <span>
+                            DISCOVER →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             COMPLETE YOUR LOOK
+        ========================== -->
+
+        <section class="complete-look" id="complete-look">
+
+
+            <!-- LEFT SIDE -->
+
+            <div class="complete-look-left">
+
+                <p class="section-number">
+                    02 / ACCESSORIES
+                </p>
+
+                <h2>
+                    COMPLETE<br>
+                    YOUR LOOK.
+                </h2>
+
+                <p>
+                    Discover our collection of essentials,
+                    designed to complete your medical look.
+                </p>
+
+                <a href="#complete-look" class="complete-button">
+                    DISCOVER ACCESSORIES →
+                </a>
+
+            </div>
+
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="complete-look-right">
+
+
+                <!-- CARTE 1 -->
+
+                <div class="accessory-box box-one">
+
+                    <span>
+                        UNDERSCRUB
+                    </span>
+
+                </div>
+
+
+
+                <!-- CARTE 2 -->
+
+                <div class="accessory-box box-two">
+
+                    <span>
+                        BAS DE CONTENTION
+                    </span>
+
+                </div>
+
+
+
+                <!-- CARTE 3 -->
+
+                <div class="accessory-box box-three">
+
+                    <span>
+                        UNDERSCRUB
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             REVIEWS
+        ========================== -->
+
+        <section class="reviews" id="reviews">
+
+            <div class="reviews-header">
+
+                <p class="section-number">
+                    03 / REVIEWS
+                </p>
+
+                <h2>
+                    WHAT THEY<br>
+                    SAY.
+                </h2>
+
+            </div>
+
+
+            <div class="reviews-grid">
+
+
+                <article class="review-card">
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                    <p>
+                        "Une tenue confortable, élégante
+                        et parfaite pour mes journées
+                        à l'hôpital."
+                    </p>
+
+                    <span>
+                        — CLIENT REVIEW
+                    </span>
+
+                </article>
+
+
+
+                <article class="review-card">
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                    <p>
+                        "La qualité et la coupe sont
+                        exactement ce que je recherchais."
+                    </p>
+
+                    <span>
+                        — CLIENT REVIEW
+                    </span>
+
+                </article>
+
+
+
+                <article class="review-card">
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                    <p>
+                        "Très confortable et vraiment
+                        différent des tenues classiques."
+                    </p>
+
+                    <span>
+                        — CLIENT REVIEW
+                    </span>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             ABOUT
+        ========================== -->
+
+        <section class="about" id="about">
+
+            <p class="section-number">
+                04 / ABOUT BEQUEM
+            </p>
+
+            <h2>
+                MEDICAL WEAR.<br>
+                REDEFINED.
+            </h2>
+
+            <p>
+                BEQUEM SCRUBS imagine des tenues médicales
+                pensées pour accompagner les professionnels
+                dans leur quotidien, avec confort, simplicité
+                et caractère.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-logo">
+            BEQUEM SCRUBS
+        </div>
+
+        <div class="footer-links">
+
+            <a href="#collection">
+                SHOP
+            </a>
+
+            <a href="#reviews">
+                REVIEWS
+            </a>
+
+            <a href="#about">
+                ABOUT US
+            </a>
 
         </div>
 
-    </div>
+        <p>
+            MEDICAL WEAR • EST. 2026
+        </p>
 
-</div>
+    </footer>
 
 
-</main>
 
-<script src="script.js"></script>
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
