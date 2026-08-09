@@ -1,252 +1,334 @@
-/* =========================================
-   BEQUEM SCRUBS — MEN'S COLLECTION
-========================================= */
+document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener("DOMContentLoaded", () => {
+    /* =========================
+       VARIABLES
+    ========================= */
 
-    const tops = Array.from(
-        document.querySelectorAll("#tops .product")
-    );
+    const topProducts = document.querySelectorAll("#tops .product");
+    const pantProducts = document.querySelectorAll("#pants .product");
 
-    const pants = Array.from(
-        document.querySelectorAll("#pants .product")
-    );
+    let selectedTop = null;
+    let selectedPant = null;
+    let selectedColor = null;
+    let selectedSize = null;
+    let selectedMotif = "AUCUN";
+    let selectedPlacement = "AUCUN";
 
-    let topIndex = 0;
-    let pantIndex = 0;
 
+    /* =========================
+       TOPS
+    ========================= */
 
-    /* =========================================
-       DISPLAY TOPS
-    ========================================= */
+    function updateTop() {
 
-    function displayTops() {
-
-        tops.forEach((product, index) => {
-
-            product.classList.remove("active");
-
-            if (index === topIndex) {
-                product.classList.add("active");
-            }
-
+        topProducts.forEach(function (product) {
+            product.style.display = "none";
         });
 
-        document.getElementById("summaryTop").textContent =
-            tops[topIndex].dataset.name;
+        if (selectedTop !== null) {
+
+            topProducts[selectedTop].style.display = "block";
+
+            document.getElementById("summaryTop").textContent =
+                topProducts[selectedTop].dataset.name;
+        }
 
     }
 
-
-    /* =========================================
-       DISPLAY PANTS
-    ========================================= */
-
-    function displayPants() {
-
-        pants.forEach((product, index) => {
-
-            product.classList.remove("active");
-
-            if (index === pantIndex) {
-                product.classList.add("active");
-            }
-
-        });
-
-        document.getElementById("summaryPant").textContent =
-            pants[pantIndex].dataset.name;
-
-    }
-
-
-    /* =========================================
-       NEXT / PREVIOUS TOP
-    ========================================= */
 
     window.nextTop = function () {
 
-        topIndex++;
+        if (selectedTop === null) {
+            selectedTop = 0;
+        } else {
+            selectedTop++;
 
-        if (topIndex >= tops.length) {
-            topIndex = 0;
+            if (selectedTop >= topProducts.length) {
+                selectedTop = 0;
+            }
         }
 
-        displayTops();
-
+        updateTop();
     };
 
 
     window.previousTop = function () {
 
-        topIndex--;
+        if (selectedTop === null) {
+            selectedTop = topProducts.length - 1;
+        } else {
+            selectedTop--;
 
-        if (topIndex < 0) {
-            topIndex = tops.length - 1;
+            if (selectedTop < 0) {
+                selectedTop = topProducts.length - 1;
+            }
         }
 
-        displayTops();
-
+        updateTop();
     };
 
 
-    /* =========================================
-       NEXT / PREVIOUS PANTS
-    ========================================= */
+    /* =========================
+       PANTS
+    ========================= */
+
+    function updatePant() {
+
+        pantProducts.forEach(function (product) {
+            product.style.display = "none";
+        });
+
+        if (selectedPant !== null) {
+
+            pantProducts[selectedPant].style.display = "block";
+
+            document.getElementById("summaryPant").textContent =
+                pantProducts[selectedPant].dataset.name;
+        }
+
+    }
+
 
     window.nextPant = function () {
 
-        pantIndex++;
+        if (selectedPant === null) {
+            selectedPant = 0;
+        } else {
+            selectedPant++;
 
-        if (pantIndex >= pants.length) {
-            pantIndex = 0;
+            if (selectedPant >= pantProducts.length) {
+                selectedPant = 0;
+            }
         }
 
-        displayPants();
-
+        updatePant();
     };
 
 
     window.previousPant = function () {
 
-        pantIndex--;
+        if (selectedPant === null) {
+            selectedPant = pantProducts.length - 1;
+        } else {
+            selectedPant--;
 
-        if (pantIndex < 0) {
-            pantIndex = pants.length - 1;
+            if (selectedPant < 0) {
+                selectedPant = pantProducts.length - 1;
+            }
         }
 
-        displayPants();
-
+        updatePant();
     };
 
 
-    /* =========================================
-       CLICK DIRECTLY ON A TOP
-    ========================================= */
-
-    tops.forEach((product, index) => {
-
-        product.addEventListener("click", () => {
-
-            topIndex = index;
-
-            displayTops();
-
-        });
-
-    });
-
-
-    /* =========================================
-       CLICK DIRECTLY ON PANTS
-    ========================================= */
-
-    pants.forEach((product, index) => {
-
-        product.addEventListener("click", () => {
-
-            pantIndex = index;
-
-            displayPants();
-
-        });
-
-    });
-
-
-    /* =========================================
-       COLOR SELECTION
-    ========================================= */
+    /* =========================
+       COLOR
+    ========================= */
 
     const colorButtons =
-        document.querySelectorAll(".option:nth-of-type(1) .choices button");
-
-    let selectedColor = "BLACK";
+        document.querySelectorAll(".color-choice");
 
 
-    colorButtons.forEach(button => {
+    colorButtons.forEach(function (button) {
 
-        button.addEventListener("click", () => {
+        button.addEventListener("click", function () {
 
-            colorButtons.forEach(btn =>
-                btn.classList.remove("selected")
-            );
+            colorButtons.forEach(function (btn) {
+                btn.classList.remove("selected");
+            });
 
             button.classList.add("selected");
 
-            selectedColor = button.textContent.trim();
+            selectedColor =
+                button.dataset.color;
 
         });
 
     });
 
 
-    /* =========================================
-       SIZE SELECTION
-    ========================================= */
+    /* =========================
+       SIZE
+    ========================= */
 
     const sizeButtons =
-        document.querySelectorAll(".option:nth-of-type(2) .choices button");
-
-    let selectedSize = "M";
+        document.querySelectorAll(".size-choice");
 
 
-    sizeButtons.forEach(button => {
+    sizeButtons.forEach(function (button) {
 
-        button.addEventListener("click", () => {
+        button.addEventListener("click", function () {
 
-            sizeButtons.forEach(btn =>
-                btn.classList.remove("selected")
-            );
+            sizeButtons.forEach(function (btn) {
+                btn.classList.remove("selected");
+            });
 
             button.classList.add("selected");
 
-            selectedSize = button.textContent.trim();
+            selectedSize =
+                button.dataset.size;
 
         });
 
     });
 
 
-    /* =========================================
-       ADD TO CART
-    ========================================= */
+    /* =========================
+       MOTIF
+    ========================= */
 
-    const cartButton =
+    const motifButtons =
+        document.querySelectorAll(".motif-choice");
+
+
+    motifButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            motifButtons.forEach(function (btn) {
+                btn.classList.remove("selected");
+            });
+
+            button.classList.add("selected");
+
+            selectedMotif =
+                button.dataset.motif;
+
+        });
+
+    });
+
+
+    /* =========================
+       PLACEMENT
+    ========================= */
+
+    const placementButtons =
+        document.querySelectorAll(".placement-choice");
+
+
+    placementButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            placementButtons.forEach(function (btn) {
+                btn.classList.remove("selected");
+            });
+
+            button.classList.add("selected");
+
+            selectedPlacement =
+                button.dataset.placement;
+
+        });
+
+    });
+
+
+    /* =========================
+       ADD TO CART
+    ========================= */
+
+    const addToCart =
         document.querySelector(".cart");
 
 
-    cartButton.addEventListener("click", () => {
+    addToCart.addEventListener("click", function () {
 
-        const product = {
+        /* Vérification haut */
+
+        if (selectedTop === null) {
+
+            alert("Veuillez choisir un tricot.");
+
+            return;
+        }
+
+
+        /* Vérification pantalon */
+
+        if (selectedPant === null) {
+
+            alert("Veuillez choisir un pantalon.");
+
+            return;
+        }
+
+
+        /* Vérification couleur */
+
+        if (selectedColor === null) {
+
+            alert("Veuillez choisir une couleur.");
+
+            return;
+        }
+
+
+        /* Vérification taille */
+
+        if (selectedSize === null) {
+
+            alert("Veuillez choisir une taille.");
+
+            return;
+        }
+
+
+        /* =========================
+           MOTIF
+           Facultatif
+        ========================= */
+
+        const motifText =
+            document.getElementById("motifDescription")
+                ?.value.trim() || "";
+
+
+        const item = {
 
             category: "HOMMES",
 
-            top: tops[topIndex].dataset.name,
+            top:
+                topProducts[selectedTop]
+                    .dataset.name,
 
-            pants: pants[pantIndex].dataset.name,
+            pants:
+                pantProducts[selectedPant]
+                    .dataset.name,
 
-            color: selectedColor,
+            color:
+                selectedColor,
 
-            size: selectedSize,
+            size:
+                selectedSize,
+
+            motif:
+                selectedMotif,
+
+            placement:
+                selectedPlacement,
+
+            motifDescription:
+                motifText,
 
             quantity: 1
 
         };
 
 
-        /* Get existing cart */
+        /* =========================
+           SAVE CART
+        ========================= */
 
         let cart =
-            JSON.parse(localStorage.getItem("bequemCart")) || [];
+            JSON.parse(
+                localStorage.getItem("bequemCart")
+            ) || [];
 
 
-        /* Add product */
+        cart.push(item);
 
-        cart.push(product);
-
-
-        /* Save cart */
 
         localStorage.setItem(
             "bequemCart",
@@ -254,34 +336,35 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* Confirmation */
+        /* =========================
+           SUCCESS
+        ========================= */
 
-        cartButton.textContent =
+        addToCart.textContent =
             "ADDED ✓";
 
 
-        setTimeout(() => {
+        setTimeout(function () {
 
-            cartButton.textContent =
+            addToCart.textContent =
                 "ADD TO CART →";
 
         }, 1800);
 
 
         console.log(
-            "Added to cart:",
-            product
+            "BEQUEM SCRUBS CART:",
+            item
         );
 
     });
 
 
-    /* =========================================
-       INITIAL DISPLAY
-    ========================================= */
+    /* =========================
+       INITIAL STATE
+    ========================= */
 
-    displayTops();
-
-    displayPants();
+    updateTop();
+    updatePant();
 
 });
