@@ -1,1 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hommes — BEQUEM SCRUBS</title>
+
+    <link rel="stylesheet" href="hommes.css">
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">BEQUEM SCRUBS</a>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="shop.html">SHOP</a>
+        <a href="index.html#reviews">REVIEWS</a>
+    </nav>
+
+    <a href="index.html" class="back">← BACK</a>
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <p>01 / MEN'S COLLECTION</p>
+
+        <h1>
+            BUILD<br>
+            YOUR SET.
+        </h1>
+
+        <span>
+            Choose every detail of your scrub.
+        </span>
+
+    </section>
+
+
+    <!-- TOPS -->
+
+    <section class="selection">
+
+        <div class="section-title">
+            <span>01</span>
+
+            <h2>CHOOSE YOUR TOP</h2>
+
+            <p>
+                Select the knit model you prefer.
+            </p>
+        </div>
+
+
+        <div class="slider">
+
+            <button class="arrow left" onclick="previousTop()">
+                ←
+            </button>
+
+
+            <div class="products" id="tops">
+
+                <div class="product active" data-name="COL ROND">
+
+                    <div class="photo">
+                        <span>PHOTO</span>
+                    </div>
+
+                    <h3>COL ROND</h3>
+
+                </div>
+
+
+                <div class="product" data-name="COL V">
+
+                    <div class="photo">
+                        <span>PHOTO</span>
+                    </div>
+
+                    <h3>COL V</h3>
+
+                </div>
+
+
+                <div class="product" data-name="COL ZIPPÉ">
+
+                    <div class="photo">
+                        <span>PHOTO</span>
+                    </div>
+
+                    <h3>COL ZIPPÉ</h3>
+
+                </div>
+
+
+                <div class="product" data-name="COL HAUT">
+
+                    <div class="photo">
+                        <span>PHOTO</span>
+                    </div>
+
+                    <h3>COL HAUT</h3>
+
+                </div>
+
+            </div>
+
+
+            <button class="arrow right" onclick="nextTop()">
+                →
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- PANTS -->
+
+    <section class="selection">
+
+        <div class="section-title">
+
+            <span>02</span>
+
+            <h2>CHOOSE YOUR PANTS</h2>
+
+            <p>
+                Select the cut that fits your style.
+            </p>
+
+        </div>
+
+
+        <div class="slider">
+
+            <button class="arrow left" onclick="previousPant()">
+                ←
+            </button>
+
+
+            <div class="products" id="pants">
+
+                <div class="product active" data-name="DROIT">
+
+                    <div class="photo">
+                        <span>PHOTO</span>
+                    </div>
+
+                    <h3>DROIT</h3>
+
+                </div>
+
+
+                <div class="product" data-name="CARGO">
+
+                    <div class="photo">
+                        <span>PHOTO</span>
+                    </div>
+
+                    <h3>CARGO</h3>
+
+                </div>
+
+
+                <div class="product" data-name="SLIM">
+
+                    <div class="photo">
+                        <span>PHOTO</span>
+                    </div>
+
+                    <h3>SLIM</h3>
+
+                </div>
+
+
+                <div class="product" data-name="JOGGER">
+
+                    <div class="photo">
+                        <span>PHOTO</span>
+                    </div>
+
+                    <h3>JOGGER</h3>
+
+                </div>
+
+            </div>
+
+
+            <button class="arrow right" onclick="nextPant()">
+                →
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- OPTIONS -->
+
+    <section class="options">
+
+        <p>03 / PERSONALIZE</p>
+
+        <h2>YOUR DETAILS</h2>
+
+
+        <div class="option">
+
+            <h3>COLOR</h3>
+
+            <div class="choices">
+
+                <button>BLACK</button>
+                <button>GREY</button>
+                <button>WHITE</button>
+
+            </div>
+
+        </div>
+
+
+        <div class="option">
+
+            <h3>SIZE</h3>
+
+            <div class="choices">
+
+                <button>XS</button>
+                <button>S</button>
+                <button>M</button>
+                <button>L</button>
+                <button>XL</button>
+                <button>XXL</button>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary">
+
+            <p>YOUR SET</p>
+
+            <h2 id="summaryTop">
+                COL ROND
+            </h2>
+
+            <h3 id="summaryPant">
+                DROIT
+            </h3>
+
+            <button class="cart">
+                ADD TO CART →
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <h2>BEQUEM SCRUBS</h2>
+
+    <p>MEDICAL WEAR • EST. 2026</p>
+
+</footer>
+
+
+<script src="hommes.js"></script>
+
+</body>
+</html>
