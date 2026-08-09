@@ -122,3 +122,51 @@ function removeFromCart(index) {
     displayCart();
 
 }
+/* =================================
+   ACCESSORIES ANIMATION
+================================= */
+
+const accessories = document.querySelectorAll(".accessory-box");
+
+const accessoryNames = [
+    "UNDERSCRUB",
+    "BAS DE CONTENTION"
+];
+
+let accessoryIndex = 0;
+
+
+function changeAccessories() {
+
+    accessoryIndex++;
+
+    if (accessoryIndex >= accessoryNames.length) {
+        accessoryIndex = 0;
+    }
+
+    accessories.forEach((box, index) => {
+
+        box.style.opacity = "0";
+        box.style.transform = "translateY(20px)";
+
+        setTimeout(() => {
+
+            box.querySelector("span").textContent =
+                accessoryNames[
+                    (accessoryIndex + index) %
+                    accessoryNames.length
+                ];
+
+            box.style.opacity = "1";
+            box.style.transform = "";
+
+        }, 600);
+
+    });
+
+}
+
+
+/* Change every 4 seconds */
+
+setInterval(changeAccessories, 4000);
