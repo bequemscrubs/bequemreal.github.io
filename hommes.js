@@ -1,19 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* =========================
+
+    /* =====================================
        VARIABLES
-    ========================= */
-
-    const topCards =
-        document.querySelectorAll(
-            '.product-card[data-type="top"]'
-        );
-
-    const pantsCards =
-        document.querySelectorAll(
-            '.product-card[data-type="pants"]'
-        );
-
+    ===================================== */
 
     let selectedTop = null;
     let selectedPants = null;
@@ -21,173 +11,208 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedColor = null;
     let selectedSize = null;
 
-    let selectedMotif = "NO MOTIF";
-    let selectedPlacement = null;
-
-
-    /* =========================
-       CAROUSEL
-    ========================= */
-
-    let topPosition = 0;
-    let pantsPosition = 0;
-
-
-    function moveTopCarousel() {
-
-        const cardWidth =
-            topCards[0].offsetWidth + 20;
-
-        topPosition++;
-
-        if (topPosition > 0) {
-            topPosition = 0;
-        }
-
-        document.getElementById("topTrack").style.transform =
-            `translateX(-${topPosition * cardWidth}px)`;
-    }
-
-
-    function movePantsCarousel() {
-
-        const cardWidth =
-            pantsCards[0].offsetWidth + 20;
-
-        pantsPosition++;
-
-        if (pantsPosition > 0) {
-            pantsPosition = 0;
-        }
-
-        document.getElementById("pantsTrack").style.transform =
-            `translateX(-${pantsPosition * cardWidth}px)`;
-    }
-
-
     /*
-       Les trois cartes restent visibles sur ordinateur.
-       Les flèches sont conservées pour l'interface.
+       Chaque motif possède ses propres informations.
+       Ils ne se mélangent PAS.
     */
 
-    document.getElementById("topPrev")
-        .addEventListener("click", function () {
+    let motifs = {
 
-            document.getElementById("topTrack").style.transform =
-                "translateX(0)";
+        "MOTIF 01": {
+            placement: null,
+            description: ""
+        },
 
+        "MOTIF 02": {
+            placement: null,
+            description: ""
+        },
+
+        "MOTIF 03": {
+            placement: null,
+            description: ""
+        }
+
+    };
+
+
+    let selectedMotif = "NO MOTIF";
+
+
+    /* =====================================
+       TOPS
+    ===================================== */
+
+    const topCards =
+        document.querySelectorAll(".top-card");
+
+    let topIndex = 0;
+
+
+    function selectTop(index) {
+
+        if (index < 0) {
+            index = topCards.length - 1;
+        }
+
+        if (index >= topCards.length) {
+            index = 0;
+        }
+
+
+        topIndex = index;
+
+
+        topCards.forEach(function (card) {
+            card.classList.remove("selected");
         });
 
 
-    document.getElementById("topNext")
-        .addEventListener("click", function () {
+        const card = topCards[index];
 
-            document.getElementById("topTrack").style.transform =
-                "translateX(0)";
-
-        });
+        card.classList.add("selected");
 
 
-    document.getElementById("pantsPrev")
-        .addEventListener("click", function () {
-
-            document.getElementById("pantsTrack").style.transform =
-                "translateX(0)";
-
-        });
+        selectedTop =
+            card.dataset.value;
 
 
-    document.getElementById("pantsNext")
-        .addEventListener("click", function () {
-
-            document.getElementById("pantsTrack").style.transform =
-                "translateX(0)";
-
-        });
+        document.getElementById("selectedTop")
+            .textContent = selectedTop;
 
 
-    /* =========================
-       TOP SELECTION
-    ========================= */
+        document.getElementById("summaryTop")
+            .textContent = selectedTop;
 
-    topCards.forEach(function (card) {
+
+        updateStatus();
+
+    }
+
+
+    topCards.forEach(function (card, index) {
 
         card.addEventListener("click", function () {
 
-            topCards.forEach(function (item) {
-
-                item.classList.remove("selected");
-
-            });
-
-
-            card.classList.add("selected");
-
-
-            selectedTop =
-                card.dataset.value;
-
-
-            document.getElementById("selectedTop")
-                .textContent = selectedTop;
-
-
-            document.getElementById("summaryTop")
-                .textContent = selectedTop;
-
-
-            updateStatus();
+            selectTop(index);
 
         });
 
     });
 
 
-    /* =========================
-       PANTS SELECTION
-    ========================= */
+    document
+        .getElementById("topNext")
+        .addEventListener("click", function () {
 
-    pantsCards.forEach(function (card) {
+            selectTop(topIndex + 1);
+
+        });
+
+
+    document
+        .getElementById("topPrev")
+        .addEventListener("click", function () {
+
+            selectTop(topIndex - 1);
+
+        });
+
+
+
+    /* =====================================
+       PANTS
+    ===================================== */
+
+    const pantsCards =
+        document.querySelectorAll(".pants-card");
+
+    let pantsIndex = 0;
+
+
+    function selectPants(index) {
+
+        if (index < 0) {
+            index = pantsCards.length - 1;
+        }
+
+        if (index >= pantsCards.length) {
+            index = 0;
+        }
+
+
+        pantsIndex = index;
+
+
+        pantsCards.forEach(function (card) {
+
+            card.classList.remove("selected");
+
+        });
+
+
+        const card = pantsCards[index];
+
+        card.classList.add("selected");
+
+
+        selectedPants =
+            card.dataset.value;
+
+
+        document.getElementById("selectedPants")
+            .textContent = selectedPants;
+
+
+        document.getElementById("summaryPants")
+            .textContent = selectedPants;
+
+
+        updateStatus();
+
+    }
+
+
+    pantsCards.forEach(function (card, index) {
 
         card.addEventListener("click", function () {
 
-            pantsCards.forEach(function (item) {
-
-                item.classList.remove("selected");
-
-            });
-
-
-            card.classList.add("selected");
-
-
-            selectedPants =
-                card.dataset.value;
-
-
-            document.getElementById("selectedPants")
-                .textContent = selectedPants;
-
-
-            document.getElementById("summaryPants")
-                .textContent = selectedPants;
-
-
-            updateStatus();
+            selectPants(index);
 
         });
 
     });
 
 
-    /* =========================
+    document
+        .getElementById("pantsNext")
+        .addEventListener("click", function () {
+
+            selectPants(pantsIndex + 1);
+
+        });
+
+
+    document
+        .getElementById("pantsPrev")
+        .addEventListener("click", function () {
+
+            selectPants(pantsIndex - 1);
+
+        });
+
+
+
+    /* =====================================
        COLOR
-    ========================= */
+    ===================================== */
 
-    document.querySelectorAll(".color-choice")
+    document
+        .querySelectorAll(".color-choice")
         .forEach(function (button) {
 
             button.addEventListener("click", function () {
+
 
                 document
                     .querySelectorAll(".color-choice")
@@ -205,6 +230,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     button.dataset.color;
 
 
+                document.getElementById("summaryColor")
+                    .textContent = selectedColor;
+
+
                 updateStatus();
 
             });
@@ -212,14 +241,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-    /* =========================
-       SIZE
-    ========================= */
 
-    document.querySelectorAll(".size-choice")
+    /* =====================================
+       SIZE
+    ===================================== */
+
+    document
+        .querySelectorAll(".size-choice")
         .forEach(function (button) {
 
             button.addEventListener("click", function () {
+
 
                 document
                     .querySelectorAll(".size-choice")
@@ -237,6 +269,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     button.dataset.size;
 
 
+                document.getElementById("summarySize")
+                    .textContent = selectedSize;
+
+
                 updateStatus();
 
             });
@@ -244,67 +280,192 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-    /* =========================
+
+    /* =====================================
        MOTIF
-    ========================= */
+    ===================================== */
 
-    document.querySelectorAll(".motif-choice")
-        .forEach(function (button) {
+    const motifButtons =
+        document.querySelectorAll(".motif-choice");
 
-            button.addEventListener("click", function () {
+    const motifDetails =
+        document.getElementById("motifDetails");
 
-                document
-                    .querySelectorAll(".motif-choice")
-                    .forEach(function (item) {
+    const placementButtons =
+        document.querySelectorAll(".placement-choice");
 
-                        item.classList.remove("selected");
+    const description =
+        document.getElementById("motifDescription");
 
-                    });
 
+    function loadMotifData() {
+
+        if (selectedMotif === "NO MOTIF") {
+
+            motifDetails.classList.remove("visible");
+
+            document.getElementById("summaryMotif")
+                .textContent = "NO MOTIF";
+
+            document.getElementById("summaryPlacement")
+                .textContent = "—";
+
+            description.value = "";
+
+            placementButtons.forEach(function (button) {
+
+                button.classList.remove("selected");
+
+            });
+
+            return;
+        }
+
+
+        motifDetails.classList.add("visible");
+
+
+        const data =
+            motifs[selectedMotif];
+
+
+        document.getElementById("summaryMotif")
+            .textContent = selectedMotif;
+
+
+        /*
+           On recharge l'emplacement
+           correspondant à CE motif.
+        */
+
+        placementButtons.forEach(function (button) {
+
+            button.classList.remove("selected");
+
+
+            if (
+                button.dataset.placement ===
+                data.placement
+            ) {
 
                 button.classList.add("selected");
 
-
-                selectedMotif =
-                    button.dataset.motif;
-
-            });
+            }
 
         });
 
 
-    /* =========================
-       MOTIF PLACEMENT
-    ========================= */
-
-    document.querySelectorAll(".placement-choice")
-        .forEach(function (button) {
-
-            button.addEventListener("click", function () {
-
-                document
-                    .querySelectorAll(".placement-choice")
-                    .forEach(function (item) {
-
-                        item.classList.remove("selected");
-
-                    });
+        document.getElementById("summaryPlacement")
+            .textContent =
+            data.placement || "—";
 
 
-                button.classList.add("selected");
+        description.value =
+            data.description || "";
+
+    }
 
 
-                selectedPlacement =
-                    button.dataset.placement;
+    motifButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+
+            motifButtons.forEach(function (item) {
+
+                item.classList.remove("selected");
 
             });
 
+
+            button.classList.add("selected");
+
+
+            selectedMotif =
+                button.dataset.motif;
+
+
+            loadMotifData();
+
         });
 
+    });
 
-    /* =========================
+
+
+    /* =====================================
+       PLACEMENT LIÉ AU MOTIF
+    ===================================== */
+
+    placementButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+
+            /*
+               Si aucun motif n'est choisi,
+               on ne fait rien.
+            */
+
+            if (selectedMotif === "NO MOTIF") {
+
+                return;
+
+            }
+
+
+            placementButtons.forEach(function (item) {
+
+                item.classList.remove("selected");
+
+            });
+
+
+            button.classList.add("selected");
+
+
+            /*
+               IMPORTANT :
+               on sauvegarde l'emplacement
+               DANS le motif actuellement choisi.
+            */
+
+            motifs[selectedMotif].placement =
+                button.dataset.placement;
+
+
+            document.getElementById("summaryPlacement")
+                .textContent =
+                button.dataset.placement;
+
+        });
+
+    });
+
+
+
+    /* =====================================
+       DESCRIPTION LIÉE AU MOTIF
+    ===================================== */
+
+    description.addEventListener("input", function () {
+
+
+        if (selectedMotif === "NO MOTIF") {
+            return;
+        }
+
+
+        motifs[selectedMotif].description =
+            description.value;
+
+    });
+
+
+
+    /* =====================================
        STATUS
-    ========================= */
+    ===================================== */
 
     function updateStatus() {
 
@@ -318,6 +479,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Choose your top.";
 
             return;
+
         }
 
 
@@ -327,6 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Choose your pants.";
 
             return;
+
         }
 
 
@@ -336,6 +499,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Choose a color.";
 
             return;
+
         }
 
 
@@ -345,6 +509,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Choose a size.";
 
             return;
+
+        }
+
+
+        if (
+            selectedMotif !== "NO MOTIF" &&
+            !motifs[selectedMotif].placement
+        ) {
+
+            status.textContent =
+                "Choose where you want your motif.";
+
+            return;
+
         }
 
 
@@ -354,16 +532,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
+
+    /* =====================================
        ADD TO CART
-    ========================= */
+    ===================================== */
 
     document
         .getElementById("addToCart")
         .addEventListener("click", function () {
 
 
-            /* TOP OBLIGATOIRE */
+            /* TOP */
 
             if (!selectedTop) {
 
@@ -372,10 +551,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
                 return;
+
             }
 
 
-            /* PANTS OBLIGATOIRE */
+            /* PANTS */
 
             if (!selectedPants) {
 
@@ -384,10 +564,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
                 return;
+
             }
 
 
-            /* COLOR OBLIGATOIRE */
+            /* COLOR */
 
             if (!selectedColor) {
 
@@ -396,10 +577,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
                 return;
+
             }
 
 
-            /* SIZE OBLIGATOIRE */
+            /* SIZE */
 
             if (!selectedSize) {
 
@@ -408,19 +590,48 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
                 return;
+
             }
 
 
-            /* MOTIF DESCRIPTION */
+            /* MOTIF */
 
-            const motifDescription =
-                document
-                    .getElementById("motifDescription")
-                    .value
-                    .trim();
+            let motifData = null;
 
 
-            /* PRODUCT */
+            if (selectedMotif !== "NO MOTIF") {
+
+
+                motifData = {
+
+                    name: selectedMotif,
+
+                    placement:
+                        motifs[selectedMotif].placement,
+
+                    description:
+                        motifs[selectedMotif].description
+
+                };
+
+
+                if (!motifData.placement) {
+
+                    alert(
+                        "Please choose where you want your motif."
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+
+            /* =================================
+               PRODUCT
+            ================================= */
 
             const product = {
 
@@ -434,20 +645,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 size: selectedSize,
 
-                motif: selectedMotif,
-
-                placement:
-                    selectedPlacement || "NONE",
-
-                motifDescription:
-                    motifDescription,
+                motif: motifData,
 
                 quantity: 1
 
             };
 
 
-            /* GET CART */
+
+            /* =================================
+               LOCAL STORAGE
+            ================================= */
 
             let cart =
                 JSON.parse(
@@ -457,12 +665,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 ) || [];
 
 
-            /* ADD */
-
             cart.push(product);
 
-
-            /* SAVE */
 
             localStorage.setItem(
                 "bequemCart",
@@ -470,12 +674,13 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-            /* BUTTON */
+
+            /* =================================
+               SUCCESS
+            ================================= */
 
             const button =
-                document.getElementById(
-                    "addToCart"
-                );
+                document.getElementById("addToCart");
 
 
             button.textContent =
@@ -491,17 +696,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             console.log(
-                "BEQUEM SCRUBS:",
-                product
+                "BEQUEM CART:",
+                cart
             );
 
         });
 
 
-    /* =========================
-       INITIAL STATUS
-    ========================= */
 
-    updateStatus();
+    /* =====================================
+       INITIAL STATE
+    ===================================== */
+
+    /*
+       On sélectionne automatiquement
+       le premier haut et le premier pantalon.
+    */
+
+    selectTop(0);
+
+    selectPants(0);
+
+    loadMotifData();
 
 });
