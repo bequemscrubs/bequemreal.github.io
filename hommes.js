@@ -363,7 +363,51 @@ document.addEventListener("DOMContentLoaded", function () {
     /* =========================
        INITIAL STATE
     ========================= */
+let selectedTop = null;
+let selectedPants = null;
 
+document.querySelectorAll('.product-card').forEach(card => {
+
+    card.addEventListener('click', function () {
+
+        const type = this.dataset.type;
+        const value = this.dataset.value;
+
+        /* HAUT */
+
+        if (type === 'top') {
+
+            document
+                .querySelectorAll('.product-card[data-type="top"]')
+                .forEach(item => item.classList.remove('selected'));
+
+            this.classList.add('selected');
+
+            selectedTop = value;
+
+            document.getElementById('selectedTop').textContent =
+                value.toUpperCase();
+        }
+
+        /* PANTALON */
+
+        if (type === 'pants') {
+
+            document
+                .querySelectorAll('.product-card[data-type="pants"]')
+                .forEach(item => item.classList.remove('selected'));
+
+            this.classList.add('selected');
+
+            selectedPants = value;
+
+            document.getElementById('selectedPants').textContent =
+                value.toUpperCase();
+        }
+
+    });
+
+});
     updateTop();
     updatePant();
 
