@@ -1,1 +1,450 @@
 
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #d6d6d4;
+    color: #111;
+    font-family: "Inter", sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+
+    height: 82px;
+
+    padding: 0 5vw;
+
+    background: #eeeeec;
+
+    border-bottom: 1px solid #111;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 20;
+}
+
+
+.brand {
+
+    font-family: "Anton", sans-serif;
+
+    font-size: clamp(25px, 3vw, 42px);
+
+    letter-spacing: 2px;
+}
+
+
+nav {
+
+    display: flex;
+
+    gap: 35px;
+}
+
+
+nav a,
+.back {
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+nav a {
+
+    position: relative;
+}
+
+
+nav a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -7px;
+
+    width: 0;
+    height: 1px;
+
+    background: #111;
+
+    transition: 0.3s;
+}
+
+
+nav a:hover::after,
+nav .active::after {
+
+    width: 100%;
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+.intro {
+
+    min-height: 550px;
+
+    padding: 100px 5vw;
+
+    border-bottom: 1px solid #111;
+
+    position: relative;
+
+    background:
+        linear-gradient(#1111 1px, transparent 1px),
+        linear-gradient(90deg, #1111 1px, transparent 1px);
+
+    background-size: 60px 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.number {
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 30px;
+}
+
+
+.intro h1 {
+
+    font-family: "Anton", sans-serif;
+
+    font-size: clamp(75px, 13vw, 190px);
+
+    line-height: 0.82;
+
+    letter-spacing: -2px;
+}
+
+
+.intro-text {
+
+    max-width: 400px;
+
+    margin-top: 40px;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories {
+
+    padding: 100px 5vw;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+
+/* =========================
+   CATEGORY
+========================= */
+
+.category {
+
+    min-width: 0;
+}
+
+
+.category-link {
+
+    display: block;
+}
+
+
+/* =========================
+   IMAGE SLIDER
+========================= */
+
+.image-slider {
+
+    height: 600px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #bcbcb9;
+}
+
+
+.slide {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    opacity: 0;
+
+    transform: scale(1.04);
+
+    transition:
+        opacity 1s ease,
+        transform 5s ease;
+}
+
+
+.slide.active {
+
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+
+/* =========================
+   SLIDER NUMBER
+========================= */
+
+.slider-number {
+
+    position: absolute;
+
+    right: 20px;
+    bottom: 20px;
+
+    background: #111;
+
+    color: white;
+
+    padding: 9px 12px;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    z-index: 5;
+}
+
+
+/* =========================
+   CATEGORY INFO
+========================= */
+
+.category-info {
+
+    padding: 20px 0;
+
+    border-bottom: 1px solid #111;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+}
+
+
+.category-number {
+
+    display: block;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+}
+
+
+.category-info h2 {
+
+    font-family: "Anton", sans-serif;
+
+    font-size: 45px;
+
+    line-height: 1;
+}
+
+
+.discover {
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    transition: transform 0.3s ease;
+}
+
+
+.category-link:hover .discover {
+
+    transform: translateX(8px);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    background: #111;
+
+    color: white;
+
+    padding: 80px 5vw 30px;
+}
+
+
+.footer-brand {
+
+    font-family: "Anton", sans-serif;
+
+    font-size: clamp(55px, 10vw, 150px);
+
+    line-height: 0.8;
+}
+
+
+.footer-bottom {
+
+    margin-top: 80px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #444;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    nav {
+
+        display: none;
+    }
+
+    .back {
+
+        font-size: 9px;
+    }
+
+    .categories {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .image-slider {
+
+        height: 600px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .header {
+
+        height: 70px;
+    }
+
+    .intro {
+
+        min-height: 500px;
+
+        padding-top: 70px;
+    }
+
+    .intro h1 {
+
+        font-size: 22vw;
+    }
+
+    .categories {
+
+        padding: 60px 5vw;
+    }
+
+    .image-slider {
+
+        height: 500px;
+    }
+
+    .category-info h2 {
+
+        font-size: 38px;
+    }
+
+    .footer-bottom {
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+}
