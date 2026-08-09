@@ -209,55 +209,211 @@
 
     <section class="options">
 
-        <p>03 / PERSONALIZE</p>
+        <section class="options">
 
-        <h2>YOUR DETAILS</h2>
+    <p>03 / PERSONALIZE</p>
+
+    <h2>YOUR DETAILS</h2>
 
 
-        <div class="option">
+    <!-- COLOR -->
 
-            <h3>COLOR</h3>
+    <div class="option">
+
+        <h3>COLOR *</h3>
+
+        <div class="choices">
+
+            <button
+                class="color-choice"
+                data-color="BLACK">
+                BLACK
+            </button>
+
+            <button
+                class="color-choice"
+                data-color="GREY">
+                GREY
+            </button>
+
+            <button
+                class="color-choice"
+                data-color="WHITE">
+                WHITE
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SIZE -->
+
+    <div class="option">
+
+        <h3>SIZE *</h3>
+
+        <div class="choices">
+
+            <button
+                class="size-choice"
+                data-size="XS">
+                XS
+            </button>
+
+            <button
+                class="size-choice"
+                data-size="S">
+                S
+            </button>
+
+            <button
+                class="size-choice"
+                data-size="M">
+                M
+            </button>
+
+            <button
+                class="size-choice"
+                data-size="L">
+                L
+            </button>
+
+            <button
+                class="size-choice"
+                data-size="XL">
+                XL
+            </button>
+
+            <button
+                class="size-choice"
+                data-size="XXL">
+                XXL
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOTIF -->
+
+    <div class="option">
+
+        <h3>
+            MOTIF
+            <span class="optional">
+                — OPTIONAL
+            </span>
+        </h3>
+
+
+        <div class="choices">
+
+            <button
+                class="motif-choice selected"
+                data-motif="AUCUN">
+                NO MOTIF
+            </button>
+
+            <button
+                class="motif-choice"
+                data-motif="MOTIF 01">
+                MOTIF 01
+            </button>
+
+            <button
+                class="motif-choice"
+                data-motif="MOTIF 02">
+                MOTIF 02
+            </button>
+
+            <button
+                class="motif-choice"
+                data-motif="MOTIF 03">
+                MOTIF 03
+            </button>
+
+        </div>
+
+
+        <!-- PLACEMENT -->
+
+        <div class="motif-placement">
+
+            <h4>
+                WHERE SHOULD WE PLACE IT?
+            </h4>
 
             <div class="choices">
 
-                <button>BLACK</button>
-                <button>GREY</button>
-                <button>WHITE</button>
+                <button
+                    class="placement-choice"
+                    data-placement="POITRINE">
+                    POITRINE
+                </button>
+
+                <button
+                    class="placement-choice"
+                    data-placement="MANCHE">
+                    MANCHE
+                </button>
+
+                <button
+                    class="placement-choice"
+                    data-placement="DOS">
+                    DOS
+                </button>
 
             </div>
 
         </div>
 
 
-        <div class="option">
+        <!-- DESCRIPTION -->
 
-            <h3>SIZE</h3>
+        <div class="motif-description">
 
-            <div class="choices">
+            <h4>
+                DESCRIBE YOUR MOTIF
+            </h4>
 
-                <button>XS</button>
-                <button>S</button>
-                <button>M</button>
-                <button>L</button>
-                <button>XL</button>
-                <button>XXL</button>
-
-            </div>
+            <textarea
+                id="motifDescription"
+                placeholder="Describe your motif, text, initials, design..."
+                rows="4">
+            </textarea>
 
         </div>
 
+    </div>
 
-        <div class="summary">
 
-            <p>YOUR SET</p>
+    <!-- SUMMARY -->
 
-            <h2 id="summaryTop">
-                COL ROND
-            </h2>
+    <div class="summary">
 
-            <h3 id="summaryPant">
-                DROIT
-            </h3>
+        <p>YOUR SET</p>
+
+        <h2 id="summaryTop">
+            CHOOSE A TOP
+        </h2>
+
+        <h3 id="summaryPant">
+            CHOOSE YOUR PANTS
+        </h3>
+
+        <p id="selectionStatus">
+            Choose your top and pants to continue.
+        </p>
+
+        <button class="cart">
+            ADD TO CART →
+        </button>
+
+    </div>
+
+</section>
 
             <button class="cart">
                 ADD TO CART →
