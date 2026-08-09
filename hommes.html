@@ -207,209 +207,114 @@
 
     <!-- OPTIONS -->
 
-    <section class="options">
+   <section class="model-selection">
 
-        <section class="options">
+    <!-- HAUT -->
+    <div class="selection-group">
 
-    <p>03 / PERSONALIZE</p>
-
-    <h2>YOUR DETAILS</h2>
-
-
-    <!-- COLOR -->
-
-    <div class="option">
-
-        <h3>COLOR *</h3>
-
-        <div class="choices">
-
-            <button
-                class="color-choice"
-                data-color="BLACK">
-                BLACK
-            </button>
-
-            <button
-                class="color-choice"
-                data-color="GREY">
-                GREY
-            </button>
-
-            <button
-                class="color-choice"
-                data-color="WHITE">
-                WHITE
-            </button>
-
+        <div class="selection-title">
+            <span>01 / HAUT</span>
+            <h2>CHOISISSEZ VOTRE HAUT</h2>
         </div>
 
-    </div>
+        <div class="product-grid">
+
+            <div class="product-card" data-type="top" data-value="Col rond">
+                <div class="product-photo">
+                    <img src="images/col-rond.jpg" alt="Col rond">
+                </div>
+
+                <div class="product-info">
+                    <span>01</span>
+                    <h3>COL ROND</h3>
+                </div>
+            </div>
 
 
-    <!-- SIZE -->
+            <div class="product-card" data-type="top" data-value="Col V">
+                <div class="product-photo">
+                    <img src="images/col-v.jpg" alt="Col V">
+                </div>
 
-    <div class="option">
-
-        <h3>SIZE *</h3>
-
-        <div class="choices">
-
-            <button
-                class="size-choice"
-                data-size="XS">
-                XS
-            </button>
-
-            <button
-                class="size-choice"
-                data-size="S">
-                S
-            </button>
-
-            <button
-                class="size-choice"
-                data-size="M">
-                M
-            </button>
-
-            <button
-                class="size-choice"
-                data-size="L">
-                L
-            </button>
-
-            <button
-                class="size-choice"
-                data-size="XL">
-                XL
-            </button>
-
-            <button
-                class="size-choice"
-                data-size="XXL">
-                XXL
-            </button>
-
-        </div>
-
-    </div>
+                <div class="product-info">
+                    <span>02</span>
+                    <h3>COL V</h3>
+                </div>
+            </div>
 
 
-    <!-- MOTIF -->
+            <div class="product-card" data-type="top" data-value="Zippé">
+                <div class="product-photo">
+                    <img src="images/zippe.jpg" alt="Haut zippé">
+                </div>
 
-    <div class="option">
-
-        <h3>
-            MOTIF
-            <span class="optional">
-                — OPTIONAL
-            </span>
-        </h3>
-
-
-        <div class="choices">
-
-            <button
-                class="motif-choice selected"
-                data-motif="AUCUN">
-                NO MOTIF
-            </button>
-
-            <button
-                class="motif-choice"
-                data-motif="MOTIF 01">
-                MOTIF 01
-            </button>
-
-            <button
-                class="motif-choice"
-                data-motif="MOTIF 02">
-                MOTIF 02
-            </button>
-
-            <button
-                class="motif-choice"
-                data-motif="MOTIF 03">
-                MOTIF 03
-            </button>
-
-        </div>
-
-
-        <!-- PLACEMENT -->
-
-        <div class="motif-placement">
-
-            <h4>
-                WHERE SHOULD WE PLACE IT?
-            </h4>
-
-            <div class="choices">
-
-                <button
-                    class="placement-choice"
-                    data-placement="POITRINE">
-                    POITRINE
-                </button>
-
-                <button
-                    class="placement-choice"
-                    data-placement="MANCHE">
-                    MANCHE
-                </button>
-
-                <button
-                    class="placement-choice"
-                    data-placement="DOS">
-                    DOS
-                </button>
-
+                <div class="product-info">
+                    <span>03</span>
+                    <h3>ZIPPÉ</h3>
+                </div>
             </div>
 
         </div>
 
-
-        <!-- DESCRIPTION -->
-
-        <div class="motif-description">
-
-            <h4>
-                DESCRIBE YOUR MOTIF
-            </h4>
-
-            <textarea
-                id="motifDescription"
-                placeholder="Describe your motif, text, initials, design..."
-                rows="4">
-            </textarea>
-
-        </div>
+        <p class="selected-text">
+            HAUT SÉLECTIONNÉ :
+            <strong id="selectedTop">AUCUN</strong>
+        </p>
 
     </div>
 
 
-    <!-- SUMMARY -->
+    <!-- PANTALON -->
+    <div class="selection-group">
 
-    <div class="summary">
+        <div class="selection-title">
+            <span>02 / PANTALON</span>
+            <h2>CHOISISSEZ VOTRE PANTALON</h2>
+        </div>
 
-        <p>YOUR SET</p>
+        <div class="product-grid">
 
-        <h2 id="summaryTop">
-            CHOOSE A TOP
-        </h2>
+            <div class="product-card" data-type="pants" data-value="Droit">
+                <div class="product-photo">
+                    <img src="images/pantalon-droit.jpg" alt="Pantalon droit">
+                </div>
 
-        <h3 id="summaryPant">
-            CHOOSE YOUR PANTS
-        </h3>
+                <div class="product-info">
+                    <span>01</span>
+                    <h3>DROIT</h3>
+                </div>
+            </div>
 
-        <p id="selectionStatus">
-            Choose your top and pants to continue.
+
+            <div class="product-card" data-type="pants" data-value="Cargo">
+                <div class="product-photo">
+                    <img src="images/pantalon-cargo.jpg" alt="Pantalon cargo">
+                </div>
+
+                <div class="product-info">
+                    <span>02</span>
+                    <h3>CARGO</h3>
+                </div>
+            </div>
+
+
+            <div class="product-card" data-type="pants" data-value="Slim">
+                <div class="product-photo">
+                    <img src="images/pantalon-slim.jpg" alt="Pantalon slim">
+                </div>
+
+                <div class="product-info">
+                    <span>03</span>
+                    <h3>SLIM</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="selected-text">
+            PANTALON SÉLECTIONNÉ :
+            <strong id="selectedPants">AUCUN</strong>
         </p>
-
-        <button class="cart">
-            ADD TO CART →
-        </button>
 
     </div>
 
