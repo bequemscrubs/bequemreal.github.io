@@ -4,411 +4,504 @@ document.addEventListener("DOMContentLoaded", function () {
        VARIABLES
     ========================= */
 
-    const topProducts = document.querySelectorAll("#tops .product");
-    const pantProducts = document.querySelectorAll("#pants .product");
+    const topCards =
+        document.querySelectorAll(
+            '.product-card[data-type="top"]'
+        );
+
+    const pantsCards =
+        document.querySelectorAll(
+            '.product-card[data-type="pants"]'
+        );
+
 
     let selectedTop = null;
-    let selectedPant = null;
+    let selectedPants = null;
+
     let selectedColor = null;
     let selectedSize = null;
-    let selectedMotif = "AUCUN";
-    let selectedPlacement = "AUCUN";
+
+    let selectedMotif = "NO MOTIF";
+    let selectedPlacement = null;
 
 
     /* =========================
-       TOPS
+       CAROUSEL
     ========================= */
 
-    function updateTop() {
+    let topPosition = 0;
+    let pantsPosition = 0;
 
-        topProducts.forEach(function (product) {
-            product.style.display = "none";
-        });
 
-        if (selectedTop !== null) {
+    function moveTopCarousel() {
 
-            topProducts[selectedTop].style.display = "block";
+        const cardWidth =
+            topCards[0].offsetWidth + 20;
 
-            document.getElementById("summaryTop").textContent =
-                topProducts[selectedTop].dataset.name;
+        topPosition++;
+
+        if (topPosition > 0) {
+            topPosition = 0;
         }
 
+        document.getElementById("topTrack").style.transform =
+            `translateX(-${topPosition * cardWidth}px)`;
     }
 
 
-    window.nextTop = function () {
+    function movePantsCarousel() {
 
-        if (selectedTop === null) {
-            selectedTop = 0;
-        } else {
-            selectedTop++;
+        const cardWidth =
+            pantsCards[0].offsetWidth + 20;
 
-            if (selectedTop >= topProducts.length) {
-                selectedTop = 0;
-            }
+        pantsPosition++;
+
+        if (pantsPosition > 0) {
+            pantsPosition = 0;
         }
 
-        updateTop();
-    };
+        document.getElementById("pantsTrack").style.transform =
+            `translateX(-${pantsPosition * cardWidth}px)`;
+    }
 
 
-    window.previousTop = function () {
+    /*
+       Les trois cartes restent visibles sur ordinateur.
+       Les flèches sont conservées pour l'interface.
+    */
 
-        if (selectedTop === null) {
-            selectedTop = topProducts.length - 1;
-        } else {
-            selectedTop--;
+    document.getElementById("topPrev")
+        .addEventListener("click", function () {
 
-            if (selectedTop < 0) {
-                selectedTop = topProducts.length - 1;
-            }
-        }
+            document.getElementById("topTrack").style.transform =
+                "translateX(0)";
 
-        updateTop();
-    };
+        });
+
+
+    document.getElementById("topNext")
+        .addEventListener("click", function () {
+
+            document.getElementById("topTrack").style.transform =
+                "translateX(0)";
+
+        });
+
+
+    document.getElementById("pantsPrev")
+        .addEventListener("click", function () {
+
+            document.getElementById("pantsTrack").style.transform =
+                "translateX(0)";
+
+        });
+
+
+    document.getElementById("pantsNext")
+        .addEventListener("click", function () {
+
+            document.getElementById("pantsTrack").style.transform =
+                "translateX(0)";
+
+        });
 
 
     /* =========================
-       PANTS
+       TOP SELECTION
     ========================= */
 
-    function updatePant() {
+    topCards.forEach(function (card) {
 
-        pantProducts.forEach(function (product) {
-            product.style.display = "none";
+        card.addEventListener("click", function () {
+
+            topCards.forEach(function (item) {
+
+                item.classList.remove("selected");
+
+            });
+
+
+            card.classList.add("selected");
+
+
+            selectedTop =
+                card.dataset.value;
+
+
+            document.getElementById("selectedTop")
+                .textContent = selectedTop;
+
+
+            document.getElementById("summaryTop")
+                .textContent = selectedTop;
+
+
+            updateStatus();
+
         });
 
-        if (selectedPant !== null) {
-
-            pantProducts[selectedPant].style.display = "block";
-
-            document.getElementById("summaryPant").textContent =
-                pantProducts[selectedPant].dataset.name;
-        }
-
-    }
+    });
 
 
-    window.nextPant = function () {
+    /* =========================
+       PANTS SELECTION
+    ========================= */
 
-        if (selectedPant === null) {
-            selectedPant = 0;
-        } else {
-            selectedPant++;
+    pantsCards.forEach(function (card) {
 
-            if (selectedPant >= pantProducts.length) {
-                selectedPant = 0;
-            }
-        }
+        card.addEventListener("click", function () {
 
-        updatePant();
-    };
+            pantsCards.forEach(function (item) {
+
+                item.classList.remove("selected");
+
+            });
 
 
-    window.previousPant = function () {
+            card.classList.add("selected");
 
-        if (selectedPant === null) {
-            selectedPant = pantProducts.length - 1;
-        } else {
-            selectedPant--;
 
-            if (selectedPant < 0) {
-                selectedPant = pantProducts.length - 1;
-            }
-        }
+            selectedPants =
+                card.dataset.value;
 
-        updatePant();
-    };
+
+            document.getElementById("selectedPants")
+                .textContent = selectedPants;
+
+
+            document.getElementById("summaryPants")
+                .textContent = selectedPants;
+
+
+            updateStatus();
+
+        });
+
+    });
 
 
     /* =========================
        COLOR
     ========================= */
 
-    const colorButtons =
-        document.querySelectorAll(".color-choice");
+    document.querySelectorAll(".color-choice")
+        .forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                document
+                    .querySelectorAll(".color-choice")
+                    .forEach(function (item) {
+
+                        item.classList.remove("selected");
+
+                    });
 
 
-    colorButtons.forEach(function (button) {
+                button.classList.add("selected");
 
-        button.addEventListener("click", function () {
 
-            colorButtons.forEach(function (btn) {
-                btn.classList.remove("selected");
+                selectedColor =
+                    button.dataset.color;
+
+
+                updateStatus();
+
             });
 
-            button.classList.add("selected");
-
-            selectedColor =
-                button.dataset.color;
-
         });
-
-    });
 
 
     /* =========================
        SIZE
     ========================= */
 
-    const sizeButtons =
-        document.querySelectorAll(".size-choice");
+    document.querySelectorAll(".size-choice")
+        .forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                document
+                    .querySelectorAll(".size-choice")
+                    .forEach(function (item) {
+
+                        item.classList.remove("selected");
+
+                    });
 
 
-    sizeButtons.forEach(function (button) {
+                button.classList.add("selected");
 
-        button.addEventListener("click", function () {
 
-            sizeButtons.forEach(function (btn) {
-                btn.classList.remove("selected");
+                selectedSize =
+                    button.dataset.size;
+
+
+                updateStatus();
+
             });
 
-            button.classList.add("selected");
-
-            selectedSize =
-                button.dataset.size;
-
         });
-
-    });
 
 
     /* =========================
        MOTIF
     ========================= */
 
-    const motifButtons =
-        document.querySelectorAll(".motif-choice");
+    document.querySelectorAll(".motif-choice")
+        .forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                document
+                    .querySelectorAll(".motif-choice")
+                    .forEach(function (item) {
+
+                        item.classList.remove("selected");
+
+                    });
 
 
-    motifButtons.forEach(function (button) {
+                button.classList.add("selected");
 
-        button.addEventListener("click", function () {
 
-            motifButtons.forEach(function (btn) {
-                btn.classList.remove("selected");
+                selectedMotif =
+                    button.dataset.motif;
+
             });
 
-            button.classList.add("selected");
-
-            selectedMotif =
-                button.dataset.motif;
-
         });
-
-    });
 
 
     /* =========================
-       PLACEMENT
+       MOTIF PLACEMENT
     ========================= */
 
-    const placementButtons =
-        document.querySelectorAll(".placement-choice");
+    document.querySelectorAll(".placement-choice")
+        .forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                document
+                    .querySelectorAll(".placement-choice")
+                    .forEach(function (item) {
+
+                        item.classList.remove("selected");
+
+                    });
 
 
-    placementButtons.forEach(function (button) {
+                button.classList.add("selected");
 
-        button.addEventListener("click", function () {
 
-            placementButtons.forEach(function (btn) {
-                btn.classList.remove("selected");
+                selectedPlacement =
+                    button.dataset.placement;
+
             });
-
-            button.classList.add("selected");
-
-            selectedPlacement =
-                button.dataset.placement;
 
         });
 
-    });
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    function updateStatus() {
+
+        const status =
+            document.getElementById("selectionStatus");
+
+
+        if (!selectedTop) {
+
+            status.textContent =
+                "Choose your top.";
+
+            return;
+        }
+
+
+        if (!selectedPants) {
+
+            status.textContent =
+                "Choose your pants.";
+
+            return;
+        }
+
+
+        if (!selectedColor) {
+
+            status.textContent =
+                "Choose a color.";
+
+            return;
+        }
+
+
+        if (!selectedSize) {
+
+            status.textContent =
+                "Choose a size.";
+
+            return;
+        }
+
+
+        status.textContent =
+            "Your set is ready to add to cart.";
+
+    }
 
 
     /* =========================
        ADD TO CART
     ========================= */
 
-    const addToCart =
-        document.querySelector(".cart");
+    document
+        .getElementById("addToCart")
+        .addEventListener("click", function () {
 
 
-    addToCart.addEventListener("click", function () {
+            /* TOP OBLIGATOIRE */
 
-        /* Vérification haut */
+            if (!selectedTop) {
 
-        if (selectedTop === null) {
+                alert(
+                    "Please choose a top."
+                );
 
-            alert("Veuillez choisir un tricot.");
-
-            return;
-        }
-
-
-        /* Vérification pantalon */
-
-        if (selectedPant === null) {
-
-            alert("Veuillez choisir un pantalon.");
-
-            return;
-        }
+                return;
+            }
 
 
-        /* Vérification couleur */
+            /* PANTS OBLIGATOIRE */
 
-        if (selectedColor === null) {
+            if (!selectedPants) {
 
-            alert("Veuillez choisir une couleur.");
+                alert(
+                    "Please choose your pants."
+                );
 
-            return;
-        }
-
-
-        /* Vérification taille */
-
-        if (selectedSize === null) {
-
-            alert("Veuillez choisir une taille.");
-
-            return;
-        }
+                return;
+            }
 
 
-        /* =========================
-           MOTIF
-           Facultatif
-        ========================= */
+            /* COLOR OBLIGATOIRE */
 
-        const motifText =
-            document.getElementById("motifDescription")
-                ?.value.trim() || "";
+            if (!selectedColor) {
 
+                alert(
+                    "Please choose a color."
+                );
 
-        const item = {
-
-            category: "HOMMES",
-
-            top:
-                topProducts[selectedTop]
-                    .dataset.name,
-
-            pants:
-                pantProducts[selectedPant]
-                    .dataset.name,
-
-            color:
-                selectedColor,
-
-            size:
-                selectedSize,
-
-            motif:
-                selectedMotif,
-
-            placement:
-                selectedPlacement,
-
-            motifDescription:
-                motifText,
-
-            quantity: 1
-
-        };
+                return;
+            }
 
 
-        /* =========================
-           SAVE CART
-        ========================= */
+            /* SIZE OBLIGATOIRE */
 
-        let cart =
-            JSON.parse(
-                localStorage.getItem("bequemCart")
-            ) || [];
+            if (!selectedSize) {
 
+                alert(
+                    "Please choose a size."
+                );
 
-        cart.push(item);
-
-
-        localStorage.setItem(
-            "bequemCart",
-            JSON.stringify(cart)
-        );
+                return;
+            }
 
 
-        /* =========================
-           SUCCESS
-        ========================= */
+            /* MOTIF DESCRIPTION */
 
-        addToCart.textContent =
-            "ADDED ✓";
-
-
-        setTimeout(function () {
-
-            addToCart.textContent =
-                "ADD TO CART →";
-
-        }, 1800);
+            const motifDescription =
+                document
+                    .getElementById("motifDescription")
+                    .value
+                    .trim();
 
 
-        console.log(
-            "BEQUEM SCRUBS CART:",
-            item
-        );
+            /* PRODUCT */
 
-    });
+            const product = {
+
+                category: "HOMMES",
+
+                top: selectedTop,
+
+                pants: selectedPants,
+
+                color: selectedColor,
+
+                size: selectedSize,
+
+                motif: selectedMotif,
+
+                placement:
+                    selectedPlacement || "NONE",
+
+                motifDescription:
+                    motifDescription,
+
+                quantity: 1
+
+            };
+
+
+            /* GET CART */
+
+            let cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "bequemCart"
+                    )
+                ) || [];
+
+
+            /* ADD */
+
+            cart.push(product);
+
+
+            /* SAVE */
+
+            localStorage.setItem(
+                "bequemCart",
+                JSON.stringify(cart)
+            );
+
+
+            /* BUTTON */
+
+            const button =
+                document.getElementById(
+                    "addToCart"
+                );
+
+
+            button.textContent =
+                "ADDED ✓";
+
+
+            setTimeout(function () {
+
+                button.textContent =
+                    "ADD TO CART →";
+
+            }, 1800);
+
+
+            console.log(
+                "BEQUEM SCRUBS:",
+                product
+            );
+
+        });
 
 
     /* =========================
-       INITIAL STATE
+       INITIAL STATUS
     ========================= */
-let selectedTop = null;
-let selectedPants = null;
 
-document.querySelectorAll('.product-card').forEach(card => {
-
-    card.addEventListener('click', function () {
-
-        const type = this.dataset.type;
-        const value = this.dataset.value;
-
-        /* HAUT */
-
-        if (type === 'top') {
-
-            document
-                .querySelectorAll('.product-card[data-type="top"]')
-                .forEach(item => item.classList.remove('selected'));
-
-            this.classList.add('selected');
-
-            selectedTop = value;
-
-            document.getElementById('selectedTop').textContent =
-                value.toUpperCase();
-        }
-
-        /* PANTALON */
-
-        if (type === 'pants') {
-
-            document
-                .querySelectorAll('.product-card[data-type="pants"]')
-                .forEach(item => item.classList.remove('selected'));
-
-            this.classList.add('selected');
-
-            selectedPants = value;
-
-            document.getElementById('selectedPants').textContent =
-                value.toUpperCase();
-        }
-
-    });
-
-});
-    updateTop();
-    updatePant();
+    updateStatus();
 
 });
