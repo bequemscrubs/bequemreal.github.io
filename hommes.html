@@ -2,186 +2,678 @@
 <html lang="fr">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Hommes — BEQUEM SCRUBS</title>
 
     <link rel="stylesheet" href="hommes.css">
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
-    <a href="index.html" class="logo">BEQUEM SCRUBS</a>
+
+    <a href="index.html" class="logo">
+        BEQUEM SCRUBS
+    </a>
+
 
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="shop.html">SHOP</a>
-        <a href="index.html#reviews">REVIEWS</a>
+
+        <a href="index.html">
+            HOME
+        </a>
+
+        <a href="shop.html">
+            SHOP
+        </a>
+
+        <a href="index.html#reviews">
+            REVIEWS
+        </a>
+
     </nav>
 
-    <a href="index.html" class="back">← BACK</a>
+
+    <a href="index.html" class="back">
+        ← BACK
+    </a>
+
 </header>
 
 
-<main>
 
-    <section class="hero">
+<!-- =========================
+     HERO
+========================= -->
 
-        <p>01 / MEN'S COLLECTION</p>
+<section class="hero">
 
-        <h1>
-            BUILD<br>
-            YOUR SET.
-        </h1>
-
-        <span>
-            Choose every detail of your scrub.
-        </span>
-
-    </section>
+    <p>
+        01 / MEN'S COLLECTION
+    </p>
 
 
-    
+    <h1>
+        BUILD<br>
+        YOUR SET.
+    </h1>
 
 
-    <!-- OPTIONS -->
-
-   <section class="model-selection">
-
-    <!-- HAUT -->
-    <div class="selection-group">
-
-        <div class="selection-title">
-            <span>01 / HAUT</span>
-            <h2>CHOISISSEZ VOTRE HAUT</h2>
-        </div>
-
-        <div class="product-grid">
-
-            <div class="product-card" data-type="top" data-value="Col rond">
-                <div class="product-photo">
-                    <img src="images/col-rond.jpg" alt="Col rond">
-                </div>
-
-                <div class="product-info">
-                    <span>01</span>
-                    <h3>COL ROND</h3>
-                </div>
-            </div>
-
-
-            <div class="product-card" data-type="top" data-value="Col V">
-                <div class="product-photo">
-                    <img src="images/col-v.jpg" alt="Col V">
-                </div>
-
-                <div class="product-info">
-                    <span>02</span>
-                    <h3>COL V</h3>
-                </div>
-            </div>
-
-
-            <div class="product-card" data-type="top" data-value="Zippé">
-                <div class="product-photo">
-                    <img src="images/zippe.jpg" alt="Haut zippé">
-                </div>
-
-                <div class="product-info">
-                    <span>03</span>
-                    <h3>ZIPPÉ</h3>
-                </div>
-            </div>
-
-        </div>
-
-        <p class="selected-text">
-            HAUT SÉLECTIONNÉ :
-            <strong id="selectedTop">AUCUN</strong>
-        </p>
-
-    </div>
-
-
-    <!-- PANTALON -->
-    <div class="selection-group">
-
-        <div class="selection-title">
-            <span>02 / PANTALON</span>
-            <h2>CHOISISSEZ VOTRE PANTALON</h2>
-        </div>
-
-        <div class="product-grid">
-
-            <div class="product-card" data-type="pants" data-value="Droit">
-                <div class="product-photo">
-                    <img src="images/pantalon-droit.jpg" alt="Pantalon droit">
-                </div>
-
-                <div class="product-info">
-                    <span>01</span>
-                    <h3>DROIT</h3>
-                </div>
-            </div>
-
-
-            <div class="product-card" data-type="pants" data-value="Cargo">
-                <div class="product-photo">
-                    <img src="images/pantalon-cargo.jpg" alt="Pantalon cargo">
-                </div>
-
-                <div class="product-info">
-                    <span>02</span>
-                    <h3>CARGO</h3>
-                </div>
-            </div>
-
-
-            <div class="product-card" data-type="pants" data-value="Slim">
-                <div class="product-photo">
-                    <img src="images/pantalon-slim.jpg" alt="Pantalon slim">
-                </div>
-
-                <div class="product-info">
-                    <span>03</span>
-                    <h3>SLIM</h3>
-                </div>
-            </div>
-
-        </div>
-
-        <p class="selected-text">
-            PANTALON SÉLECTIONNÉ :
-            <strong id="selectedPants">AUCUN</strong>
-        </p>
-
-    </div>
+    <span>
+        Choose every detail of your scrub.
+    </span>
 
 </section>
 
-            <button class="cart">
-                ADD TO CART →
+
+
+<!-- =========================
+     TOP SELECTION
+========================= -->
+
+<section class="selection">
+
+    <div class="section-title">
+
+        <span>
+            01
+        </span>
+
+        <h2>
+            CHOOSE YOUR TOP
+        </h2>
+
+        <p>
+            Select the knit model you prefer.
+        </p>
+
+    </div>
+
+
+    <div class="carousel">
+
+        <button
+            class="arrow"
+            id="topPrev">
+            ←
+        </button>
+
+
+        <div class="product-window">
+
+            <div
+                class="product-track"
+                id="topTrack">
+
+
+                <!-- COL ROND -->
+
+                <div
+                    class="product-card"
+                    data-type="top"
+                    data-value="COL ROND">
+
+                    <div class="photo">
+
+                        <img
+                            src="images/col-rond.jpg"
+                            alt="Col rond">
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            COL ROND
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- COL V -->
+
+                <div
+                    class="product-card"
+                    data-type="top"
+                    data-value="COL V">
+
+                    <div class="photo">
+
+                        <img
+                            src="images/col-v.jpg"
+                            alt="Col V">
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            COL V
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ZIPPE -->
+
+                <div
+                    class="product-card"
+                    data-type="top"
+                    data-value="ZIPPÉ">
+
+                    <div class="photo">
+
+                        <img
+                            src="images/zippe.jpg"
+                            alt="Haut zippé">
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            ZIPPÉ
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="arrow"
+            id="topNext">
+            →
+        </button>
+
+    </div>
+
+
+    <p class="selected-text">
+
+        TOP SELECTED :
+
+        <strong id="selectedTop">
+            NONE
+        </strong>
+
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     PANTS
+========================= -->
+
+<section class="selection">
+
+    <div class="section-title">
+
+        <span>
+            02
+        </span>
+
+        <h2>
+            CHOOSE YOUR PANTS
+        </h2>
+
+        <p>
+            Select the cut that fits your style.
+        </p>
+
+    </div>
+
+
+    <div class="carousel">
+
+        <button
+            class="arrow"
+            id="pantsPrev">
+            ←
+        </button>
+
+
+        <div class="product-window">
+
+            <div
+                class="product-track"
+                id="pantsTrack">
+
+
+                <!-- DROIT -->
+
+                <div
+                    class="product-card"
+                    data-type="pants"
+                    data-value="DROIT">
+
+                    <div class="photo">
+
+                        <img
+                            src="images/pantalon-droit.jpg"
+                            alt="Pantalon droit">
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            DROIT
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARGO -->
+
+                <div
+                    class="product-card"
+                    data-type="pants"
+                    data-value="CARGO">
+
+                    <div class="photo">
+
+                        <img
+                            src="images/pantalon-cargo.jpg"
+                            alt="Pantalon cargo">
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            CARGO
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SLIM -->
+
+                <div
+                    class="product-card"
+                    data-type="pants"
+                    data-value="SLIM">
+
+                    <div class="photo">
+
+                        <img
+                            src="images/pantalon-slim.jpg"
+                            alt="Pantalon slim">
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            SLIM
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="arrow"
+            id="pantsNext">
+            →
+        </button>
+
+    </div>
+
+
+    <p class="selected-text">
+
+        PANTS SELECTED :
+
+        <strong id="selectedPants">
+            NONE
+        </strong>
+
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     OPTIONS
+========================= -->
+
+<section class="options">
+
+
+    <p>
+        03 / PERSONALIZE
+    </p>
+
+
+    <h2>
+        YOUR DETAILS
+    </h2>
+
+
+
+    <!-- COLOR -->
+
+    <div class="option">
+
+        <h3>
+            COLOR *
+        </h3>
+
+
+        <div class="choices">
+
+            <button
+                class="color-choice"
+                data-color="BLACK">
+                BLACK
+            </button>
+
+
+            <button
+                class="color-choice"
+                data-color="GREY">
+                GREY
+            </button>
+
+
+            <button
+                class="color-choice"
+                data-color="WHITE">
+                WHITE
             </button>
 
         </div>
 
-    </section>
+    </div>
 
-</main>
 
+
+    <!-- SIZE -->
+
+    <div class="option">
+
+        <h3>
+            SIZE *
+        </h3>
+
+
+        <div class="choices">
+
+            <button
+                class="size-choice"
+                data-size="XS">
+                XS
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="S">
+                S
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="M">
+                M
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="L">
+                L
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="XL">
+                XL
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="XXL">
+                XXL
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MOTIF -->
+
+    <div class="option">
+
+        <h3>
+            MOTIF
+            <span>
+                — OPTIONAL
+            </span>
+        </h3>
+
+
+        <div class="choices">
+
+            <button
+                class="motif-choice selected"
+                data-motif="NO MOTIF">
+                NO MOTIF
+            </button>
+
+
+            <button
+                class="motif-choice"
+                data-motif="MOTIF 01">
+                MOTIF 01
+            </button>
+
+
+            <button
+                class="motif-choice"
+                data-motif="MOTIF 02">
+                MOTIF 02
+            </button>
+
+
+            <button
+                class="motif-choice"
+                data-motif="MOTIF 03">
+                MOTIF 03
+            </button>
+
+        </div>
+
+
+
+        <!-- MOTIF PLACEMENT -->
+
+        <div class="motif-placement">
+
+            <h4>
+                WHERE SHOULD WE PLACE IT?
+            </h4>
+
+
+            <div class="choices">
+
+                <button
+                    class="placement-choice"
+                    data-placement="CHEST">
+                    CHEST
+                </button>
+
+
+                <button
+                    class="placement-choice"
+                    data-placement="SLEEVE">
+                    SLEEVE
+                </button>
+
+
+                <button
+                    class="placement-choice"
+                    data-placement="BACK">
+                    BACK
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MOTIF DESCRIPTION -->
+
+        <div class="motif-description">
+
+            <h4>
+                DESCRIBE YOUR MOTIF
+            </h4>
+
+
+            <textarea
+                id="motifDescription"
+                placeholder="Describe your motif, initials, text, design..."
+                rows="4">
+            </textarea>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         SUMMARY
+    ========================= -->
+
+    <div class="summary">
+
+        <p>
+            YOUR SET
+        </p>
+
+
+        <h2 id="summaryTop">
+            TOP NOT SELECTED
+        </h2>
+
+
+        <h3 id="summaryPants">
+            PANTS NOT SELECTED
+        </h3>
+
+
+        <p id="selectionStatus">
+            Choose your top, pants, color and size.
+        </p>
+
+
+        <button
+            class="cart"
+            id="addToCart">
+
+            ADD TO CART →
+
+        </button>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
-    <h2>BEQUEM SCRUBS</h2>
+    <h2>
+        BEQUEM SCRUBS
+    </h2>
 
-    <p>MEDICAL WEAR • EST. 2026</p>
+
+    <p>
+        MEDICAL WEAR • EST. 2026
+    </p>
 
 </footer>
+
 
 
 <script src="hommes.js"></script>
 
 </body>
+
 </html>
