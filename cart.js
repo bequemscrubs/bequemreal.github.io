@@ -428,18 +428,13 @@ document.addEventListener("DOMContentLoaded", function () {
        CHECKOUT
     ===================================== */
 
-    document
-        .getElementById("checkoutButton")
-        .addEventListener(
-            "click",
-            function () {
+      document
+    .getElementById("checkoutButton")
+    .addEventListener("click", function () {
 
-                alert(
-                    "CHECKOUT WILL BE AVAILABLE SOON."
-                );
+        window.location.href = "checkout.html";
 
-            }
-        );
+    });
 
 
     /* =====================================
