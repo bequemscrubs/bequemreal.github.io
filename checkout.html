@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout — BEQUEM SCRUBS</title>
+
+    <link rel="stylesheet" href="checkout.css">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body>
+
+<header class="header">
+
+    <a href="index.html" class="brand">
+        BEQUEM SCRUBS
+    </a>
+
+    <nav>
+
+        <a href="index.html">HOME</a>
+
+        <a href="shop.html">SHOP</a>
+
+        <a href="cart.html">CART</a>
+
+    </nav>
+
+</header>
+
+
+<main class="checkout-page">
+
+    <p class="number">
+        05 / CHECKOUT
+    </p>
+
+    <h1>
+        YOUR<br>
+        DETAILS.
+    </h1>
+
+
+    <form id="orderForm">
+
+
+        <!-- ================= CUSTOMER ================= -->
+
+        <section class="checkout-section">
+
+            <p class="section-number">
+                01 / CUSTOMER
+            </p>
+
+            <h2>
+                DELIVERY INFORMATION
+            </h2>
+
+
+            <div class="form-grid">
+
+                <div class="field">
+
+                    <label for="firstName">
+                        FIRST NAME *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        required
+                        placeholder="Your first name">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="lastName">
+                        LAST NAME *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        required
+                        placeholder="Your last name">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="phone">
+                        PHONE NUMBER *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        required
+                        placeholder="07 XX XX XX XX">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="city">
+                        CITY / WILAYA *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        required
+                        placeholder="Your city / wilaya">
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="address">
+                        DELIVERY ADDRESS *
+                    </label>
+
+                    <textarea
+                        id="address"
+                        name="address"
+                        rows="4"
+                        required
+                        placeholder="Your complete delivery address"></textarea>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="email">
+                        EMAIL
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Optional">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ORDER ================= -->
+
+        <section class="checkout-section">
+
+            <p class="section-number">
+                02 / ORDER
+            </p>
+
+            <h2>
+                YOUR ORDER
+            </h2>
+
+            <div id="orderSummary"></div>
+
+        </section>
+
+
+        <!-- ================= TOTAL ================= -->
+
+        <section class="checkout-total">
+
+            <div>
+
+                <span>
+                    TOTAL
+                </span>
+
+                <strong id="orderTotal">
+                    PRICE TO BE ADDED
+                </strong>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="place-order">
+
+                PLACE ORDER →
+
+            </button>
+
+        </section>
+
+
+    </form>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-brand">
+        BEQUEM SCRUBS
+    </div>
+
+    <div class="footer-bottom">
+
+        <span>
+            MEDICAL WEAR • EST. 2026
+        </span>
+
+        <span>
+            © 2026 BEQUEM SCRUBS
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script src="checkout.js"></script>
+
+</body>
+
+</html>
