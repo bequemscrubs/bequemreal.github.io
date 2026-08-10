@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Reviews — BEQUEM SCRUBS</title>
+
+    <link rel="stylesheet"
+          href="reviews.css">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="reviews-header">
+
+    <a href="index.html"
+       class="brand">
+
+        BEQUEM SCRUBS
+
+    </a>
+
+
+    <nav>
+
+        <a href="index.html">
+            HOME
+        </a>
+
+        <a href="shop.html">
+            SHOP
+        </a>
+
+        <a href="reviews.html"
+           class="active">
+            REVIEWS
+        </a>
+
+    </nav>
+
+
+    <a href="shop.html"
+       class="back">
+
+        SHOP →
+
+    </a>
+
+</header>
+
+
+
+<!-- ================= HERO ================= -->
+
+<main>
+
+
+<section class="reviews-hero">
+
+    <p class="number">
+        01 / BEQUEM COMMUNITY
+    </p>
+
+
+    <h1>
+
+        WHAT DO<br>
+        YOU THINK?
+
+    </h1>
+
+
+    <p class="intro">
+
+        Your experience matters.
+        Tell us what you think about
+        your BEQUEM SCRUBS.
+
+    </p>
+
+</section>
+
+
+
+<!-- ================= REVIEW FORM ================= -->
+
+<section class="review-form-section">
+
+
+    <div class="section-title">
+
+        <span>
+            02 / YOUR EXPERIENCE
+        </span>
+
+        <h2>
+            TELL US<br>
+            ABOUT IT.
+        </h2>
+
+    </div>
+
+
+
+    <form id="reviewForm">
+
+
+        <!-- NAME -->
+
+        <div class="form-group">
+
+            <label for="reviewName">
+                FIRST NAME *
+            </label>
+
+            <input
+                type="text"
+                id="reviewName"
+                placeholder="Your first name"
+                required>
+
+        </div>
+
+
+
+        <!-- CITY -->
+
+        <div class="form-group">
+
+            <label for="reviewCity">
+                CITY
+            </label>
+
+            <input
+                type="text"
+                id="reviewCity"
+                placeholder="Your city">
+
+        </div>
+
+
+
+        <!-- RATING -->
+
+        <div class="form-group">
+
+            <label>
+                YOUR RATING *
+            </label>
+
+
+            <div class="rating">
+
+                <button type="button"
+                        class="star"
+                        data-rating="1">
+                    ★
+                </button>
+
+                <button type="button"
+                        class="star"
+                        data-rating="2">
+                    ★
+                </button>
+
+                <button type="button"
+                        class="star"
+                        data-rating="3">
+                    ★
+                </button>
+
+                <button type="button"
+                        class="star"
+                        data-rating="4">
+                    ★
+                </button>
+
+                <button type="button"
+                        class="star"
+                        data-rating="5">
+                    ★
+                </button>
+
+            </div>
+
+
+            <input
+                type="hidden"
+                id="reviewRating"
+                value="0">
+
+        </div>
+
+
+
+        <!-- REVIEW -->
+
+        <div class="form-group">
+
+            <label for="reviewText">
+                YOUR REVIEW *
+            </label>
+
+            <textarea
+                id="reviewText"
+                rows="7"
+                placeholder="Tell us about your BEQUEM experience..."
+                required></textarea>
+
+        </div>
+
+
+
+        <!-- PHOTOS -->
+
+        <div class="form-group">
+
+            <label for="reviewPhotos">
+                ADD YOUR PHOTOS
+            </label>
+
+            <input
+                type="file"
+                id="reviewPhotos"
+                accept="image/*"
+                multiple>
+
+            <p class="upload-note">
+                You can add multiple photos.
+            </p>
+
+        </div>
+
+
+
+        <!-- PREVIEW -->
+
+        <div id="photoPreview"
+             class="photo-preview">
+        </div>
+
+
+
+        <button
+            type="submit"
+            class="submit-review">
+
+            SEND REVIEW →
+
+        </button>
+
+
+        <p id="reviewMessage"
+           class="review-message">
+        </p>
+
+
+    </form>
+
+</section>
+
+
+
+<!-- ================= REVIEWS ================= -->
+
+<section class="customer-reviews">
+
+
+    <div class="section-title">
+
+        <span>
+            03 / CUSTOMER REVIEWS
+        </span>
+
+        <h2>
+            HEAR IT<br>
+            FROM THEM.
+        </h2>
+
+    </div>
+
+
+
+    <div class="review-slider">
+
+
+        <button
+            class="slider-arrow"
+            id="reviewPrev">
+
+            ←
+
+        </button>
+
+
+        <article
+            class="review-card"
+            id="reviewCard">
+
+            <div class="stars"
+                 id="displayStars">
+
+                ★★★★★
+
+            </div>
+
+
+            <blockquote
+                id="displayReview">
+
+                "Your review will appear here."
+
+            </blockquote>
+
+
+            <div class="review-author">
+
+                <strong id="displayName">
+                    BEQUEM CUSTOMER
+                </strong>
+
+                <span id="displayCity">
+                    —
+                </span>
+
+            </div>
+
+
+            <div class="review-counter">
+
+                <span id="reviewCurrent">
+                    01
+                </span>
+
+                /
+
+                <span id="reviewTotal">
+                    01
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <button
+            class="slider-arrow"
+            id="reviewNext">
+
+            →
+
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= CUSTOMER PHOTOS ================= -->
+
+<section class="customer-photos">
+
+
+    <div class="section-title">
+
+        <span>
+            04 / WORN BY YOU
+        </span>
+
+        <h2>
+            YOUR<br>
+            BEQUEM.
+        </h2>
+
+    </div>
+
+
+    <div class="photo-slider">
+
+
+        <button
+            class="slider-arrow"
+            id="photoPrev">
+
+            ←
+
+        </button>
+
+
+        <div
+            class="customer-photo-frame">
+
+            <img
+                id="displayPhoto"
+                src="images/placeholder.jpg"
+                alt="BEQUEM customer">
+
+        </div>
+
+
+        <button
+            class="slider-arrow"
+            id="photoNext">
+
+            →
+
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h2>
+        BEQUEM SCRUBS
+    </h2>
+
+    <p>
+        MEDICAL WEAR • EST. 2026
+    </p>
+
+</footer>
+
+
+
+<script src="reviews.js"></script>
+
+</body>
+
+</html>
