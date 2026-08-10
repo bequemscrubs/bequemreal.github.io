@@ -3,25 +3,25 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>Reviews — BEQUEM SCRUBS</title>
+<title>Reviews — BEQUEM SCRUBS</title>
 
-    <link rel="stylesheet"
-          href="reviews.css">
+<link rel="stylesheet"
+      href="reviews.css">
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+<link rel="preconnect"
+      href="https://fonts.googleapis.com"
+      crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
 
 </head>
 
@@ -31,7 +31,7 @@
 
 <!-- ================= HEADER ================= -->
 
-<header class="reviews-header">
+<header>
 
     <a href="index.html"
        class="brand">
@@ -70,12 +70,11 @@
 
 
 
-<!-- ================= HERO ================= -->
+<!-- ================= INTRO ================= -->
 
 <main>
 
-
-<section class="reviews-hero">
+<section class="review-hero">
 
     <p class="number">
         01 / BEQUEM COMMUNITY
@@ -102,10 +101,9 @@
 
 
 
-<!-- ================= REVIEW FORM ================= -->
+<!-- ================= FORM ================= -->
 
-<section class="review-form-section">
-
+<section class="experience-section">
 
     <div class="section-title">
 
@@ -231,29 +229,28 @@
 
 
 
-        <!-- PHOTOS -->
+        <!-- PHOTO -->
 
         <div class="form-group">
 
-            <label for="reviewPhotos">
-                ADD YOUR PHOTOS
+            <label for="reviewPhoto">
+                ADD YOUR PHOTO
             </label>
 
             <input
                 type="file"
-                id="reviewPhotos"
-                accept="image/*"
-                multiple>
+                id="reviewPhoto"
+                accept="image/*">
 
             <p class="upload-note">
-                You can add multiple photos.
+                Add a photo of you wearing BEQUEM.
             </p>
 
         </div>
 
 
 
-        <!-- PREVIEW -->
+        <!-- PHOTO PREVIEW -->
 
         <div id="photoPreview"
              class="photo-preview">
@@ -281,10 +278,9 @@
 
 
 
-<!-- ================= REVIEWS ================= -->
+<!-- ================= CUSTOMER REVIEWS ================= -->
 
 <section class="customer-reviews">
-
 
     <div class="section-title">
 
@@ -313,37 +309,62 @@
         </button>
 
 
+
+        <!-- ONE COMPLETE REVIEW -->
+
         <article
             class="review-card"
             id="reviewCard">
 
-            <div class="stars"
-                 id="displayStars">
 
-                ★★★★★
+            <!-- CUSTOMER PHOTO -->
+
+            <div class="review-photo-wrapper"
+                 id="reviewPhotoWrapper">
+
+                <img
+                    id="displayPhoto"
+                    src=""
+                    alt="BEQUEM customer">
+
+            </div>
+
+
+
+            <!-- REVIEW CONTENT -->
+
+            <div class="review-content">
+
+                <div class="stars"
+                     id="displayStars">
+
+                    ★★★★★
+
+                </div>
+
+
+                <blockquote
+                    id="displayReview">
+
+                    "Your review will appear here."
+
+                </blockquote>
+
+
+                <div class="review-author">
+
+                    <strong id="displayName">
+                        BEQUEM CUSTOMER
+                    </strong>
+
+                    <span id="displayCity">
+                        —
+                    </span>
+
+                </div>
 
             </div>
 
-
-            <blockquote
-                id="displayReview">
-
-                "Your review will appear here."
-
-            </blockquote>
-
-
-            <div class="review-author">
-
-                <strong id="displayName">
-                    BEQUEM CUSTOMER
-                </strong>
-
-                <span id="displayCity">
-                    —
-                </span>
-
-            </div>
 
 
             <div class="review-counter">
@@ -360,7 +381,9 @@
 
             </div>
 
+
         </article>
+
 
 
         <button
@@ -376,63 +399,6 @@
 
 </section>
 
-
-
-<!-- ================= CUSTOMER PHOTOS ================= -->
-
-<section class="customer-photos">
-
-
-    <div class="section-title">
-
-        <span>
-            04 / WORN BY YOU
-        </span>
-
-        <h2>
-            YOUR<br>
-            BEQUEM.
-        </h2>
-
-    </div>
-
-
-    <div class="photo-slider">
-
-
-        <button
-            class="slider-arrow"
-            id="photoPrev">
-
-            ←
-
-        </button>
-
-
-        <div
-            class="customer-photo-frame">
-
-            <img
-                id="displayPhoto"
-                src="images/placeholder.jpg"
-                alt="BEQUEM customer">
-
-        </div>
-
-
-        <button
-            class="slider-arrow"
-            id="photoNext">
-
-            →
-
-        </button>
-
-
-    </div>
-
-
-</section>
 
 
 </main>
@@ -454,8 +420,474 @@
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="reviews.js"></script>
+
+<script>
+
+/* =========================================
+   REVIEWS STORAGE
+========================================= */
+
+const REVIEWS_KEY = "bequemReviews";
+
+
+/* =========================================
+   GET REVIEWS
+========================================= */
+
+function getReviews() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(REVIEWS_KEY)
+        ) || [];
+
+    } catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================
+   SAVE REVIEWS
+========================================= */
+
+function saveReviews(reviews) {
+
+    localStorage.setItem(
+        REVIEWS_KEY,
+        JSON.stringify(reviews)
+    );
+
+}
+
+
+/* =========================================
+   CURRENT SLIDER INDEX
+========================================= */
+
+let currentReview = 0;
+
+
+/* =========================================
+   RATING
+========================================= */
+
+const stars =
+    document.querySelectorAll(".star");
+
+const ratingInput =
+    document.getElementById("reviewRating");
+
+
+stars.forEach(star => {
+
+    star.addEventListener("click", () => {
+
+        const rating =
+            Number(star.dataset.rating);
+
+        ratingInput.value = rating;
+
+
+        stars.forEach(item => {
+
+            const itemRating =
+                Number(item.dataset.rating);
+
+            item.style.opacity =
+                itemRating <= rating
+                    ? "1"
+                    : ".2";
+
+        });
+
+    });
+
+});
+
+
+/* =========================================
+   PHOTO PREVIEW
+========================================= */
+
+const photoInput =
+    document.getElementById("reviewPhoto");
+
+const photoPreview =
+    document.getElementById("photoPreview");
+
+
+let selectedPhoto = "";
+
+
+photoInput.addEventListener("change", () => {
+
+    const file =
+        photoInput.files[0];
+
+    if (!file) {
+
+        selectedPhoto = "";
+        photoPreview.innerHTML = "";
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = function(event) {
+
+        selectedPhoto =
+            event.target.result;
+
+
+        photoPreview.innerHTML = `
+
+            <img
+                src="${selectedPhoto}"
+                alt="Photo preview">
+
+        `;
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/* =========================================
+   SUBMIT REVIEW
+========================================= */
+
+document
+.getElementById("reviewForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document
+        .getElementById("reviewName")
+        .value
+        .trim();
+
+
+    const city =
+        document
+        .getElementById("reviewCity")
+        .value
+        .trim();
+
+
+    const text =
+        document
+        .getElementById("reviewText")
+        .value
+        .trim();
+
+
+    const rating =
+        Number(
+            document
+            .getElementById("reviewRating")
+            .value
+        );
+
+
+    const message =
+        document
+        .getElementById("reviewMessage");
+
+
+    /* Rating required */
+
+    if (rating === 0) {
+
+        message.textContent =
+            "PLEASE SELECT A RATING.";
+
+        return;
+
+    }
+
+
+    /* Create review */
+
+    const review = {
+
+        name: name,
+
+        city: city,
+
+        text: text,
+
+        rating: rating,
+
+        photo: selectedPhoto,
+
+        date: new Date().toISOString()
+
+    };
+
+
+    /* Get existing reviews */
+
+    const reviews =
+        getReviews();
+
+
+    /* Add newest review */
+
+    reviews.push(review);
+
+
+    /* Save */
+
+    saveReviews(reviews);
+
+
+    /* Reset form */
+
+    this.reset();
+
+
+    ratingInput.value = "0";
+
+    selectedPhoto = "";
+
+    photoPreview.innerHTML = "";
+
+
+    stars.forEach(star => {
+
+        star.style.opacity = "1";
+
+    });
+
+
+    message.textContent =
+        "THANK YOU — YOUR REVIEW HAS BEEN ADDED.";
+
+
+    /* Show newest review */
+
+    currentReview =
+        reviews.length - 1;
+
+
+    displayReview();
+
+
+});
+
+
+/* =========================================
+   DISPLAY REVIEW
+========================================= */
+
+function displayReview() {
+
+    const reviews =
+        getReviews();
+
+
+    const displayPhoto =
+        document.getElementById("displayPhoto");
+
+    const displayStars =
+        document.getElementById("displayStars");
+
+    const displayReview =
+        document.getElementById("displayReview");
+
+    const displayName =
+        document.getElementById("displayName");
+
+    const displayCity =
+        document.getElementById("displayCity");
+
+    const reviewCurrent =
+        document.getElementById("reviewCurrent");
+
+    const reviewTotal =
+        document.getElementById("reviewTotal");
+
+
+    /* No reviews */
+
+    if (!reviews.length) {
+
+        displayPhoto.style.display = "none";
+
+        displayStars.textContent =
+            "★★★★★";
+
+        displayReview.textContent =
+            '"Your review will appear here."';
+
+        displayName.textContent =
+            "BEQUEM CUSTOMER";
+
+        displayCity.textContent =
+            "—";
+
+        reviewCurrent.textContent =
+            "01";
+
+        reviewTotal.textContent =
+            "01";
+
+        return;
+
+    }
+
+
+    /* Safety */
+
+    if (currentReview >= reviews.length) {
+
+        currentReview = 0;
+
+    }
+
+
+    const review =
+        reviews[currentReview];
+
+
+    /* PHOTO */
+
+    if (review.photo) {
+
+        displayPhoto.src =
+            review.photo;
+
+        displayPhoto.style.display =
+            "block";
+
+    } else {
+
+        displayPhoto.removeAttribute("src");
+
+        displayPhoto.style.display =
+            "none";
+
+    }
+
+
+    /* STARS */
+
+    displayStars.textContent =
+        "★".repeat(review.rating) +
+        "☆".repeat(5 - review.rating);
+
+
+    /* TEXT */
+
+    displayReview.textContent =
+        `"${review.text}"`;
+
+
+    /* NAME */
+
+    displayName.textContent =
+        review.name;
+
+
+    /* CITY */
+
+    displayCity.textContent =
+        review.city
+            ? "— " + review.city
+            : "—";
+
+
+    /* COUNTER */
+
+    reviewCurrent.textContent =
+        String(currentReview + 1)
+        .padStart(2, "0");
+
+
+    reviewTotal.textContent =
+        String(reviews.length)
+        .padStart(2, "0");
+
+}
+
+
+/* =========================================
+   NEXT
+========================================= */
+
+document
+.getElementById("reviewNext")
+.addEventListener("click", () => {
+
+    const reviews =
+        getReviews();
+
+    if (!reviews.length) return;
+
+    currentReview++;
+
+    if (currentReview >= reviews.length) {
+
+        currentReview = 0;
+
+    }
+
+    displayReview();
+
+});
+
+
+/* =========================================
+   PREVIOUS
+========================================= */
+
+document
+.getElementById("reviewPrev")
+.addEventListener("click", () => {
+
+    const reviews =
+        getReviews();
+
+    if (!reviews.length) return;
+
+    currentReview--;
+
+    if (currentReview < 0) {
+
+        currentReview =
+            reviews.length - 1;
+
+    }
+
+    displayReview();
+
+});
+
+
+/* =========================================
+   INITIAL DISPLAY
+========================================= */
+
+displayReview();
+
+</script>
+
 
 </body>
 
