@@ -448,3 +448,123 @@ footer {
     }
 
 }
+/* ================= ACCESSORIES ================= */
+
+.accessories-section {
+    margin-top: 150px;
+    padding: 120px 0 100px;
+    border-top: 1px solid #111;
+}
+
+.accessories-section .number {
+    margin-bottom: 30px;
+}
+
+.accessories-section h2 {
+    font-family: "Anton", sans-serif;
+    font-size: clamp(70px, 10vw, 150px);
+    line-height: .85;
+    letter-spacing: -2px;
+    margin-bottom: 35px;
+}
+
+.accessories-section .intro-text {
+    max-width: 500px;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 50px;
+}
+
+
+/* ACCESSORY CARDS */
+
+.accessories-section .accessories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+}
+
+.accessories-section .accessory {
+
+    min-height: 300px;
+
+    border: 1px solid #111;
+
+    padding: 35px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    font-family: "Anton", sans-serif;
+
+    font-size: 42px;
+
+    transition:
+        background .25s ease,
+        color .25s ease;
+
+}
+
+
+/* ARROW */
+
+.accessories-section .accessory span {
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* HOVER */
+
+.accessories-section .accessory:hover {
+
+    background: #111;
+
+    color: #fff;
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .accessories-section {
+
+        margin-top: 100px;
+
+        padding: 80px 0;
+
+    }
+
+    .accessories-section h2 {
+
+        font-size: 75px;
+
+    }
+
+    .accessories-section .accessories {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .accessories-section .accessory {
+
+        min-height: 220px;
+
+        font-size: 32px;
+
+    }
+
+}
