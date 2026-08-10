@@ -27,30 +27,101 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("selectionStatus");
 
 
-    /* ================= PRODUCT ================= */
+   /* ================= PRODUCT / SLIDER ================= */
 
-    products.forEach(function (product) {
+const productsGrid =
+    document.getElementById("productProducts");
 
-        product.addEventListener("click", function () {
+const productCards =
+    document.querySelectorAll(".product-card");
 
-            products.forEach(function (p) {
-                p.classList.remove("selected");
-            });
+let currentProduct = 0;
 
-            product.classList.add("selected");
 
-            selectedProduct =
-                product.dataset.value;
+/* Sélection d'un produit */
 
-            selectedProductText.textContent =
-                selectedProduct;
+function selectProduct(index) {
 
-            summaryProduct.textContent =
-                selectedProduct;
+    if (index < 0) {
+        index = productCards.length - 1;
+    }
 
-        });
+    if (index >= productCards.length) {
+        index = 0;
+    }
+
+    currentProduct = index;
+
+
+    productCards.forEach(function (card) {
+
+        card.classList.remove("selected");
 
     });
+
+
+    const selectedCard =
+        productCards[currentProduct];
+
+    selectedCard.classList.add("selected");
+
+
+    selectedProduct =
+        selectedCard.dataset.value;
+
+
+    selectedProductText.textContent =
+        selectedProduct;
+
+
+    summaryProduct.textContent =
+        selectedProduct;
+
+
+    /* Faire défiler jusqu'au produit */
+
+    selectedCard.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center"
+    });
+
+}
+
+
+/* Produit suivant → */
+
+document
+    .getElementById("productNext")
+    .addEventListener("click", function () {
+
+        selectProduct(currentProduct + 1);
+
+    });
+
+
+/* Produit précédent ← */
+
+document
+    .getElementById("productPrev")
+    .addEventListener("click", function () {
+
+        selectProduct(currentProduct - 1);
+
+    });
+
+
+/* Cliquer directement sur une carte */
+
+productCards.forEach(function (product, index) {
+
+    product.addEventListener("click", function () {
+
+        selectProduct(index);
+
+    });
+
+});
 
 
     /* ================= COLOR ================= */
