@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bas de contention — BEQUEM SCRUBS</title>
+
+    <link rel="stylesheet" href="accessory.css">
+
+</head>
+
+
+<body>
+
+<header class="header">
+
+    <a href="index.html" class="brand">
+        BEQUEM SCRUBS
+    </a>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="shop.html">SHOP</a>
+        <a href="cart.html">
+            CART <span id="cartCount">0</span>
+        </a>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <p>02 / ACCESSORIES</p>
+
+        <h1>
+            COMPRESSION<br>
+            SOCKS.
+        </h1>
+
+        <span>
+            Designed for long days on your feet.
+        </span>
+
+    </section>
+
+
+    <!-- ================= CHOOSE MODEL ================= -->
+
+    <section class="product-section">
+
+        <div class="section-title">
+
+            <span>01</span>
+
+            <h2>
+                CHOOSE YOUR MODEL
+            </h2>
+
+            <p>
+                Select the compression sock you prefer.
+            </p>
+
+        </div>
+
+
+        <div class="selector-wrapper">
+
+            <button class="arrow" id="productPrev">
+                ←
+            </button>
+
+
+            <div class="products-grid"
+                 id="productProducts">
+
+
+                <div
+                    class="product-card selected"
+                    data-value="CLASSIC"
+                    data-image="images/accessories/bas-classic.jpg">
+
+                    <div class="photo">
+
+                        <img
+                            src="images/accessories/bas-classic.jpg"
+                            alt="Bas de contention Classic">
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <span>01</span>
+
+                        <h3>
+                            CLASSIC
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="product-card"
+                    data-value="SPORT"
+                    data-image="images/accessories/bas-sport.jpg">
+
+                    <div class="photo">
+
+                        <img
+                            src="images/accessories/bas-sport.jpg"
+                            alt="Bas de contention Sport">
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <span>02</span>
+
+                        <h3>
+                            SPORT
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="product-card"
+                    data-value="PREMIUM"
+                    data-image="images/accessories/bas-premium.jpg">
+
+                    <div class="photo">
+
+                        <img
+                            src="images/accessories/bas-premium.jpg"
+                            alt="Bas de contention Premium">
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <span>03</span>
+
+                        <h3>
+                            PREMIUM
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <button class="arrow" id="productNext">
+                →
+            </button>
+
+        </div>
+
+
+        <p class="selected-text">
+
+            MODEL SELECTED :
+
+            <strong id="selectedProduct">
+                CLASSIC
+            </strong>
+
+        </p>
+
+    </section>
+
+
+    <!-- ================= DETAILS ================= -->
+
+    <section class="details-section">
+
+        <p>02 / PERSONALIZE</p>
+
+        <h2>
+            YOUR DETAILS
+        </h2>
+
+
+        <!-- COLOR -->
+
+        <div class="option">
+
+            <h3>
+                COLOR *
+            </h3>
+
+            <div class="choices">
+
+                <button
+                    class="color-choice"
+                    data-color="BLACK">
+
+                    BLACK
+
+                </button>
+
+                <button
+                    class="color-choice"
+                    data-color="WHITE">
+
+                    WHITE
+
+                </button>
+
+                <button
+                    class="color-choice"
+                    data-color="GREY">
+
+                    GREY
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIZE -->
+
+        <div class="option">
+
+            <h3>
+                SIZE *
+            </h3>
+
+            <div class="choices">
+
+                <button
+                    class="size-choice"
+                    data-size="S">
+
+                    S
+
+                </button>
+
+                <button
+                    class="size-choice"
+                    data-size="M">
+
+                    M
+
+                </button>
+
+                <button
+                    class="size-choice"
+                    data-size="L">
+
+                    L
+
+                </button>
+
+                <button
+                    class="size-choice"
+                    data-size="XL">
+
+                    XL
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUANTITY -->
+
+        <div class="option">
+
+            <h3>
+                QUANTITY
+            </h3>
+
+            <div class="quantity">
+
+                <button id="minus">
+                    −
+                </button>
+
+                <span id="quantity">
+                    1
+                </span>
+
+                <button id="plus">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ================= SUMMARY ================= -->
+
+    <section class="summary">
+
+        <p>
+            YOUR ACCESSORY
+        </p>
+
+        <h2 id="summaryProduct">
+            CLASSIC
+        </h2>
+
+
+        <div class="summary-details">
+
+            <p>
+                COLOR:
+                <strong id="summaryColor">—</strong>
+            </p>
+
+            <p>
+                SIZE:
+                <strong id="summarySize">—</strong>
+            </p>
+
+            <p>
+                QUANTITY:
+                <strong id="summaryQuantity">1</strong>
+            </p>
+
+        </div>
+
+
+        <p id="selectionStatus">
+            Choose your color and size.
+        </p>
+
+
+        <button
+            class="add-cart"
+            id="addToCart">
+
+            ADD TO CART →
+
+        </button>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <h2>
+        BEQUEM SCRUBS
+    </h2>
+
+    <p>
+        MEDICAL WEAR • EST. 2026
+    </p>
+
+</footer>
+
+
+<script src="bas-contention.js"></script>
+
+</body>
+
+</html>
