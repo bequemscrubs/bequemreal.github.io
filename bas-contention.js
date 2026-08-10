@@ -1,225 +1,288 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+
+    /* =====================================
+       VARIABLES
+    ===================================== */
+
     let selectedProduct = "CLASSIC";
+
     let selectedColor = null;
+
     let selectedSize = null;
+
     let quantity = 1;
+
+
+
+    /* =====================================
+       CURRENT OUTFIT
+    ===================================== */
+
+    const savedOutfit =
+        JSON.parse(
+            localStorage.getItem(
+                "bequemCurrentOutfit"
+            )
+        );
+
+
+
+    /* =====================================
+       ELEMENTS
+    ===================================== */
 
     const products =
         document.querySelectorAll(".product-card");
 
+
     const selectedProductText =
-        document.getElementById("selectedProduct");
+        document.getElementById(
+            "selectedProduct"
+        );
+
 
     const summaryProduct =
-        document.getElementById("summaryProduct");
+        document.getElementById(
+            "summaryProduct"
+        );
+
 
     const summaryColor =
-        document.getElementById("summaryColor");
+        document.getElementById(
+            "summaryColor"
+        );
+
 
     const summarySize =
-        document.getElementById("summarySize");
+        document.getElementById(
+            "summarySize"
+        );
+
 
     const summaryQuantity =
-        document.getElementById("summaryQuantity");
+        document.getElementById(
+            "summaryQuantity"
+        );
+
 
     const status =
-        document.getElementById("selectionStatus");
+        document.getElementById(
+            "selectionStatus"
+        );
 
 
-   /* ================= PRODUCT / SLIDER ================= */
 
-const productsGrid =
-    document.getElementById("productProducts");
+    /* =====================================
+       PRODUCT
+    ===================================== */
 
-const productCards =
-    document.querySelectorAll(".product-card");
-
-let currentProduct = 0;
+    products.forEach(function (product) {
 
 
-/* Sélection d'un produit */
-
-function selectProduct(index) {
-
-    if (index < 0) {
-        index = productCards.length - 1;
-    }
-
-    if (index >= productCards.length) {
-        index = 0;
-    }
-
-    currentProduct = index;
+        product.addEventListener(
+            "click",
+            function () {
 
 
-    productCards.forEach(function (card) {
+                products.forEach(function (p) {
 
-        card.classList.remove("selected");
+                    p.classList.remove(
+                        "selected"
+                    );
 
-    });
-
-
-    const selectedCard =
-        productCards[currentProduct];
-
-    selectedCard.classList.add("selected");
+                });
 
 
-    selectedProduct =
-        selectedCard.dataset.value;
+                product.classList.add(
+                    "selected"
+                );
 
 
-    selectedProductText.textContent =
-        selectedProduct;
+                selectedProduct =
+                    product.dataset.value;
 
 
-    summaryProduct.textContent =
-        selectedProduct;
+                selectedProductText.textContent =
+                    selectedProduct;
 
 
-    /* Faire défiler jusqu'au produit */
-
-    selectedCard.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center"
-    });
-
-}
+                summaryProduct.textContent =
+                    selectedProduct;
 
 
-/* Produit suivant → */
+            }
 
-document
-    .getElementById("productNext")
-    .addEventListener("click", function () {
-
-        selectProduct(currentProduct + 1);
+        );
 
     });
 
 
-/* Produit précédent ← */
 
-document
-    .getElementById("productPrev")
-    .addEventListener("click", function () {
-
-        selectProduct(currentProduct - 1);
-
-    });
-
-
-/* Cliquer directement sur une carte */
-
-productCards.forEach(function (product, index) {
-
-    product.addEventListener("click", function () {
-
-        selectProduct(index);
-
-    });
-
-});
-
-
-    /* ================= COLOR ================= */
+    /* =====================================
+       COLOR
+    ===================================== */
 
     document
         .querySelectorAll(".color-choice")
         .forEach(function (button) {
 
-            button.addEventListener("click", function () {
 
-                document
-                    .querySelectorAll(".color-choice")
-                    .forEach(function (b) {
-                        b.classList.remove("selected");
-                    });
+            button.addEventListener(
+                "click",
+                function () {
 
-                button.classList.add("selected");
 
-                selectedColor =
-                    button.dataset.color;
+                    document
+                        .querySelectorAll(
+                            ".color-choice"
+                        )
+                        .forEach(function (b) {
 
-                summaryColor.textContent =
-                    selectedColor;
+                            b.classList.remove(
+                                "selected"
+                            );
 
-                updateStatus();
+                        });
 
-            });
+
+                    button.classList.add(
+                        "selected"
+                    );
+
+
+                    selectedColor =
+                        button.dataset.color;
+
+
+                    summaryColor.textContent =
+                        selectedColor;
+
+
+                    updateStatus();
+
+                }
+
+            );
 
         });
 
 
-    /* ================= SIZE ================= */
+
+    /* =====================================
+       SIZE
+    ===================================== */
 
     document
         .querySelectorAll(".size-choice")
         .forEach(function (button) {
 
-            button.addEventListener("click", function () {
 
-                document
-                    .querySelectorAll(".size-choice")
-                    .forEach(function (b) {
-                        b.classList.remove("selected");
-                    });
+            button.addEventListener(
+                "click",
+                function () {
 
-                button.classList.add("selected");
 
-                selectedSize =
-                    button.dataset.size;
+                    document
+                        .querySelectorAll(
+                            ".size-choice"
+                        )
+                        .forEach(function (b) {
 
-                summarySize.textContent =
-                    selectedSize;
+                            b.classList.remove(
+                                "selected"
+                            );
 
-                updateStatus();
+                        });
 
-            });
+
+                    button.classList.add(
+                        "selected"
+                    );
+
+
+                    selectedSize =
+                        button.dataset.size;
+
+
+                    summarySize.textContent =
+                        selectedSize;
+
+
+                    updateStatus();
+
+                }
+
+            );
 
         });
 
 
-    /* ================= QUANTITY ================= */
+
+    /* =====================================
+       QUANTITY
+    ===================================== */
 
     document
         .getElementById("plus")
-        .addEventListener("click", function () {
+        .addEventListener(
+            "click",
+            function () {
 
-            quantity++;
 
-            summaryQuantity.textContent =
-                quantity;
+                quantity++;
 
-        });
+
+                summaryQuantity.textContent =
+                    quantity;
+
+            }
+
+        );
 
 
     document
         .getElementById("minus")
-        .addEventListener("click", function () {
+        .addEventListener(
+            "click",
+            function () {
 
-            if (quantity > 1) {
-                quantity--;
+
+                if (quantity > 1) {
+
+                    quantity--;
+
+                }
+
+
+                summaryQuantity.textContent =
+                    quantity;
+
             }
 
-            summaryQuantity.textContent =
-                quantity;
-
-        });
+        );
 
 
-    /* ================= STATUS ================= */
+
+    /* =====================================
+       STATUS
+    ===================================== */
 
     function updateStatus() {
 
-        if (selectedColor && selectedSize) {
+
+        if (
+            selectedColor &&
+            selectedSize
+        ) {
+
 
             status.textContent =
                 "READY TO ADD TO CART.";
 
+
         } else {
+
 
             status.textContent =
                 "Choose your color and size.";
@@ -229,81 +292,205 @@ productCards.forEach(function (product, index) {
     }
 
 
-    /* ================= ADD TO CART ================= */
+
+    /* =====================================
+       ADD TO CART
+    ===================================== */
 
     document
         .getElementById("addToCart")
-        .addEventListener("click", function () {
+        .addEventListener(
+            "click",
+            function () {
 
 
-            if (!selectedColor || !selectedSize) {
+                if (!selectedColor) {
 
-                alert(
-                    "Please choose a color and a size."
+                    alert(
+                        "Please choose a color."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!selectedSize) {
+
+                    alert(
+                        "Please choose a size."
+                    );
+
+                    return;
+
+                }
+
+
+
+                let cart =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "bequemCart"
+                        )
+                    ) || [];
+
+
+
+                /*
+                   BAS DE CONTENTION
+                   + TENUE
+                   = UN SEUL ARTICLE
+                   DANS LE PANIER
+                */
+
+                const item = {
+
+
+                    id:
+                        "outfit-" +
+                        Date.now(),
+
+
+                    category:
+                        savedOutfit
+                            ? savedOutfit.category
+                            : "ACCESSORY",
+
+
+
+                    /* TENUE */
+
+                    top:
+                        savedOutfit
+                            ? savedOutfit.top
+                            : null,
+
+
+                    pants:
+                        savedOutfit
+                            ? savedOutfit.pants
+                            : null,
+
+
+                    scrubColor:
+                        savedOutfit
+                            ? savedOutfit.color
+                            : null,
+
+
+                    scrubSize:
+                        savedOutfit
+                            ? savedOutfit.size
+                            : null,
+
+
+                    motif:
+                        savedOutfit
+                            ? savedOutfit.motif
+                            : null,
+
+
+
+                    /* BAS */
+
+                    compressionSock: {
+
+                        model:
+                            selectedProduct,
+
+                        color:
+                            selectedColor,
+
+                        size:
+                            selectedSize,
+
+                        quantity:
+                            quantity
+
+                    },
+
+
+                    quantity: 1
+
+                };
+
+
+
+                cart.push(item);
+
+
+
+                localStorage.setItem(
+
+                    "bequemCart",
+
+                    JSON.stringify(cart)
+
                 );
 
-                return;
+
+
+                /*
+                   On supprime la tenue
+                   temporaire parce qu'elle
+                   est maintenant dans le panier.
+                */
+
+                localStorage.removeItem(
+
+                    "bequemCurrentOutfit"
+
+                );
+
+
+
+                const button =
+                    document.getElementById(
+                        "addToCart"
+                    );
+
+
+                button.textContent =
+                    "ADDED ✓";
+
+
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "cart.html";
+
+                    },
+                    700
+                );
 
             }
 
-
-            let cart = JSON.parse(
-                localStorage.getItem("bequemCart") || "[]"
-            );
+        );
 
 
-            const item = {
 
-                id:
-                    "accessory-" +
-                    Date.now(),
-
-                category:
-                    "BAS DE CONTENTION",
-
-                product:
-                    selectedProduct,
-
-                color:
-                    selectedColor,
-
-                size:
-                    selectedSize,
-
-                quantity:
-                    quantity
-
-            };
-
-
-            cart.push(item);
-
-
-            localStorage.setItem(
-                "bequemCart",
-                JSON.stringify(cart)
-            );
-
-
-            window.location.href =
-                "cart.html";
-
-        });
-
-
-    /* ================= CART COUNT ================= */
+    /* =====================================
+       CART COUNT
+    ===================================== */
 
     const cartCount =
-        document.getElementById("cartCount");
+        document.getElementById(
+            "cartCount"
+        );
 
 
     const cart =
         JSON.parse(
-            localStorage.getItem("bequemCart") || "[]"
+            localStorage.getItem(
+                "bequemCart"
+            ) || "[]"
         );
 
 
     let total = 0;
+
 
     cart.forEach(function (item) {
 
