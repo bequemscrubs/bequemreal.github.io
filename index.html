@@ -1,461 +1,294 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>BEQUEM SCRUBS — Medical Wear</title>
+    <title>BEQUEM SCRUBS</title>
 
     <link rel="stylesheet" href="style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
+    <!-- ================= HEADER ================= -->
 
-<header class="header">
-<div class="brand-area">
+    <header class="header">
 
-    <a href="index.html" class="logo">
-        BEQUEM SCRUBS
-    </a>
+        <div class="brand-area">
 
-    <div class="social-icons">
+            <a href="index.html" class="brand">
+                BEQUEM SCRUBS
+            </a>
 
-        <a
-            href="https://wa.me/0781952022"
-            target="_blank"
-            aria-label="WhatsApp">
-            <span>WA</span>
-        </a>
+            <!-- RESEAUX SOCIAUX -->
 
-        <a
-            href="https://www.instagram.com/bequem.world"
-            target="_blank"
-            aria-label="Instagram">
-            <span>IG</span>
-        </a>
+            <div class="socials">
 
-        <a
-            href="https://www.tiktok.com/@bequem.world"
-            target="_blank"
-            aria-label="TikTok">
-            <span>TT</span>
-        </a>
+                <!-- WHATSAPP -->
+                <a href="WHATSAPP_LINK"
+                   target="_blank"
+                   class="social"
+                   aria-label="WhatsApp">
 
-        <a
-            href="https://www.facebook.com/bequem.world"
-            target="_blank"
-            aria-label="Facebook">
-            <span>FB</span>
-        </a>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .2 5.3.2 11.9c0 2.1.6 4.1 1.6 5.8L.1 24l6.5-1.7c1.7.9 3.5 1.3 5.4 1.3h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.3-6.1-3.5-8.2ZM12.1 21.5c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3c-1-1.5-1.5-3.3-1.5-5.1C2.5 6.6 6.8 2.3 12.1 2.3c2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.3 2.9 7 0 5.3-4.3 9.6-9.9 9.6Zm5.3-7.2c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-2-.9-3.3-1.7-4.6-3.9-.4-.7.4-.7 1-2.2.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6 0 1.5 1.1 2.9 1.3 3.1.2.2 2.2 3.4 5.4 4.7 2 .9 2.8 1 3.8.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/>
+                    </svg>
 
-    </div>
-
-</div>
-
-    <nav class="nav">
-        <a href="#shop">SHOP</a>
-        <a href="#reviews">REVIEWS</a>
-        <a href="#about">ABOUT US</a>
-    </nav>
-
- <button class="cart-button" id="cartButton">
-    <span class="cart-icon">🛒</span>
-    CART
-    <span id="cartCount">0</span>
-</button>
-    <button class="menu-button" onclick="toggleMenu()">
-        ☰
-    </button>
-
-</header>
+                </a>
 
 
-<!-- ================= MOBILE MENU ================= -->
+                <!-- INSTAGRAM -->
+                <a href="INSTAGRAM_LINK"
+                   target="_blank"
+                   class="social"
+                   aria-label="Instagram">
 
-<div class="mobile-menu" id="mobileMenu">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <circle cx="17.5" cy="6.5" r="1"></circle>
+                    </svg>
 
-    <button onclick="toggleMenu()" class="close-menu">
-        ×
-    </button>
-
-    <a href="#shop" onclick="toggleMenu()">SHOP</a>
-    <a href="#reviews" onclick="toggleMenu()">REVIEWS</a>
-    <a href="#about" onclick="toggleMenu()">ABOUT US</a>
-
-</div>
+                </a>
 
 
-<!-- ================= HERO ================= -->
+                <!-- TIKTOK -->
+                <a href="TIKTOK_LINK"
+                   target="_blank"
+                   class="social"
+                   aria-label="TikTok">
 
-<main>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15 3c.3 2.2 1.5 3.7 3.8 4v3.1c-1.3 0-2.6-.4-3.8-1.1v6.4c0 4-2.7 6.3-6.2 6.3C5.4 21.7 3 19.6 3 16.4c0-3.1 2.5-5.5 5.8-5.5.3 0 .6 0 .9.1v3.2c-.3-.1-.6-.2-.9-.2-1.4 0-2.6 1-2.6 2.4 0 1.5 1.1 2.5 2.6 2.5 1.6 0 2.9-1 2.9-3.3V3H15Z"/>
+                    </svg>
 
-<section class="hero">
+                </a>
 
-    <div class="hero-grid"></div>
 
-    <div class="hero-content">
+                <!-- FACEBOOK -->
+                <a href="FACEBOOK_LINK"
+                   target="_blank"
+                   class="social"
+                   aria-label="Facebook">
 
-        <p class="small-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V4c-.3 0-1.4-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8h3.4Z"/>
+                    </svg>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENU -->
+
+        <nav class="menu">
+
+            <a href="index.html">HOME</a>
+
+            <a href="shop.html">SHOP</a>
+
+            <a href="index.html#reviews">REVIEWS</a>
+
+            <a href="shop.html" class="cart">
+                CART <span id="cartCount">0</span>
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= HERO ================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-text">
+
+                <p class="small-title">
+                    MEDICAL WEAR • EST. 2026
+                </p>
+
+                <h1>
+                    BEQUEM<br>
+                    SCRUBS
+                </h1>
+
+                <p class="description">
+                    Medical wear designed around you.
+                </p>
+
+                <a href="shop.html" class="shop-button">
+                    SHOP NOW →
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= COLLECTION ================= -->
+
+        <section class="collection">
+
+            <div class="section-number">
+                01 / COLLECTION
+            </div>
+
+            <h2>
+                CHOOSE<br>
+                YOUR SCRUBS
+            </h2>
+
+
+            <div class="collection-grid">
+
+                <a href="hommes.html" class="collection-card">
+
+                    <div class="collection-image">
+                        <span>HOMMES</span>
+                    </div>
+
+                    <div class="collection-info">
+                        <h3>HOMMES</h3>
+                        <span>DISCOVER →</span>
+                    </div>
+
+                </a>
+
+
+                <a href="femmes.html" class="collection-card">
+
+                    <div class="collection-image">
+                        <span>FEMMES</span>
+                    </div>
+
+                    <div class="collection-info">
+                        <h3>FEMMES</h3>
+                        <span>DISCOVER →</span>
+                    </div>
+
+                </a>
+
+
+                <a href="hijab.html" class="collection-card">
+
+                    <div class="collection-image">
+                        <span>HIJABI</span>
+                    </div>
+
+                    <div class="collection-info">
+                        <h3>HIJABI</h3>
+                        <span>DISCOVER →</span>
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= COMPLETE YOUR LOOK ================= -->
+
+        <section class="complete">
+
+            <div class="section-number">
+                02 / ACCESSORIES
+            </div>
+
+            <h2>
+                COMPLETE<br>
+                YOUR LOOK.
+            </h2>
+
+            <p>
+                Des essentiels pensés pour compléter votre tenue médicale.
+            </p>
+
+            <a href="shop.html" class="shop-button">
+                SHOP NOW →
+            </a>
+
+
+            <div class="accessories">
+
+                <a href="shop.html" class="accessory">
+                    BAS DE CONTENTION
+                </a>
+
+                <a href="shop.html" class="accessory">
+                    UNDERSCRUB
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= REVIEWS ================= -->
+
+        <section class="reviews" id="reviews">
+
+            <div class="section-number">
+                03 / REVIEWS
+            </div>
+
+            <h2>
+                OUR<br>
+                COMMUNITY.
+            </h2>
+
+            <p>
+                Votre confort. Votre style. Votre expérience.
+            </p>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h2>BEQUEM SCRUBS</h2>
+
+        <p>
             MEDICAL WEAR • EST. 2026
         </p>
 
-        <h1>
-            BEQUEM<br>
-            SCRUBS
-        </h1>
+    </footer>
 
-        <p class="hero-text">
-            Medical wear designed around you.
-        </p>
 
-        <a href="#shop" class="main-button">
-           SHOP NOW
-        
-        </a>
 
-    </div>
+    <script>
 
-    <div class="hero-logo">
-        ✦
-    </div>
+        /*
+         * Compteur du panier
+         */
 
-</section>
+        const cartCount = document.getElementById("cartCount");
 
+        const cart = JSON.parse(
+            localStorage.getItem("bequemCart") || "[]"
+        );
 
-<!-- ================= SHOP ================= -->
+        cartCount.textContent = cart.length;
 
-<section class="shop-section" id="shop">
 
-    <div class="section-heading">
-
-        <p>01 / COLLECTION</p>
-
-        <h2>
-            CHOOSE YOUR<br>
-            SCRUBS
-        </h2>
-
-    </div>
-
-
-    <div class="categories">
-
-
-        <!-- HOMMES -->
-
-        <a href="hommes.html" class="category-card">
-
-            <div class="category-image">
-
-                <div class="image-placeholder">
-                    <span>MEN</span>
-                </div>
-
-                <div class="image-number">
-                    01
-                </div>
-
-            </div>
-
-            <div class="category-info">
-
-                <h3>HOMMES</h3>
-
-                <span>
-                    DISCOVER →
-                </span>
-
-            </div>
-
-        </a>
-
-
-
-        <!-- FEMMES -->
-
-        <a href="femmes.html" class="category-card">
-
-            <div class="category-image">
-
-                <div class="image-placeholder">
-                    <span>WOMEN</span>
-                </div>
-
-                <div class="image-number">
-                    02
-                </div>
-
-            </div>
-
-            <div class="category-info">
-
-                <h3>FEMMES</h3>
-
-                <span>
-                    DISCOVER →
-                </span>
-
-            </div>
-
-        </a>
-
-
-
-        <!-- HIJABI -->
-
-        <a href="hijabi.html" class="category-card">
-
-            <div class="category-image">
-
-                <div class="image-placeholder">
-                    <span>HIJABI</span>
-                </div>
-
-                <div class="image-number">
-                    03
-                </div>
-
-            </div>
-
-            <div class="category-info">
-
-                <h3>HIJABI</h3>
-
-                <span>
-                    DISCOVER →
-                </span>
-
-            </div>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= CALOTS ================= -->
-
-<section class="calots-section">
-
-    <div class="calots-text">
-
-        <p>02 / ACCESSORIES</p>
-
-        <h2>
-            COMPLETE<br>
-            YOUR LOOK.
-        </h2>
-
-        <p class="description">
-            Discover our collection of calots,
-            designed to complete your medical look.
-        </p>
-
-        <a href="calots.html" class="outline-button">
-            DISCOVER CALOTS →
-        </a>
-
-    </div>
-
-
-    <div class="calots-animation">
-
-        <div class="floating-item item-one">
-            CALOT
-        </div>
-
-        <div class="floating-item item-two">
-            BS
-        </div>
-
-        <div class="floating-item item-three">
-            CALOT
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= REVIEWS ================= -->
-
-<section class="reviews-section" id="reviews">
-
-    <div class="section-heading">
-
-        <p>03 / REVIEWS</p>
-
-        <h2>
-            WHAT THEY<br>
-            SAY.
-        </h2>
-
-    </div>
-
-
-    <div class="reviews-grid">
-
-        <article class="review-card">
-
-            <div class="stars">
-                ★★★★★
-            </div>
-
-            <p>
-                "Une tenue confortable et élégante.
-                La qualité est incroyable."
-            </p>
-
-            <span>
-                — CLIENT BEQUEM
-            </span>
-
-        </article>
-
-
-        <article class="review-card">
-
-            <div class="stars">
-                ★★★★★
-            </div>
-
-            <p>
-                "J'adore la coupe et les possibilités
-                de personnalisation."
-            </p>
-
-            <span>
-                — CLIENT BEQUEM
-            </span>
-
-        </article>
-
-
-        <article class="review-card">
-
-            <div class="stars">
-                ★★★★★
-            </div>
-
-            <p>
-                "Enfin des tenues médicales qui
-                correspondent vraiment à mon style."
-            </p>
-
-            <span>
-                — CLIENT BEQUEM
-            </span>
-
-        </article>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= ABOUT ================= -->
-
-<section class="about-section" id="about">
-
-    <div class="about-number">
-        04
-    </div>
-
-    <div>
-
-        <p>ABOUT BEQUEM</p>
-
-        <h2>
-            MEDICAL WEAR.<br>
-            REDEFINED.
-        </h2>
-
-        <p class="about-text">
-            BEQUEM SCRUBS crée des tenues médicales
-            pensées pour accompagner les professionnels
-            de santé dans leur quotidien.
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-    <div class="footer-brand">
-        BEQUEM SCRUBS
-    </div>
-
-    <div class="footer-links">
-
-        <a href="hommes.html">HOMMES</a>
-        <a href="femmes.html">FEMMES</a>
-        <a href="hijabi.html">HIJABI</a>
-        <a href="calots.html">CALOTS</a>
-
-    </div>
-
-    <div class="footer-bottom">
-
-        <span>
-            MEDICAL WEAR • EST. 2026
-        </span>
-
-        <span>
-            © 2026 BEQUEM SCRUBS
-        </span>
-
-    </div>
-
-</footer>
-
-
-<!-- ================= CART ================= -->
-
-<div class="cart-overlay" id="cartOverlay">
-
-    <div class="cart-panel">
-
-        <button class="close-cart" onclick="closeCart()">
-            ×
-        </button>
-
-        <p>YOUR CART</p>
-
-        <h2>
-            SHOPPING CART
-        </h2>
-
-        <div id="cartItems">
-
-            <div class="empty-cart">
-                Your cart is empty.
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-</main>
-
-<script src="script.js"></script>
+    </script>
 
 </body>
 </html>
