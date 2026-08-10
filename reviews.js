@@ -1,40 +1,39 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+
+    // =========================
+    // SUPABASE
+    // =========================
+
+    const SUPABASE_URL = "pakwsesbisdkgtoeywam";
+    const SUPABASE_KEY = "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9Y";
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-    /* =====================================
-       RATING — STARS
-    ===================================== */
+    // =========================
+    // STARS
+    // =========================
 
-    const stars =
-        document.querySelectorAll(".star");
-
-    const ratingInput =
-        document.getElementById("reviewRating");
-
+    const stars = document.querySelectorAll(".star");
+    const ratingInput = document.getElementById("reviewRating");
 
     stars.forEach(function (star) {
 
         star.addEventListener("click", function () {
 
-            const rating =
-                Number(star.dataset.rating);
+            const rating = Number(star.dataset.rating);
 
             ratingInput.value = rating;
 
-
             stars.forEach(function (item) {
 
-                const itemRating =
-                    Number(item.dataset.rating);
-
-                if (itemRating <= rating) {
-
+                if (Number(item.dataset.rating) <= rating) {
                     item.classList.add("selected");
-
                 } else {
-
                     item.classList.remove("selected");
-
                 }
 
             });
@@ -44,122 +43,80 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+    // =========================
+    // PHOTO PREVIEW
+    // =========================
 
-    /* =====================================
-       PHOTO PREVIEW
-    ===================================== */
+    const photoInput = document.getElementById("reviewPhotos");
+    const photoPreview = document.getElementById("photoPreview");
 
-    const photoInput =
-        document.getElementById("reviewPhotos");
+    photoInput.addEventListener("change", function () {
 
-    const photoPreview =
-        document.getElementById("photoPreview");
+        photoPreview.innerHTML = "";
 
+        Array.from(photoInput.files).forEach(function (file) {
 
-    photoInput.addEventListener(
-        "change",
-        function () {
+            if (!file.type.startsWith("image/")) return;
 
-            photoPreview.innerHTML = "";
+            const reader = new FileReader();
 
+            reader.onload = function (event) {
 
-            const files =
-                Array.from(photoInput.files);
+                const img = document.createElement("img");
 
+                img.src = event.target.result;
+                img.alt = "Customer photo";
 
-            files.forEach(function (file) {
+                photoPreview.appendChild(img);
 
-                if (!file.type.startsWith("image/")) {
-                    return;
-                }
+            };
 
+            reader.readAsDataURL(file);
 
-                const reader =
-                    new FileReader();
+        });
 
-
-                reader.onload =
-                    function (event) {
-
-                        const img =
-                            document.createElement("img");
-
-                        img.src =
-                            event.target.result;
-
-                        img.alt =
-                            "BEQUEM customer photo";
-
-                        photoPreview.appendChild(img);
-
-                    };
+    });
 
 
-                reader.readAsDataURL(file);
+    // =========================
+    // LOAD REVIEWS
+    // =========================
 
-            });
+    let reviews = [];
+
+    async function loadReviews() {
+
+        const { data, error } = await supabaseClient
+            .from("reviews")
+            .select("*")
+            .eq("approved", true)
+            .order("created_at", { ascending: false });
+
+        if (error) {
+
+            console.error("LOAD REVIEWS ERROR:", error);
+
+            return;
 
         }
-    );
+
+        reviews = data || [];
+
+        displayReview(0);
+
+        loadPhotos();
+
+    }
 
 
-
-    /* =====================================
-       SAMPLE REVIEWS
-    ===================================== */
-
-    const reviews = [
-
-        {
-            name: "SARAH",
-            city: "ORAN",
-            rating: 5,
-            text:
-                "The most comfortable scrubs I've ever worn. They move with me during long shifts and still look great."
-        },
-
-
-        {
-            name: "AMINE",
-            city: "SIDI BEL ABBÈS",
-            rating: 5,
-            text:
-                "Really comfortable and the fabric feels amazing. I can wear them for hours without feeling restricted."
-        },
-
-
-        {
-            name: "LINA",
-            city: "ALGIERS",
-            rating: 5,
-            text:
-                "I love the fit. The scrub stays comfortable throughout my whole shift and the design is so clean."
-        },
-
-
-        {
-            name: "YASMINE",
-            city: "TLEMCEN",
-            rating: 4,
-            text:
-                "The quality is exactly what I was looking for in medical wear. Comfortable, simple and easy to wear."
-        }
-
-    ];
-
-
-
-    /* =====================================
-       REVIEW SLIDER
-    ===================================== */
-
-    const reviewCard =
-        document.getElementById("reviewCard");
+    // =========================
+    // DISPLAY REVIEWS
+    // =========================
 
     const displayStars =
         document.getElementById("displayStars");
 
-    const displayReview =
+    const displayReviewText =
         document.getElementById("displayReview");
 
     const displayName =
@@ -174,250 +131,184 @@ document.addEventListener("DOMContentLoaded", function () {
     const reviewTotal =
         document.getElementById("reviewTotal");
 
-
     let currentReview = 0;
 
 
-    reviewTotal.textContent =
-        String(reviews.length).padStart(2, "0");
+    function displayReview(index) {
 
+        if (!reviews.length) {
 
-    function displayReviewItem(index) {
+            displayStars.textContent = "☆☆☆☆☆";
 
-        const review =
-            reviews[index];
+            displayReviewText.textContent =
+                '"Your review will appear here."';
 
+            displayName.textContent =
+                "BEQUEM CUSTOMER";
+
+            displayCity.textContent =
+                "—";
+
+            reviewCurrent.textContent =
+                "01";
+
+            reviewTotal.textContent =
+                "01";
+
+            return;
+
+        }
+
+        const review = reviews[index];
 
         displayStars.textContent =
             "★".repeat(review.rating) +
             "☆".repeat(5 - review.rating);
 
-
-        displayReview.textContent =
-            `"${review.text}"`;
-
+        displayReviewText.textContent =
+            `"${review.review}"`;
 
         displayName.textContent =
             review.name;
 
-
         displayCity.textContent =
-            review.city;
-
+            review.city ? `— ${review.city}` : "—";
 
         reviewCurrent.textContent =
             String(index + 1).padStart(2, "0");
 
-
-        /*
-         * Small animation
-         */
-
-        reviewCard.style.opacity = "0";
-
-
-        setTimeout(function () {
-
-            reviewCard.style.opacity = "1";
-
-        }, 100);
+        reviewTotal.textContent =
+            String(reviews.length).padStart(2, "0");
 
     }
 
-
-    displayReviewItem(currentReview);
-
-
-
-    /* =====================================
-       NEXT REVIEW
-    ===================================== */
 
     document
         .getElementById("reviewNext")
         .addEventListener("click", function () {
 
+            if (!reviews.length) return;
+
             currentReview++;
 
             if (currentReview >= reviews.length) {
-
                 currentReview = 0;
-
             }
 
-            displayReviewItem(currentReview);
+            displayReview(currentReview);
 
         });
 
-
-
-    /* =====================================
-       PREVIOUS REVIEW
-    ===================================== */
 
     document
         .getElementById("reviewPrev")
         .addEventListener("click", function () {
 
+            if (!reviews.length) return;
+
             currentReview--;
 
             if (currentReview < 0) {
-
-                currentReview =
-                    reviews.length - 1;
-
+                currentReview = reviews.length - 1;
             }
 
-            displayReviewItem(currentReview);
+            displayReview(currentReview);
 
         });
 
 
+    // =========================
+    // PHOTOS
+    // =========================
 
-    /* =====================================
-       AUTOMATIC REVIEW SLIDER
-    ===================================== */
-
-    setInterval(function () {
-
-        currentReview++;
-
-        if (currentReview >= reviews.length) {
-
-            currentReview = 0;
-
-        }
-
-        displayReviewItem(currentReview);
-
-    }, 5000);
-
-
-
-    /* =====================================
-       CUSTOMER PHOTOS
-    ===================================== */
-
-    /*
-     * Pour l'instant on utilise
-     * tes images de démonstration.
-     *
-     * Plus tard, les photos envoyées
-     * par les clients seront ajoutées
-     * automatiquement après validation.
-     */
-
-    const customerPhotos = [
-
-        "images/customer1.jpg",
-        "images/customer2.jpg",
-        "images/customer3.jpg"
-
-    ];
-
+    let customerPhotos = [];
+    let currentPhoto = 0;
 
     const displayPhoto =
         document.getElementById("displayPhoto");
 
 
-    let currentPhoto = 0;
+    function loadPhotos() {
 
+        customerPhotos = [];
 
-    function displayCustomerPhoto(index) {
+        reviews.forEach(function (review) {
 
-        if (!customerPhotos.length) {
-            return;
-        }
+            if (
+                Array.isArray(review.photo_urls)
+            ) {
 
+                review.photo_urls.forEach(function (url) {
 
-        displayPhoto.style.opacity = "0";
+                    if (url) {
+                        customerPhotos.push(url);
+                    }
 
+                });
 
-        setTimeout(function () {
+            }
 
-            displayPhoto.src =
-                customerPhotos[index];
+        });
 
-            displayPhoto.style.opacity =
-                "1";
-
-        }, 150);
+        displayPhotoItem(0);
 
     }
 
 
-    displayCustomerPhoto(currentPhoto);
+    function displayPhotoItem(index) {
 
+        if (!customerPhotos.length) {
 
+            displayPhoto.src =
+                "images/placeholder.jpg";
 
-    /* =====================================
-       NEXT PHOTO
-    ===================================== */
+            return;
+
+        }
+
+        displayPhoto.src =
+            customerPhotos[index];
+
+    }
+
 
     document
         .getElementById("photoNext")
         .addEventListener("click", function () {
 
+            if (!customerPhotos.length) return;
+
             currentPhoto++;
 
             if (currentPhoto >= customerPhotos.length) {
-
                 currentPhoto = 0;
-
             }
 
-            displayCustomerPhoto(currentPhoto);
+            displayPhotoItem(currentPhoto);
 
         });
 
-
-
-    /* =====================================
-       PREVIOUS PHOTO
-    ===================================== */
 
     document
         .getElementById("photoPrev")
         .addEventListener("click", function () {
 
+            if (!customerPhotos.length) return;
+
             currentPhoto--;
 
             if (currentPhoto < 0) {
-
-                currentPhoto =
-                    customerPhotos.length - 1;
-
+                currentPhoto = customerPhotos.length - 1;
             }
 
-            displayCustomerPhoto(currentPhoto);
+            displayPhotoItem(currentPhoto);
 
         });
 
 
-
-    /* =====================================
-       AUTOMATIC PHOTO SLIDER
-    ===================================== */
-
-    setInterval(function () {
-
-        currentPhoto++;
-
-        if (currentPhoto >= customerPhotos.length) {
-
-            currentPhoto = 0;
-
-        }
-
-        displayCustomerPhoto(currentPhoto);
-
-    }, 4500);
-
-
-
-    /* =====================================
-       REVIEW FORM
-    ===================================== */
+    // =========================
+    // SUBMIT REVIEW
+    // =========================
 
     const reviewForm =
         document.getElementById("reviewForm");
@@ -426,106 +317,194 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("reviewMessage");
 
 
-    reviewForm.addEventListener(
-        "submit",
-        function (event) {
+    reviewForm.addEventListener("submit", async function (event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
 
-            const name =
-                document
-                    .getElementById("reviewName")
-                    .value
-                    .trim();
+        const name =
+            document.getElementById("reviewName").value.trim();
+
+        const city =
+            document.getElementById("reviewCity").value.trim();
+
+        const rating =
+            Number(
+                document.getElementById("reviewRating").value
+            );
+
+        const reviewText =
+            document.getElementById("reviewText").value.trim();
 
 
-            const city =
-                document
-                    .getElementById("reviewCity")
-                    .value
-                    .trim();
+        // VALIDATION
 
-
-            const rating =
-                Number(
-                    document
-                        .getElementById("reviewRating")
-                        .value
-                );
-
-
-            const text =
-                document
-                    .getElementById("reviewText")
-                    .value
-                    .trim();
-
-
-            /* =========================
-               VALIDATION
-            ========================= */
-
-            if (!name) {
-
-                reviewMessage.textContent =
-                    "Please enter your first name.";
-
-                return;
-
-            }
-
-
-            if (!rating) {
-
-                reviewMessage.textContent =
-                    "Please choose a rating.";
-
-                return;
-
-            }
-
-
-            if (!text) {
-
-                reviewMessage.textContent =
-                    "Please write your review.";
-
-                return;
-
-            }
-
-
-            /*
-             * POUR LE MOMENT
-             *
-             * L'avis n'est pas encore
-             * envoyé vers une base de données.
-             *
-             * On prépare simplement
-             * le formulaire.
-             */
+        if (!name) {
 
             reviewMessage.textContent =
-                "Thank you for your review. It has been submitted for approval.";
+                "Please enter your first name.";
+
+            return;
+
+        }
+
+
+        if (rating < 1 || rating > 5) {
+
+            reviewMessage.textContent =
+                "Please choose a rating.";
+
+            return;
+
+        }
+
+
+        if (!reviewText) {
+
+            reviewMessage.textContent =
+                "Please write your review.";
+
+            return;
+
+        }
+
+
+        reviewMessage.textContent =
+            "Sending your review...";
+
+
+        try {
+
+            // =========================
+            // UPLOAD PHOTOS
+            // =========================
+
+            const photoUrls = [];
+
+            for (const file of Array.from(photoInput.files)) {
+
+                if (!file.type.startsWith("image/")) {
+                    continue;
+                }
+
+                const extension =
+                    file.name.split(".").pop();
+
+                const fileName =
+                    crypto.randomUUID() + "." + extension;
+
+                const filePath =
+                    "customers/" + fileName;
+
+
+                const { error: uploadError } =
+                    await supabaseClient
+                        .storage
+                        .from("reviews-photo")
+                        .upload(
+                            filePath,
+                            file
+                        );
+
+
+                if (uploadError) {
+
+                    console.error(
+                        "PHOTO UPLOAD ERROR:",
+                        uploadError
+                    );
+
+                    throw uploadError;
+
+                }
+
+
+                const { data } =
+                    supabaseClient
+                        .storage
+                        .from("reviews-photo")
+                        .getPublicUrl(filePath);
+
+
+                photoUrls.push(
+                    data.publicUrl
+                );
+
+            }
+
+
+            // =========================
+            // INSERT REVIEW
+            // =========================
+
+            const { error } =
+                await supabaseClient
+                    .from("reviews")
+                    .insert({
+
+                        name: name,
+
+                        city: city,
+
+                        rating: rating,
+
+                        review: reviewText,
+
+                        photo_urls: photoUrls,
+
+                        approved: false
+
+                    });
+
+
+            if (error) {
+
+                console.error(
+                    "INSERT REVIEW ERROR:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            // SUCCESS
+
+            reviewMessage.textContent =
+                "Thank you! Your review has been submitted for approval.";
 
 
             reviewForm.reset();
 
-
             ratingInput.value = 0;
 
-
             stars.forEach(function (star) {
-
                 star.classList.remove("selected");
-
             });
-
 
             photoPreview.innerHTML = "";
 
+
+        } catch (error) {
+
+            console.error(
+                "SUBMIT REVIEW ERROR:",
+                error
+            );
+
+            reviewMessage.textContent =
+                "Something went wrong. Please try again.";
+
         }
-    );
+
+    });
+
+
+    // =========================
+    // START
+    // =========================
+
+    await loadReviews();
 
 });
