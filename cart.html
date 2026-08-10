@@ -81,7 +81,8 @@
 
     <!-- ================= SUMMARY ================= -->
 
-    <section class="cart-summary" id="cartSummary">
+    <section class="cart-summary"
+             id="cartSummary">
 
         <div class="summary-line">
 
@@ -145,6 +146,7 @@
         BEQUEM SCRUBS
     </div>
 
+
     <div class="footer-bottom">
 
         <span>
@@ -160,7 +162,9 @@
 </footer>
 
 
-<!-- ================= REVIEW POPUP ================= -->
+<!-- ==================================================
+     ORDER CONFIRMED + REVIEW POPUP
+================================================== -->
 
 <div class="review-popup"
      id="reviewPopup">
@@ -177,7 +181,7 @@
 
 
         <p class="review-small">
-            ORDER RECEIVED
+            ORDER CONFIRMED
         </p>
 
 
@@ -192,6 +196,7 @@
             <button id="reviewYes">
                 YES →
             </button>
+
 
             <button id="reviewNo">
                 NO
@@ -209,11 +214,9 @@
 <script>
 
 
-/*
-==================================================
-PANIER
-==================================================
-*/
+/* ==================================================
+   ELEMENTS
+================================================== */
 
 
 const cartContainer =
@@ -244,9 +247,26 @@ const checkoutButton =
     document.getElementById("checkoutButton");
 
 
-/*
-    Récupérer le panier
-*/
+const reviewPopup =
+    document.getElementById("reviewPopup");
+
+
+const reviewYes =
+    document.getElementById("reviewYes");
+
+
+const reviewNo =
+    document.getElementById("reviewNo");
+
+
+const reviewClose =
+    document.getElementById("reviewClose");
+
+
+/* ==================================================
+   GET CART
+================================================== */
+
 
 let cart =
     JSON.parse(
@@ -254,22 +274,19 @@ let cart =
     );
 
 
-/*
-==================================================
-AFFICHER LE PANIER
-==================================================
-*/
+/* ==================================================
+   DISPLAY CART
+================================================== */
 
 
 function displayCart() {
-
 
     cartContainer.innerHTML = "";
 
 
     /*
-        Panier vide
-    */
+     * EMPTY CART
+     */
 
     if (cart.length === 0) {
 
@@ -285,8 +302,8 @@ function displayCart() {
 
 
     /*
-        Panier rempli
-    */
+     * CART HAS PRODUCTS
+     */
 
     cartSummary.style.display = "block";
 
@@ -295,16 +312,10 @@ function displayCart() {
 
     let totalItems = 0;
 
-
     let totalPrice = 0;
 
 
-    cart.forEach(function(item, index) {
-
-
-        /*
-            Quantité
-        */
+    cart.forEach(function(item) {
 
         const quantity =
             Number(item.quantity) || 1;
@@ -313,23 +324,16 @@ function displayCart() {
         totalItems += quantity;
 
 
-        /*
-            Prix
-        */
-
         const price =
             Number(
                 String(item.price || "0")
-                .replace(/[^\d.]/g, "")
+                    .replace(/[^\d.]/g, "")
             ) || 0;
 
 
-        totalPrice += price * quantity;
+        totalPrice +=
+            price * quantity;
 
-
-        /*
-            Créer l'article
-        */
 
         const cartItem =
             document.createElement("div");
@@ -347,13 +351,17 @@ function displayCart() {
                     ${item.name || "BEQUEM SCRUB"}
                 </h3>
 
-                <p>
-                    ${item.size ? "SIZE: " + item.size : ""}
-                </p>
+                ${
+                    item.size
+                    ? `<p>SIZE: ${item.size}</p>`
+                    : ""
+                }
 
-                <p>
-                    ${item.color ? "COLOR: " + item.color : ""}
-                </p>
+                ${
+                    item.color
+                    ? `<p>COLOR: ${item.color}</p>`
+                    : ""
+                }
 
                 <p>
                     QUANTITY: ${quantity}
@@ -377,16 +385,24 @@ function displayCart() {
 
 
     /*
-        Mettre à jour les informations
-    */
+     * UPDATE CART NUMBER
+     */
 
     cartCount.textContent =
         totalItems;
 
 
+    /*
+     * UPDATE ITEMS
+     */
+
     summaryItems.textContent =
         totalItems;
 
+
+    /*
+     * UPDATE PRICE
+     */
 
     if (totalPrice > 0) {
 
@@ -403,22 +419,19 @@ function displayCart() {
 }
 
 
-/*
-==================================================
-CHECKOUT
-==================================================
-*/
+/* ==================================================
+   CHECKOUT
+================================================== */
 
 
 checkoutButton.addEventListener(
     "click",
-    function () {
+    function() {
 
 
         /*
-            Vérifier que le panier
-            n'est pas vide
-        */
+         * Don't checkout empty cart
+         */
 
         if (cart.length === 0) {
 
@@ -428,8 +441,48 @@ checkoutButton.addEventListener(
 
 
         /*
-            Afficher la popup
-        */
+         * ==========================================
+         * ORDER IS CONFIRMED
+         * ==========================================
+         */
+
+
+        /*
+         * Save order before clearing cart.
+         *
+         * This keeps a copy of the last order
+         * in case you need it later.
+         */
+
+        localStorage.setItem(
+            "bequemLastOrder",
+            JSON.stringify(cart)
+        );
+
+
+        /*
+         * EMPTY THE CART
+         */
+
+        cart = [];
+
+
+        localStorage.setItem(
+            "bequemCart",
+            JSON.stringify([])
+        );
+
+
+        /*
+         * UPDATE THE PAGE
+         */
+
+        displayCart();
+
+
+        /*
+         * SHOW REVIEW POPUP
+         */
 
         reviewPopup.classList.add("active");
 
@@ -437,36 +490,14 @@ checkoutButton.addEventListener(
 );
 
 
-/*
-==================================================
-REVIEW POPUP
-==================================================
-*/
+/* ==================================================
+   YES — GO TO REVIEWS
+================================================== */
 
-
-const reviewPopup =
-    document.getElementById("reviewPopup");
-
-
-const reviewYes =
-    document.getElementById("reviewYes");
-
-
-const reviewNo =
-    document.getElementById("reviewNo");
-
-
-const reviewClose =
-    document.getElementById("reviewClose");
-
-
-/*
-    YES
-*/
 
 reviewYes.addEventListener(
     "click",
-    function () {
+    function() {
 
         window.location.href =
             "reviews.html";
@@ -475,13 +506,14 @@ reviewYes.addEventListener(
 );
 
 
-/*
-    NO
-*/
+/* ==================================================
+   NO — CLOSE POPUP
+================================================== */
+
 
 reviewNo.addEventListener(
     "click",
-    function () {
+    function() {
 
         reviewPopup.classList.remove(
             "active"
@@ -491,13 +523,14 @@ reviewNo.addEventListener(
 );
 
 
-/*
-    X
-*/
+/* ==================================================
+   CLOSE BUTTON
+================================================== */
+
 
 reviewClose.addEventListener(
     "click",
-    function () {
+    function() {
 
         reviewPopup.classList.remove(
             "active"
@@ -507,9 +540,10 @@ reviewClose.addEventListener(
 );
 
 
-/*
-    Cliquer à l'extérieur
-*/
+/* ==================================================
+   CLICK OUTSIDE POPUP
+================================================== */
+
 
 reviewPopup.addEventListener(
     "click",
@@ -529,11 +563,9 @@ reviewPopup.addEventListener(
 );
 
 
-/*
-==================================================
-LANCER LE PANIER
-==================================================
-*/
+/* ==================================================
+   START
+================================================== */
 
 
 displayCart();
