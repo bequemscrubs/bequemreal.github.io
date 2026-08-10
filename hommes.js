@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedColor = null;
     let selectedSize = null;
 
+
     /*
        Chaque motif possède ses propres informations.
        Ils ne se mélangent PAS.
@@ -64,7 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         topCards.forEach(function (card) {
+
             card.classList.remove("selected");
+
         });
 
 
@@ -333,11 +336,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .textContent = selectedMotif;
 
 
-        /*
-           On recharge l'emplacement
-           correspondant à CE motif.
-        */
-
         placementButtons.forEach(function (button) {
 
             button.classList.remove("selected");
@@ -402,11 +400,6 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener("click", function () {
 
 
-            /*
-               Si aucun motif n'est choisi,
-               on ne fait rien.
-            */
-
             if (selectedMotif === "NO MOTIF") {
 
                 return;
@@ -423,12 +416,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             button.classList.add("selected");
 
-
-            /*
-               IMPORTANT :
-               on sauvegarde l'emplacement
-               DANS le motif actuellement choisi.
-            */
 
             motifs[selectedMotif].placement =
                 button.dataset.placement;
@@ -450,9 +437,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     description.addEventListener("input", function () {
 
-
         if (selectedMotif === "NO MOTIF") {
+
             return;
+
         }
 
 
@@ -534,6 +522,117 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================
+       BUILD CURRENT OUTFIT
+    ===================================== */
+
+    function buildCurrentOutfit() {
+
+
+        let motifData = null;
+
+
+        if (selectedMotif !== "NO MOTIF") {
+
+            motifData = {
+
+                name:
+                    selectedMotif,
+
+                placement:
+                    motifs[selectedMotif].placement,
+
+                description:
+                    motifs[selectedMotif].description
+
+            };
+
+        }
+
+
+        return {
+
+            category: "HOMMES",
+
+            top: selectedTop,
+
+            pants: selectedPants,
+
+            color: selectedColor,
+
+            size: selectedSize,
+
+            motif: motifData
+
+        };
+
+    }
+
+
+
+    /* =====================================
+       SAVE OUTFIT BEFORE ACCESSORY
+    ===================================== */
+
+    document
+        .getElementById("compressionLink")
+        .addEventListener("click", function (event) {
+
+
+            if (
+                !selectedTop ||
+                !selectedPants ||
+                !selectedColor ||
+                !selectedSize
+            ) {
+
+                event.preventDefault();
+
+
+                alert(
+                    "Please complete your scrub selection first."
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                selectedMotif !== "NO MOTIF" &&
+                !motifs[selectedMotif].placement
+            ) {
+
+                event.preventDefault();
+
+
+                alert(
+                    "Please choose where you want your motif."
+                );
+
+
+                return;
+
+            }
+
+
+            const outfit =
+                buildCurrentOutfit();
+
+
+            localStorage.setItem(
+
+                "bequemCurrentOutfit",
+
+                JSON.stringify(outfit)
+
+            );
+
+        });
+
+
+
+    /* =====================================
        ADD TO CART
     ===================================== */
 
@@ -541,8 +640,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("addToCart")
         .addEventListener("click", function () {
 
-
-            /* TOP */
 
             if (!selectedTop) {
 
@@ -555,8 +652,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* PANTS */
-
             if (!selectedPants) {
 
                 alert(
@@ -567,8 +662,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
 
-
-            /* COLOR */
 
             if (!selectedColor) {
 
@@ -581,8 +674,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* SIZE */
-
             if (!selectedSize) {
 
                 alert(
@@ -594,8 +685,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* MOTIF */
-
             let motifData = null;
 
 
@@ -604,7 +693,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 motifData = {
 
-                    name: selectedMotif,
+                    name:
+                        selectedMotif,
 
                     placement:
                         motifs[selectedMotif].placement,
@@ -628,11 +718,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-
-            /* =================================
-               PRODUCT
-            ================================= */
-
             const product = {
 
                 category: "HOMMES",
@@ -652,11 +737,6 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
 
-
-            /* =================================
-               LOCAL STORAGE
-            ================================= */
-
             let cart =
                 JSON.parse(
                     localStorage.getItem(
@@ -669,15 +749,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             localStorage.setItem(
+
                 "bequemCart",
+
                 JSON.stringify(cart)
+
             );
 
 
+            /* L'ancienne configuration
+               n'est plus nécessaire */
 
-            /* =================================
-               SUCCESS
-            ================================= */
+            localStorage.removeItem(
+                "bequemCurrentOutfit"
+            );
+
 
             const button =
                 document.getElementById("addToCart");
@@ -695,12 +781,175 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 1800);
 
 
-            console.log(
-                "BEQUEM CART:",
-                cart
+        });
+
+
+
+    /* =====================================
+       RESTORE OUTFIT
+    ===================================== */
+
+    function restoreOutfit() {
+
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "bequemCurrentOutfit"
+                )
             );
 
-        });
+
+        if (!saved) {
+
+            return;
+
+        }
+
+
+        if (saved.category !== "HOMMES") {
+
+            return;
+
+        }
+
+
+        /* TOP */
+
+        const savedTopIndex =
+            Array.from(topCards)
+                .findIndex(function (card) {
+
+                    return (
+                        card.dataset.value ===
+                        saved.top
+                    );
+
+                });
+
+
+        if (savedTopIndex !== -1) {
+
+            selectTop(savedTopIndex);
+
+        }
+
+
+
+        /* PANTS */
+
+        const savedPantsIndex =
+            Array.from(pantsCards)
+                .findIndex(function (card) {
+
+                    return (
+                        card.dataset.value ===
+                        saved.pants
+                    );
+
+                });
+
+
+        if (savedPantsIndex !== -1) {
+
+            selectPants(savedPantsIndex);
+
+        }
+
+
+
+        /* COLOR */
+
+        if (saved.color) {
+
+            const colorButton =
+                document.querySelector(
+                    `.color-choice[data-color="${saved.color}"]`
+                );
+
+
+            if (colorButton) {
+
+                colorButton.click();
+
+            }
+
+        }
+
+
+
+        /* SIZE */
+
+        if (saved.size) {
+
+            const sizeButton =
+                document.querySelector(
+                    `.size-choice[data-size="${saved.size}"]`
+                );
+
+
+            if (sizeButton) {
+
+                sizeButton.click();
+
+            }
+
+        }
+
+
+
+        /* MOTIF */
+
+        if (
+            saved.motif &&
+            saved.motif.name
+        ) {
+
+
+            const motifButton =
+                document.querySelector(
+                    `.motif-choice[data-motif="${saved.motif.name}"]`
+                );
+
+
+            if (motifButton) {
+
+                motifButton.click();
+
+
+                if (saved.motif.placement) {
+
+                    const placementButton =
+                        document.querySelector(
+                            `.placement-choice[data-placement="${saved.motif.placement}"]`
+                        );
+
+
+                    if (placementButton) {
+
+                        placementButton.click();
+
+                    }
+
+                }
+
+
+                if (saved.motif.description) {
+
+                    description.value =
+                        saved.motif.description;
+
+
+                    motifs[saved.motif.name].description =
+                        saved.motif.description;
+
+                }
+
+            }
+
+        }
+
+    }
 
 
 
@@ -708,15 +957,12 @@ document.addEventListener("DOMContentLoaded", function () {
        INITIAL STATE
     ===================================== */
 
-    /*
-       On sélectionne automatiquement
-       le premier haut et le premier pantalon.
-    */
-
     selectTop(0);
 
     selectPants(0);
 
     loadMotifData();
+
+    restoreOutfit();
 
 });
