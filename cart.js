@@ -51,12 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let totalQuantity = 0;
 
+
         cart.forEach(function (item) {
 
             totalQuantity +=
                 Number(item.quantity) || 1;
 
         });
+
 
         cartCount.textContent =
             totalQuantity;
@@ -70,29 +72,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getProductImage(item) {
 
-        if (!item.top) {
 
-            return "images/placeholder.jpg";
+        /*
+         * Si l'article contient une tenue,
+         * on utilise la photo du TOP.
+         */
+
+        if (item.top) {
+
+            const images = {
+
+                "COL ROND":
+                    "images/col-rond.jpg",
+
+                "COL V":
+                    "images/col-v.jpg",
+
+                "ZIPPÉ":
+                    "images/zippe.jpg"
+
+            };
+
+
+            return images[item.top]
+                || "images/placeholder.jpg";
 
         }
 
 
-        const images = {
+        /*
+         * Article sans tenue
+         */
 
-            "COL ROND":
-                "images/col-rond.jpg",
-
-            "COL V":
-                "images/col-v.jpg",
-
-            "ZIPPÉ":
-                "images/zippe.jpg"
-
-        };
-
-
-        return images[item.top]
-            || "images/placeholder.jpg";
+        return "images/placeholder.jpg";
 
     }
 
@@ -103,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderCart() {
 
+
         container.innerHTML = "";
 
 
@@ -111,18 +124,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (cart.length === 0) {
 
-            emptyCart.style.display = "block";
+            emptyCart.style.display =
+                "block";
 
-            cartSummary.style.display = "none";
+            cartSummary.style.display =
+                "none";
 
             return;
 
         }
 
 
-        emptyCart.style.display = "none";
+        emptyCart.style.display =
+            "none";
 
-        cartSummary.style.display = "block";
+
+        cartSummary.style.display =
+            "block";
 
 
         let totalItems = 0;
@@ -141,30 +159,121 @@ document.addEventListener("DOMContentLoaded", function () {
             const article =
                 document.createElement("article");
 
+
             article.className =
                 "cart-item";
 
 
-            let motifName = "NO MOTIF";
+            /* =================================
+               MOTIF
+            ================================= */
 
-            let placement = "—";
+            let motifName =
+                "NO MOTIF";
 
-            let motifDescription = "—";
+
+            let placement =
+                "—";
+
+
+            let motifDescription =
+                "—";
 
 
             if (item.motif) {
 
+
                 motifName =
-                    item.motif.name || "NO MOTIF";
+                    item.motif.name
+                    || "NO MOTIF";
+
 
                 placement =
-                    item.motif.placement || "—";
+                    item.motif.placement
+                    || "—";
+
 
                 motifDescription =
-                    item.motif.description || "—";
+                    item.motif.description
+                    || "—";
 
             }
 
+
+            /* =================================
+               BAS DE CONTENTION
+            ================================= */
+
+            let compressionHTML = "";
+
+
+            if (item.compressionSock) {
+
+
+                const socks =
+                    item.compressionSock;
+
+
+                compressionHTML = `
+
+                    <div class="cart-accessory">
+
+                        <div class="cart-accessory-title">
+
+                            COMPRESSION SOCKS
+
+                        </div>
+
+
+                        <div class="cart-details">
+
+
+                            <div class="cart-detail">
+
+                                <span>MODEL</span>
+
+                                <strong>
+                                    ${socks.model || "—"}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="cart-detail">
+
+                                <span>COLOR</span>
+
+                                <strong>
+                                    ${socks.color || "—"}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="cart-detail">
+
+                                <span>SIZE</span>
+
+                                <strong>
+                                    ${socks.size || "—"}
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+
+
+            /* =================================
+               HTML
+            ================================= */
 
             article.innerHTML = `
 
@@ -179,68 +288,142 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <div class="cart-info">
 
+
                     <div>
 
                         <div class="cart-category">
+
                             ${item.category || "BEQUEM SCRUBS"}
+
                         </div>
 
+
                         <h2 class="cart-title">
-                            CUSTOM SET
+
+                            ${
+                                item.compressionSock
+                                ? "COMPLETE OUTFIT"
+                                : "CUSTOM SET"
+                            }
+
                         </h2>
 
                     </div>
 
 
+
+                    <!-- =====================
+                         SCRUB DETAILS
+                    ====================== -->
+
                     <div class="cart-details">
 
+
                         <div class="cart-detail">
+
                             <span>TOP</span>
-                            <strong>${item.top || "—"}</strong>
+
+                            <strong>
+                                ${item.top || "—"}
+                            </strong>
+
                         </div>
 
 
                         <div class="cart-detail">
+
                             <span>PANTS</span>
-                            <strong>${item.pants || "—"}</strong>
+
+                            <strong>
+                                ${item.pants || "—"}
+                            </strong>
+
                         </div>
 
 
                         <div class="cart-detail">
+
                             <span>COLOR</span>
-                            <strong>${item.color || "—"}</strong>
+
+                            <strong>
+                                ${
+                                    item.color ||
+                                    item.scrubColor ||
+                                    "—"
+                                }
+                            </strong>
+
                         </div>
 
 
                         <div class="cart-detail">
+
                             <span>SIZE</span>
-                            <strong>${item.size || "—"}</strong>
+
+                            <strong>
+                                ${
+                                    item.size ||
+                                    item.scrubSize ||
+                                    "—"
+                                }
+                            </strong>
+
                         </div>
 
 
                         <div class="cart-detail">
+
                             <span>MOTIF</span>
-                            <strong>${motifName}</strong>
+
+                            <strong>
+                                ${motifName}
+                            </strong>
+
                         </div>
 
 
                         <div class="cart-detail">
+
                             <span>PLACEMENT</span>
-                            <strong>${placement}</strong>
+
+                            <strong>
+                                ${placement}
+                            </strong>
+
                         </div>
 
 
                         <div class="cart-detail">
+
                             <span>DESCRIPTION</span>
-                            <strong>${motifDescription}</strong>
+
+                            <strong>
+                                ${motifDescription}
+                            </strong>
+
                         </div>
+
 
                     </div>
+
+
+                    <!-- =====================
+                         ACCESSORY
+                    ====================== -->
+
+                    ${compressionHTML}
+
 
                 </div>
 
 
+
+                <!-- =====================
+                     ACTIONS
+                ====================== -->
+
                 <div class="cart-actions">
+
 
                     <button
                         class="remove-button"
@@ -253,6 +436,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <div class="quantity">
 
+
                         <button
                             class="minus"
                             data-index="${index}">
@@ -263,7 +447,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                         <span>
+
                             ${quantity}
+
                         </span>
 
 
@@ -275,7 +461,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         </button>
 
+
                     </div>
+
 
                 </div>
 
@@ -292,11 +480,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
-         * NO PRICES YET
-         *
-         * We deliberately do not
-         * calculate money until
-         * launch prices are added.
+         * PRICES ARE NOT READY YET.
          */
 
         summaryTotal.textContent =
@@ -308,12 +492,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+
     /* =====================================
        BUTTON EVENTS
     ===================================== */
 
     function addButtonEvents() {
 
+
+        /*
+         * REMOVE
+         */
 
         document
             .querySelectorAll(".remove-button")
@@ -331,7 +520,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             );
 
 
-                        cart.splice(index, 1);
+                        cart.splice(
+                            index,
+                            1
+                        );
 
 
                         saveCart();
@@ -344,6 +536,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
 
+
+        /*
+         * PLUS
+         */
 
         document
             .querySelectorAll(".plus")
@@ -362,9 +558,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                         cart[index].quantity =
-                            (Number(
-                                cart[index].quantity
-                            ) || 1) + 1;
+                            (
+                                Number(
+                                    cart[index].quantity
+                                ) || 1
+                            ) + 1;
 
 
                         saveCart();
@@ -377,6 +575,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
 
+
+        /*
+         * MINUS
+         */
 
         document
             .querySelectorAll(".minus")
@@ -402,12 +604,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         if (quantity > 1) {
 
+
                             cart[index].quantity =
                                 quantity - 1;
 
+
                         } else {
 
-                            cart.splice(index, 1);
+
+                            cart.splice(
+                                index,
+                                1
+                            );
 
                         }
 
@@ -424,17 +632,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+
     /* =====================================
        CHECKOUT
     ===================================== */
 
-      document
-    .getElementById("checkoutButton")
-    .addEventListener("click", function () {
+    document
+        .getElementById("checkoutButton")
+        .addEventListener(
+            "click",
+            function () {
 
-        window.location.href = "checkout.html";
+                window.location.href =
+                    "checkout.html";
 
-    });
+            }
+        );
+
 
 
     /* =====================================
