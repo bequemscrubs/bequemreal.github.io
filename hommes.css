@@ -504,3 +504,167 @@ footer p {
         font-size: 50px;
     }
 }
+/* =====================================
+   COMPLETE YOUR LOOK
+===================================== */
+
+.complete-look {
+
+    margin-top: 100px;
+
+    padding: 70px 0;
+
+    border-top: 1px solid #111;
+
+}
+
+
+.complete-look-number {
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.complete-look h2 {
+
+    font-family: "Anton", sans-serif;
+
+    font-size: clamp(55px, 8vw, 110px);
+
+    line-height: .85;
+
+    margin-bottom: 25px;
+
+}
+
+
+.complete-look > p:not(.complete-look-number) {
+
+    font-size: 13px;
+
+    max-width: 500px;
+
+    line-height: 1.6;
+
+    margin-bottom: 45px;
+
+}
+
+
+/* CARD */
+
+.compression-link {
+
+    display: block;
+
+    border: 1px solid #111;
+
+    text-decoration: none;
+
+    color: #111;
+
+    transition:
+        background .25s ease,
+        color .25s ease;
+
+}
+
+
+.compression-image {
+
+    height: 280px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #e8e8e6;
+
+}
+
+
+.compression-image span {
+
+    font-size: 70px;
+
+}
+
+
+.compression-info {
+
+    padding: 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    gap: 20px;
+
+}
+
+
+.compression-info span {
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+}
+
+
+.compression-info h3 {
+
+    font-family: "Anton", sans-serif;
+
+    font-size: 32px;
+
+    margin-top: 8px;
+
+}
+
+
+.compression-link:hover {
+
+    background: #111;
+
+    color: #fff;
+
+}
+
+
+@media (max-width: 700px) {
+
+    .complete-look {
+
+        margin-top: 70px;
+
+        padding: 55px 0;
+
+    }
+
+    .compression-image {
+
+        height: 220px;
+
+    }
+
+    .compression-info h3 {
+
+        font-size: 25px;
+
+    }
+
+}
