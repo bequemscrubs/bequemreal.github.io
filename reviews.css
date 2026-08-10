@@ -574,3 +574,20 @@ footer p {
     }
 
 }
+.star {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 28px;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.star:hover {
+    color: #d4af37;
+    transform: scale(1.1);
+}
+
+.star.selected {
+    color: #d4af37;
+}
