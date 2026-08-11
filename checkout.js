@@ -415,11 +415,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 const motif =
                     getMotif(item);
 
+const category =
+    item.category === "FEMMES"
+        ? "FEMME"
+        : item.category === "HIJABI"
+            ? "HIJAB"
+            : "HOMME";
 
-                message +=
-                    "🩺 *ARTICLE " +
-                    (index + 1) +
-                    " — TENUE*\n";
+message +=
+    "🩺 *ARTICLE " +
+    (index + 1) +
+    " — TENUE*\n";
+
+message +=
+    "Catégorie : " +
+    category +
+    "\n";
 
 
                 message +=
