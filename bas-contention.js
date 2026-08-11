@@ -1,9 +1,8 @@
-```javascript
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* =====================================
-       VARIABLES
-    ===================================== */
+    /* ================================
+       STATE
+    ================================= */
 
     let selectedProduct = "CLASSIC";
     let selectedColor = null;
@@ -11,19 +10,73 @@ document.addEventListener("DOMContentLoaded", function () {
     let quantity = 1;
 
 
-    /* =====================================
-       CURRENT OUTFIT
-    ===================================== */
+    /* ================================
+       ELEMENTS
+    ================================= */
+
+    const productCards =
+        document.querySelectorAll(".product-card");
+
+    const colorButtons =
+        document.querySelectorAll(".color-choice");
+
+    const sizeButtons =
+        document.querySelectorAll(".size-choice");
+
+    const productPrev =
+        document.getElementById("productPrev");
+
+    const productNext =
+        document.getElementById("productNext");
+
+    const minusButton =
+        document.getElementById("minus");
+
+    const plusButton =
+        document.getElementById("plus");
+
+    const addToCartButton =
+        document.getElementById("addToCart");
+
+    const selectedProductText =
+        document.getElementById("selectedProduct");
+
+    const summaryProduct =
+        document.getElementById("summaryProduct");
+
+    const summaryColor =
+        document.getElementById("summaryColor");
+
+    const summarySize =
+        document.getElementById("summarySize");
+
+    const summaryQuantity =
+        document.getElementById("summaryQuantity");
+
+    const quantityText =
+        document.getElementById("quantity");
+
+    const selectionStatus =
+        document.getElementById("selectionStatus");
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+
+    /* ================================
+       OUTFIT SAVED BEFORE BAS PAGE
+    ================================= */
 
     let savedOutfit = null;
 
     try {
 
-        savedOutfit = JSON.parse(
-            localStorage.getItem(
-                "bequemCurrentOutfit"
-            )
-        );
+        savedOutfit =
+            JSON.parse(
+                localStorage.getItem(
+                    "bequemCurrentOutfit"
+                )
+            );
 
     } catch (error) {
 
@@ -32,82 +85,91 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================
-       ELEMENTS
-    ===================================== */
+    /* ================================
+       CART
+    ================================= */
 
-    const products =
-        document.querySelectorAll(
-            ".product-card"
+    function getCart() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem(
+                    "bequemCart"
+                ) || "[]"
+            );
+
+        } catch (error) {
+
+            return [];
+
+        }
+
+    }
+
+
+    function saveCart(cart) {
+
+        localStorage.setItem(
+            "bequemCart",
+            JSON.stringify(cart)
         );
 
-    const selectedProductText =
-        document.getElementById(
-            "selectedProduct"
-        );
-
-    const summaryProduct =
-        document.getElementById(
-            "summaryProduct"
-        );
-
-    const summaryColor =
-        document.getElementById(
-            "summaryColor"
-        );
-
-    const summarySize =
-        document.getElementById(
-            "summarySize"
-        );
-
-    const summaryQuantity =
-        document.getElementById(
-            "summaryQuantity"
-        );
-
-    const quantityDisplay =
-        document.getElementById(
-            "quantity"
-        );
-
-    const status =
-        document.getElementById(
-            "selectionStatus"
-        );
-
-    const addToCartButton =
-        document.getElementById(
-            "addToCart"
-        );
+    }
 
 
-    /* =====================================
-       MODEL / PRODUCT
-    ===================================== */
+    /* ================================
+       CART COUNT
+    ================================= */
 
-    products.forEach(function (product) {
+    function updateCartCount() {
 
-        product.addEventListener(
+        if (!cartCount) {
+            return;
+        }
+
+        const cart = getCart();
+
+        let total = 0;
+
+        cart.forEach(function (item) {
+
+            total +=
+                Number(item.quantity) || 1;
+
+        });
+
+        cartCount.textContent = total;
+
+    }
+
+
+    /* ================================
+       PRODUCT MODEL
+    ================================= */
+
+    productCards.forEach(function (card) {
+
+        card.addEventListener(
             "click",
             function () {
 
-                products.forEach(
-                    function (p) {
+                productCards.forEach(
+                    function (otherCard) {
 
-                        p.classList.remove(
+                        otherCard.classList.remove(
                             "selected"
                         );
 
                     }
                 );
 
-                product.classList.add(
+                card.classList.add(
                     "selected"
                 );
 
                 selectedProduct =
-                    product.dataset.value ||
+                    card.dataset.value ||
                     "CLASSIC";
 
                 if (selectedProductText) {
@@ -130,137 +192,114 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    /* =====================================
+    /* ================================
        COLOR
-    ===================================== */
+    ================================= */
 
-    const colorChoices =
-        document.querySelectorAll(
-            ".color-choice"
-        );
+    colorButtons.forEach(function (button) {
 
-    colorChoices.forEach(
-        function (button) {
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    colorChoices.forEach(
-                        function (b) {
-
-                            b.classList.remove(
-                                "selected"
-                            );
-
-                        }
-                    );
-
-                    button.classList.add(
-                        "selected"
-                    );
-
-                    selectedColor =
-                        button.dataset.color;
-
-                    if (summaryColor) {
-
-                        summaryColor.textContent =
-                            selectedColor;
-
-                    }
-
-                    updateStatus();
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =====================================
-       SIZE
-    ===================================== */
-
-    const sizeChoices =
-        document.querySelectorAll(
-            ".size-choice"
-        );
-
-    sizeChoices.forEach(
-        function (button) {
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    sizeChoices.forEach(
-                        function (b) {
-
-                            b.classList.remove(
-                                "selected"
-                            );
-
-                        }
-                    );
-
-                    button.classList.add(
-                        "selected"
-                    );
-
-                    selectedSize =
-                        button.dataset.size;
-
-                    if (summarySize) {
-
-                        summarySize.textContent =
-                            selectedSize;
-
-                    }
-
-                    updateStatus();
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =====================================
-       QUANTITY PLUS
-    ===================================== */
-
-    const plusButton =
-        document.getElementById(
-            "plus"
-        );
-
-    if (plusButton) {
-
-        plusButton.addEventListener(
+        button.addEventListener(
             "click",
             function () {
 
-                quantity++;
+                colorButtons.forEach(
+                    function (otherButton) {
 
-                updateQuantityDisplay();
+                        otherButton.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+                button.classList.add(
+                    "selected"
+                );
+
+                selectedColor =
+                    button.dataset.color ||
+                    null;
+
+                if (summaryColor) {
+
+                    summaryColor.textContent =
+                        selectedColor || "—";
+
+                }
+
+                updateStatus();
 
             }
         );
 
+    });
+
+
+    /* ================================
+       SIZE
+    ================================= */
+
+    sizeButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                sizeButtons.forEach(
+                    function (otherButton) {
+
+                        otherButton.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+                button.classList.add(
+                    "selected"
+                );
+
+                selectedSize =
+                    button.dataset.size ||
+                    null;
+
+                if (summarySize) {
+
+                    summarySize.textContent =
+                        selectedSize || "—";
+
+                }
+
+                updateStatus();
+
+            }
+        );
+
+    });
+
+
+    /* ================================
+       QUANTITY
+    ================================= */
+
+    function updateQuantity() {
+
+        if (quantityText) {
+
+            quantityText.textContent =
+                quantity;
+
+        }
+
+        if (summaryQuantity) {
+
+            summaryQuantity.textContent =
+                quantity;
+
+        }
+
     }
 
-
-    /* =====================================
-       QUANTITY MINUS
-    ===================================== */
-
-    const minusButton =
-        document.getElementById(
-            "minus"
-        );
 
     if (minusButton) {
 
@@ -274,7 +313,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }
 
-                updateQuantityDisplay();
+                updateQuantity();
 
             }
         );
@@ -282,32 +321,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================
-       UPDATE QUANTITY
-    ===================================== */
+    if (plusButton) {
 
-    function updateQuantityDisplay() {
+        plusButton.addEventListener(
+            "click",
+            function () {
 
-        if (summaryQuantity) {
+                quantity++;
 
-            summaryQuantity.textContent =
-                quantity;
+                updateQuantity();
 
-        }
-
-        if (quantityDisplay) {
-
-            quantityDisplay.textContent =
-                quantity;
-
-        }
+            }
+        );
 
     }
 
 
-    /* =====================================
+    /* ================================
        STATUS
-    ===================================== */
+    ================================= */
 
     function updateStatus() {
 
@@ -316,67 +348,113 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedSize
         ) {
 
-            if (status) {
-
-                status.textContent =
-                    "READY TO ADD TO CART.";
-
-            }
+            selectionStatus.textContent =
+                "READY TO ADD TO CART.";
 
         } else {
 
-            if (status) {
+            selectionStatus.textContent =
+                "Choose your color and size.";
 
-                status.textContent =
-                    "Choose your color and size.";
+        }
+
+    }
+
+
+    /* ================================
+       MODEL ARROWS
+    ================================= */
+
+    function selectProductByIndex(index) {
+
+        if (!productCards.length) {
+            return;
+        }
+
+        if (index < 0) {
+            index = productCards.length - 1;
+        }
+
+        if (
+            index >= productCards.length
+        ) {
+            index = 0;
+        }
+
+        const card =
+            productCards[index];
+
+        card.click();
+
+    }
+
+
+    function getSelectedProductIndex() {
+
+        let index = 0;
+
+        productCards.forEach(
+            function (card, i) {
+
+                if (
+                    card.classList.contains(
+                        "selected"
+                    )
+                ) {
+
+                    index = i;
+
+                }
 
             }
+        );
 
-        }
-
-    }
-
-
-    /* =====================================
-       GET CART
-    ===================================== */
-
-    function getCart() {
-
-        try {
-
-            return JSON.parse(
-                localStorage.getItem(
-                    "bequemCart"
-                )
-            ) || [];
-
-        } catch (error) {
-
-            return [];
-
-        }
+        return index;
 
     }
 
 
-    /* =====================================
-       SAVE CART
-    ===================================== */
+    if (productPrev) {
 
-    function saveCart(cart) {
+        productPrev.addEventListener(
+            "click",
+            function () {
 
-        localStorage.setItem(
-            "bequemCart",
-            JSON.stringify(cart)
+                const current =
+                    getSelectedProductIndex();
+
+                selectProductByIndex(
+                    current - 1
+                );
+
+            }
         );
 
     }
 
 
-    /* =====================================
+    if (productNext) {
+
+        productNext.addEventListener(
+            "click",
+            function () {
+
+                const current =
+                    getSelectedProductIndex();
+
+                selectProductByIndex(
+                    current + 1
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ================================
        ADD TO CART
-    ===================================== */
+    ================================= */
 
     if (addToCartButton) {
 
@@ -384,9 +462,9 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
-                /* =========================
-                   CHECK COLOR
-                ========================= */
+                /* ------------------------
+                   COLOR REQUIRED
+                ------------------------- */
 
                 if (!selectedColor) {
 
@@ -399,9 +477,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
 
-                /* =========================
-                   CHECK SIZE
-                ========================= */
+                /* ------------------------
+                   SIZE REQUIRED
+                ------------------------- */
 
                 if (!selectedSize) {
 
@@ -414,17 +492,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
 
-                /* =========================
-                   GET CURRENT CART
-                ========================= */
+                /* ------------------------
+                   GET CART
+                ------------------------- */
 
                 const cart =
                     getCart();
 
 
-                /* =========================
-                   ADD OUTFIT SEPARATELY
-                ========================= */
+                /* ------------------------
+                   ADD OUTFIT
+                   AS SEPARATE ITEM
+                ------------------------- */
 
                 if (savedOutfit) {
 
@@ -434,13 +513,13 @@ document.addEventListener("DOMContentLoaded", function () {
                             "outfit-" +
                             Date.now(),
 
-                        category:
-                            savedOutfit.category ||
-                            "SCRUB SET",
-
                         name:
                             savedOutfit.name ||
                             "BEQUEM SCRUB SET",
+
+                        category:
+                            savedOutfit.category ||
+                            "SCRUB SET",
 
                         top:
                             savedOutfit.top ||
@@ -489,25 +568,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
 
-                /* =========================
-                   ADD SOCKS SEPARATELY
-                ========================= */
+                /* ------------------------
+                   ADD SOCKS
+                   AS SEPARATE ITEM
+                ------------------------- */
 
-                const compressionSockItem = {
+                const sockItem = {
 
                     id:
                         "compression-" +
-                        Date.now() +
-                        "-" +
-                        Math.random()
-                            .toString(36)
-                            .substring(2, 9),
-
-                    category:
-                        "ACCESSORY",
+                        Date.now(),
 
                     name:
                         "BAS DE CONTENTION",
+
+                    category:
+                        "ACCESSORY",
 
                     product:
                         selectedProduct,
@@ -528,31 +604,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 cart.push(
-                    compressionSockItem
+                    sockItem
                 );
 
 
-                /* =========================
-                   SAVE CART
-                ========================= */
+                /* ------------------------
+                   SAVE
+                ------------------------- */
 
                 saveCart(
                     cart
                 );
 
 
-                /* =========================
+                /* ------------------------
                    REMOVE TEMP OUTFIT
-                ========================= */
+                ------------------------- */
 
                 localStorage.removeItem(
                     "bequemCurrentOutfit"
                 );
 
 
-                /* =========================
-                   BUTTON
-                ========================= */
+                /* ------------------------
+                   FEEDBACK
+                ------------------------- */
 
                 addToCartButton.textContent =
                     "ADDED ✓";
@@ -561,9 +637,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     true;
 
 
-                /* =========================
+                updateCartCount();
+
+
+                /* ------------------------
                    GO TO CART
-                ========================= */
+                ------------------------- */
 
                 setTimeout(
                     function () {
@@ -572,7 +651,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             "cart.html";
 
                     },
-                    700
+                    600
                 );
 
             }
@@ -581,56 +660,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================
-       CART COUNT
-    ===================================== */
+    /* ================================
+       INITIAL STATE
+    ================================= */
 
-    function updateCartCount() {
-
-        const cartCount =
-            document.getElementById(
-                "cartCount"
-            );
-
-        if (!cartCount) {
-
-            return;
-
-        }
-
-
-        const currentCart =
-            getCart();
-
-
-        let total = 0;
-
-
-        currentCart.forEach(
-            function (item) {
-
-                total +=
-                    Number(
-                        item.quantity
-                    ) || 1;
-
-            }
-        );
-
-
-        cartCount.textContent =
-            total;
-
-    }
-
-
-    /* =====================================
-       INITIALIZATION
-    ===================================== */
-
-    updateQuantityDisplay();
+    updateQuantity();
 
     updateCartCount();
 
+    updateStatus();
+
 });
-```
