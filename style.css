@@ -639,13 +639,12 @@ footer p {
         gap: 12px;
     }
 
-    .menu {
-        width: 100%;
-
-        justify-content: space-between;
-
-        gap: 10px;
-    }
+  .menu {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 30px;
+    padding-left: 20px;
+}
 
     .menu a {
         font-size: 10px;
