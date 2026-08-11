@@ -1,394 +1,783 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Your Cart — BEQUEM SCRUBS</title>
 
-<style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
 
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: #f7f7f5;
-        color: #111;
-        min-height: 100vh;
-    }
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f7f7f5;
+
+    color: #111;
+
+    min-height: 100vh;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+header {
+
+    border-bottom:
+        1px solid #d8d8d5;
+
+    padding:
+        55px 7vw 40px;
+
+}
+
+
+.brand {
+
+    font-size: 42px;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+}
+
+
+.subtitle {
+
+    margin-top: 55px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: #555;
+
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+main {
+
+    padding:
+        60px 7vw 100px;
+
+}
+
+
+.cart-title {
+
+    font-size: 48px;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 45px;
+
+}
+
+
+.cart-wrapper {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 350px;
+
+    gap: 60px;
+
+    align-items: start;
+
+}
+
+
+/* =========================================
+   CART ITEMS
+========================================= */
+
+.cart-items {
+
+    border-top:
+        1px solid #111;
+
+}
+
+
+.cart-item {
+
+    display: grid;
+
+    grid-template-columns:
+        110px 1fr auto;
+
+    gap: 25px;
+
+    padding: 25px 0;
+
+    border-bottom:
+        1px solid #d5d5d2;
+
+    align-items: center;
+
+}
+
+
+.product-image {
+
+    width: 110px;
+
+    height: 130px;
+
+    object-fit: cover;
+
+    background: #e9e9e7;
+
+}
+
+
+.product-placeholder {
+
+    width: 110px;
+
+    height: 130px;
+
+    background: #e9e9e7;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    color: #777;
+
+    text-align: center;
+
+}
+
+
+.product-info h3 {
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+
+    text-transform: uppercase;
+
+}
+
+
+.product-info p {
+
+    font-size: 12px;
+
+    color: #666;
+
+    margin: 5px 0;
+
+    letter-spacing: .5px;
+
+}
+
+
+.product-info .important {
+
+    color: #111;
+
+    font-weight: 700;
+
+}
+
+
+.product-price {
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+}
+
+
+.remove-btn {
+
+    margin-top: 14px;
+
+    border: none;
+
+    background: none;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+.summary {
+
+    border:
+        1px solid #111;
+
+    padding: 30px;
+
+    position: sticky;
+
+    top: 25px;
+
+    background: #f7f7f5;
+
+}
+
+
+.summary-title {
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.summary-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 13px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.summary-total {
+
+    border-top:
+        1px solid #111;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+}
+
+
+.checkout-btn {
+
+    width: 100%;
+
+    margin-top: 30px;
+
+    padding: 18px;
+
+    border:
+        1px solid #111;
+
+    background: #111;
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+
+}
+
+
+.checkout-btn:hover {
+
+    background: #333;
+
+}
+
+
+.checkout-btn:disabled {
+
+    opacity: .35;
+
+    cursor: not-allowed;
+
+}
+
+
+/* =========================================
+   EMPTY CART
+========================================= */
+
+.empty-cart {
+
+    padding: 60px 0;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    color: #666;
+
+}
+
+
+/* =========================================
+   REVIEW POPUP
+========================================= */
+
+.review-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0, 0, 0, 0.35);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
+
+    z-index: 9999;
+
+}
+
+
+.review-overlay.show {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+}
+
+
+.review-popup {
+
+    width:
+        min(390px, 88vw);
+
+    background: #f7f7f5;
+
+    padding:
+        40px 35px 35px;
+
+    position: relative;
+
+    transform:
+        translateY(25px)
+        scale(.97);
+
+    opacity: 0;
+
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        opacity .25s ease;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.15);
+
+}
+
+
+.review-overlay.show
+.review-popup {
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    opacity: 1;
+
+}
+
+
+.review-close {
+
+    position: absolute;
+
+    top: 16px;
+
+    right: 18px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 25px;
+
+    font-weight: 300;
+
+    cursor: pointer;
+
+}
+
+
+.review-small {
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: #555;
+
+    margin-bottom: 18px;
+
+}
+
+
+.review-title {
+
+    font-size: 43px;
+
+    line-height: .92;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 32px;
+
+}
+
+
+.review-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 9px;
+
+}
+
+
+.review-btn {
+
+    height: 48px;
+
+    border:
+        1px solid #111;
+
+    background: transparent;
+
+    color: #111;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+}
+
+
+.review-btn.yes {
+
+    background: #111;
+
+    color: white;
+
+}
+
+
+.review-btn.yes:hover {
+
+    background: #333;
+
+}
+
+
+.review-btn.no:hover {
+
+    background: #e8e8e5;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
 
     header {
-        border-bottom: 1px solid #d8d8d5;
-        padding: 55px 7vw 40px;
+
+        padding:
+            35px 6vw 30px;
+
     }
+
 
     .brand {
-        font-size: 42px;
-        font-weight: 900;
-        letter-spacing: -2px;
+
+        font-size: 32px;
+
     }
+
 
     .subtitle {
-        margin-top: 55px;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        color: #555;
+
+        margin-top: 35px;
+
     }
+
 
     main {
-        padding: 60px 7vw 100px;
+
+        padding:
+            40px 6vw 70px;
+
     }
+
 
     .cart-title {
-        font-size: 48px;
-        font-weight: 900;
-        letter-spacing: -2px;
-        margin-bottom: 45px;
+
+        font-size: 38px;
+
     }
+
 
     .cart-wrapper {
-        display: grid;
-        grid-template-columns: 1fr 350px;
-        gap: 60px;
-        align-items: start;
+
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+
     }
 
-    .cart-items {
-        border-top: 1px solid #111;
-    }
-
-    .cart-item {
-        display: grid;
-        grid-template-columns: 110px 1fr auto;
-        gap: 25px;
-        padding: 25px 0;
-        border-bottom: 1px solid #d5d5d2;
-        align-items: center;
-    }
-
-    .product-image {
-        width: 110px;
-        height: 130px;
-        object-fit: cover;
-        background: #e9e9e7;
-    }
-
-    .product-info h3 {
-        font-size: 17px;
-        font-weight: 800;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-    }
-
-    .product-info p {
-        font-size: 12px;
-        color: #666;
-        margin: 5px 0;
-        letter-spacing: .5px;
-    }
-
-    .product-price {
-        font-size: 16px;
-        font-weight: 800;
-        white-space: nowrap;
-    }
-
-    .remove-btn {
-        margin-top: 12px;
-        border: none;
-        background: none;
-        text-decoration: underline;
-        cursor: pointer;
-        font-size: 11px;
-        letter-spacing: 1px;
-    }
 
     .summary {
-        border: 1px solid #111;
-        padding: 30px;
-        position: sticky;
-        top: 25px;
-        background: #f7f7f5;
+
+        position: static;
+
     }
 
-    .summary-title {
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 2px;
-        margin-bottom: 25px;
+
+    .cart-item {
+
+        grid-template-columns:
+            80px 1fr;
+
+        gap: 15px;
+
     }
 
-    .summary-row {
-        display: flex;
-        justify-content: space-between;
-        font-size: 13px;
-        margin-bottom: 15px;
+
+    .product-image,
+    .product-placeholder {
+
+        width: 80px;
+
+        height: 100px;
+
     }
 
-    .summary-total {
-        border-top: 1px solid #111;
-        margin-top: 25px;
-        padding-top: 20px;
-        display: flex;
-        justify-content: space-between;
-        font-size: 17px;
-        font-weight: 900;
+
+    .product-price {
+
+        grid-column: 2;
+
     }
 
-    .checkout-btn {
-        width: 100%;
-        margin-top: 30px;
-        padding: 18px;
-        border: 1px solid #111;
-        background: #111;
-        color: white;
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 2px;
-        cursor: pointer;
-        transition: .2s ease;
-    }
-
-    .checkout-btn:hover {
-        background: #333;
-    }
-
-    .checkout-btn:disabled {
-        opacity: .35;
-        cursor: not-allowed;
-    }
-
-    .empty-cart {
-        padding: 60px 0;
-        font-size: 13px;
-        letter-spacing: 1px;
-        color: #666;
-    }
-
-    .review-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.35);
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-
-        transition:
-            opacity .3s ease,
-            visibility .3s ease;
-
-        z-index: 9999;
-    }
-
-    .review-overlay.show {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-    }
 
     .review-popup {
-        width: min(390px, 88vw);
-        background: #f7f7f5;
-        padding: 40px 35px 35px;
-        position: relative;
 
-        transform: translateY(25px) scale(.97);
-        opacity: 0;
+        padding:
+            35px 25px 28px;
 
-        transition:
-            transform .35s cubic-bezier(.2,.8,.2,1),
-            opacity .25s ease;
-
-        box-shadow: 0 20px 60px rgba(0,0,0,.15);
     }
 
-    .review-overlay.show .review-popup {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-
-    .review-close {
-        position: absolute;
-        top: 16px;
-        right: 18px;
-
-        border: none;
-        background: transparent;
-
-        font-size: 25px;
-        font-weight: 300;
-        cursor: pointer;
-
-        line-height: 1;
-    }
-
-    .review-small {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        color: #555;
-        margin-bottom: 18px;
-    }
 
     .review-title {
-        font-size: 43px;
-        line-height: .92;
-        font-weight: 900;
-        letter-spacing: -2px;
-        text-transform: uppercase;
-        margin-bottom: 32px;
+
+        font-size: 38px;
+
     }
 
-    .review-buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 9px;
-    }
+}
 
-    .review-btn {
-        height: 48px;
-        border: 1px solid #111;
-        background: transparent;
-        color: #111;
-
-        font-size: 11px;
-        font-weight: 800;
-        letter-spacing: 1.5px;
-
-        cursor: pointer;
-        transition: .2s ease;
-    }
-
-    .review-btn.yes {
-        background: #111;
-        color: white;
-    }
-
-    .review-btn.yes:hover {
-        background: #333;
-    }
-
-    .review-btn.no:hover {
-        background: #e8e8e5;
-    }
-
-    @media (max-width: 800px) {
-
-        header {
-            padding: 35px 6vw 30px;
-        }
-
-        .brand {
-            font-size: 32px;
-        }
-
-        .subtitle {
-            margin-top: 35px;
-        }
-
-        main {
-            padding: 40px 6vw 70px;
-        }
-
-        .cart-title {
-            font-size: 38px;
-        }
-
-        .cart-wrapper {
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-
-        .summary {
-            position: static;
-        }
-
-        .cart-item {
-            grid-template-columns: 80px 1fr;
-            gap: 15px;
-        }
-
-        .product-image {
-            width: 80px;
-            height: 100px;
-        }
-
-        .product-price {
-            grid-column: 2;
-        }
-
-        .review-popup {
-            padding: 35px 25px 28px;
-        }
-
-        .review-title {
-            font-size: 38px;
-        }
-    }
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-    <div class="brand">BEQUEM SCRUBS</div>
+
+    <div class="brand">
+        BEQUEM SCRUBS
+    </div>
 
     <div class="subtitle">
         MEDICAL WEAR · EST. 2026
     </div>
+
 </header>
 
 
 <main>
 
-    <h1 class="cart-title">YOUR CART</h1>
+    <h1 class="cart-title">
+        YOUR CART
+    </h1>
+
 
     <div class="cart-wrapper">
 
-        <div id="cartItems" class="cart-items"></div>
+
+        <!-- =================================
+             CART
+        ================================= -->
+
+        <div
+            id="cartItems"
+            class="cart-items"
+        ></div>
+
+
+        <!-- =================================
+             SUMMARY
+        ================================= -->
 
         <aside class="summary">
+
 
             <div class="summary-title">
                 ORDER SUMMARY
             </div>
 
+
             <div class="summary-row">
-                <span>ITEMS</span>
-                <span id="summaryItems">0</span>
+
+                <span>
+                    ITEMS
+                </span>
+
+                <span id="summaryItems">
+                    0
+                </span>
+
             </div>
 
+
             <div class="summary-total">
-                <span>TOTAL</span>
-                <span id="summaryTotal">0 DA</span>
+
+                <span>
+                    TOTAL
+                </span>
+
+                <span id="summaryTotal">
+                    0 DA
+                </span>
+
             </div>
+
 
             <button
                 id="checkoutBtn"
                 class="checkout-btn"
-                onclick="checkout()"
-                disabled>
+                onclick="goToCheckout()"
+                disabled
+            >
                 CHECKOUT →
             </button>
 
+
         </aside>
+
 
     </div>
 
 </main>
 
+
+<!-- =========================================
+     REVIEW POPUP
+========================================= -->
 
 <div
     id="reviewOverlay"
@@ -396,58 +785,77 @@
     onclick="handleOverlayClick(event)"
 >
 
+
     <div
         class="review-popup"
         onclick="event.stopPropagation()"
     >
 
+
         <button
             class="review-close"
             onclick="closeReview()"
-            aria-label="Close">
+            aria-label="Close"
+        >
             ×
         </button>
+
 
         <div class="review-small">
             ORDER CONFIRMED
         </div>
 
+
         <div class="review-title">
+
             LEAVE<br>
+
             A REVIEW?
+
         </div>
+
 
         <div class="review-buttons">
 
+
             <button
                 class="review-btn yes"
-                onclick="goToReviews()">
+                onclick="goToReviews()"
+            >
                 YES →
             </button>
 
+
             <button
                 class="review-btn no"
-                onclick="closeReview()">
+                onclick="closeReview()"
+            >
                 NO
             </button>
 
+
         </div>
 
+
     </div>
+
 
 </div>
 
 
 <script>
 
-const CART_KEY = "bequemCart";
-const LAST_ORDER_KEY = "bequemLastOrder";
 
 /* =========================================
-   WHATSAPP NUMBER
+   CONFIGURATION
 ========================================= */
 
-const WHATSAPP_NUMBER = "213781952022";
+const CART_KEY =
+    "bequemCart";
+
+
+const LAST_ORDER_KEY =
+    "bequemLastOrder";
 
 
 /* =========================================
@@ -455,11 +863,21 @@ const WHATSAPP_NUMBER = "213781952022";
 ========================================= */
 
 function getCart() {
+
     try {
-        return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+
+        return JSON.parse(
+            localStorage.getItem(
+                CART_KEY
+            )
+        ) || [];
+
     } catch (error) {
+
         return [];
+
     }
+
 }
 
 
@@ -468,7 +886,99 @@ function getCart() {
 ========================================= */
 
 function saveCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+
+    localStorage.setItem(
+        CART_KEY,
+        JSON.stringify(cart)
+    );
+
+}
+
+
+/* =========================================
+   MOTIF
+========================================= */
+
+function getMotif(item) {
+
+    if (!item.motif) {
+
+        return {
+            name: "NO MOTIF",
+            placement: "—",
+            description: "—"
+        };
+
+    }
+
+
+    if (
+        typeof item.motif === "string"
+    ) {
+
+        return {
+            name: item.motif,
+            placement: "—",
+            description: "—"
+        };
+
+    }
+
+
+    return {
+
+        name:
+            item.motif.name ||
+            "NO MOTIF",
+
+        placement:
+            item.motif.placement ||
+            "—",
+
+        description:
+            item.motif.description ||
+            "—"
+
+    };
+
+}
+
+
+/* =========================================
+   PRODUCT TYPE
+========================================= */
+
+function isOutfit(item) {
+
+    return (
+        !!item.top ||
+        !!item.pants
+    );
+
+}
+
+
+function isCompressionSock(item) {
+
+    return (
+
+        item.category ===
+            "ACCESSORY"
+
+        ||
+
+        !!item.product
+
+        ||
+
+        !!item.model
+
+        ||
+
+        !!item.compressionSock
+
+    );
+
 }
 
 
@@ -478,105 +988,506 @@ function saveCart(cart) {
 
 function displayCart() {
 
-    const cart = getCart();
 
-    const cartItems = document.getElementById("cartItems");
-    const summaryItems = document.getElementById("summaryItems");
-    const summaryTotal = document.getElementById("summaryTotal");
-    const checkoutBtn = document.getElementById("checkoutBtn");
+    const cart =
+        getCart();
 
-    cartItems.innerHTML = "";
+
+    const cartItems =
+        document.getElementById(
+            "cartItems"
+        );
+
+
+    const summaryItems =
+        document.getElementById(
+            "summaryItems"
+        );
+
+
+    const summaryTotal =
+        document.getElementById(
+            "summaryTotal"
+        );
+
+
+    const checkoutBtn =
+        document.getElementById(
+            "checkoutBtn"
+        );
+
+
+    cartItems.innerHTML =
+        "";
+
+
+    /* =====================================
+       EMPTY
+    ===================================== */
 
     if (!cart.length) {
 
+
         cartItems.innerHTML = `
+
             <div class="empty-cart">
+
                 YOUR CART IS EMPTY.
+
             </div>
+
         `;
 
-        summaryItems.textContent = "0";
-        summaryTotal.textContent = "0 DA";
 
-        checkoutBtn.disabled = true;
+        summaryItems.textContent =
+            "0";
+
+
+        summaryTotal.textContent =
+            "0 DA";
+
+
+        checkoutBtn.disabled =
+            true;
+
 
         return;
+
     }
 
+
+    /* =====================================
+       CALCULATE
+    ===================================== */
+
     let total = 0;
+
     let totalItems = 0;
 
-    cart.forEach((item, index) => {
 
-        const quantity = Number(item.quantity) || 1;
-        const price = Number(item.price) || 0;
+    cart.forEach(
+        function(item, index) {
 
-        total += price * quantity;
-        totalItems += quantity;
 
-        const image = item.image || "";
+            const quantity =
+                Number(
+                    item.quantity
+                ) || 1;
 
-        const itemElement = document.createElement("div");
 
-        itemElement.className = "cart-item";
+            const price =
+                Number(
+                    item.price
+                ) || 0;
 
-        itemElement.innerHTML = `
 
-            ${
-                image
-                ? `<img
-                    src="${image}"
-                    class="product-image"
-                    alt="${item.name || "Product"}"
-                   >`
-                : `<div class="product-image"></div>`
+            total +=
+                price *
+                quantity;
+
+
+            totalItems +=
+                quantity;
+
+
+            const itemElement =
+                document.createElement(
+                    "div"
+                );
+
+
+            itemElement.className =
+                "cart-item";
+
+
+            /* =================================
+               IMAGE
+            ================================= */
+
+            let imageHTML = "";
+
+
+            if (item.image) {
+
+                imageHTML = `
+
+                    <img
+                        src="${item.image}"
+                        class="product-image"
+                        alt="Product"
+                    >
+
+                `;
+
+            } else {
+
+                imageHTML = `
+
+                    <div
+                        class="product-placeholder"
+                    >
+                        BEQUEM
+                    </div>
+
+                `;
+
             }
 
-            <div class="product-info">
 
-                <h3>
-                    ${item.name || "PRODUCT"}
-                </h3>
+            /* =================================
+               TENUE
+            ================================= */
 
-                ${
-                    item.size
-                    ? `<p>SIZE: ${item.size}</p>`
-                    : ""
-                }
+            if (
+                isOutfit(item)
+            ) {
 
-                ${
-                    item.color
-                    ? `<p>COLOR: ${item.color}</p>`
-                    : ""
-                }
 
-                <p>
-                    QUANTITY: ${quantity}
-                </p>
+                const motif =
+                    getMotif(item);
 
-                <button
-                    class="remove-btn"
-                    onclick="removeItem(${index})">
-                    REMOVE
-                </button>
 
-            </div>
+                itemElement.innerHTML = `
 
-            <div class="product-price">
-                ${(price * quantity).toLocaleString()} DA
-            </div>
+                    ${imageHTML}
 
-        `;
 
-        cartItems.appendChild(itemElement);
+                    <div class="product-info">
 
-    });
 
-    summaryItems.textContent = totalItems;
-    summaryTotal.textContent =
-        total.toLocaleString() + " DA";
+                        <h3>
+                            TENUE BEQUEM
+                        </h3>
 
-    checkoutBtn.disabled = false;
+
+                        <p class="important">
+                            TOP:
+                            ${item.top || "—"}
+                        </p>
+
+
+                        <p class="important">
+                            PANTS:
+                            ${item.pants || "—"}
+                        </p>
+
+
+                        <p>
+                            COLOR:
+                            ${
+                                item.color ||
+                                item.scrubColor ||
+                                "—"
+                            }
+                        </p>
+
+
+                        <p>
+                            SIZE:
+                            ${
+                                item.size ||
+                                item.scrubSize ||
+                                "—"
+                            }
+                        </p>
+
+
+                        <p>
+                            MOTIF:
+                            ${motif.name}
+                        </p>
+
+
+                        <p>
+                            PLACEMENT:
+                            ${motif.placement}
+                        </p>
+
+
+                        ${
+                            motif.description !== "—"
+                            ?
+                            `
+                                <p>
+                                    MOTIF DETAILS:
+                                    ${motif.description}
+                                </p>
+                            `
+                            :
+                            ""
+                        }
+
+
+                        <p>
+                            QUANTITY:
+                            ${quantity}
+                        </p>
+
+
+                        <button
+                            class="remove-btn"
+                            onclick="
+                                removeItem(${index})
+                            "
+                        >
+                            REMOVE
+                        </button>
+
+
+                    </div>
+
+
+                    <div class="product-price">
+
+                        ${
+                            price > 0
+                            ?
+                            (
+                                price *
+                                quantity
+                            ).toLocaleString() +
+                            " DA"
+                            :
+                            "PRICE TO BE CONFIRMED"
+                        }
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /* =================================
+               BAS DE CONTENTION
+            ================================= */
+
+            else if (
+                isCompressionSock(item)
+            ) {
+
+
+                const socks =
+                    item.compressionSock ||
+                    item;
+
+
+                const model =
+                    item.model ||
+                    item.product ||
+                    socks.model ||
+                    "—";
+
+
+                const color =
+                    item.color ||
+                    socks.color ||
+                    "—";
+
+
+                const size =
+                    item.size ||
+                    socks.size ||
+                    "—";
+
+
+                const sockQuantity =
+                    socks.quantity ||
+                    quantity;
+
+
+                itemElement.innerHTML = `
+
+                    ${imageHTML}
+
+
+                    <div class="product-info">
+
+
+                        <h3>
+                            BAS DE CONTENTION
+                        </h3>
+
+
+                        <p class="important">
+                            MODEL:
+                            ${model}
+                        </p>
+
+
+                        <p>
+                            COLOR:
+                            ${color}
+                        </p>
+
+
+                        <p>
+                            SIZE:
+                            ${size}
+                        </p>
+
+
+                        <p>
+                            QUANTITY:
+                            ${sockQuantity}
+                        </p>
+
+
+                        <button
+                            class="remove-btn"
+                            onclick="
+                                removeItem(${index})
+                            "
+                        >
+                            REMOVE
+                        </button>
+
+
+                    </div>
+
+
+                    <div class="product-price">
+
+                        ${
+                            price > 0
+                            ?
+                            (
+                                price *
+                                sockQuantity
+                            ).toLocaleString() +
+                            " DA"
+                            :
+                            "PRICE TO BE CONFIRMED"
+                        }
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /* =================================
+               OTHER PRODUCT
+            ================================= */
+
+            else {
+
+
+                itemElement.innerHTML = `
+
+                    ${imageHTML}
+
+
+                    <div class="product-info">
+
+
+                        <h3>
+                            ${
+                                item.name ||
+                                "PRODUCT"
+                            }
+                        </h3>
+
+
+                        ${
+                            item.color
+                            ?
+                            `
+                                <p>
+                                    COLOR:
+                                    ${item.color}
+                                </p>
+                            `
+                            :
+                            ""
+                        }
+
+
+                        ${
+                            item.size
+                            ?
+                            `
+                                <p>
+                                    SIZE:
+                                    ${item.size}
+                                </p>
+                            `
+                            :
+                            ""
+                        }
+
+
+                        <p>
+                            QUANTITY:
+                            ${quantity}
+                        </p>
+
+
+                        <button
+                            class="remove-btn"
+                            onclick="
+                                removeItem(${index})
+                            "
+                        >
+                            REMOVE
+                        </button>
+
+
+                    </div>
+
+
+                    <div class="product-price">
+
+                        ${
+                            price > 0
+                            ?
+                            (
+                                price *
+                                quantity
+                            ).toLocaleString() +
+                            " DA"
+                            :
+                            "PRICE TO BE CONFIRMED"
+                        }
+
+                    </div>
+
+                `;
+
+            }
+
+
+            cartItems.appendChild(
+                itemElement
+            );
+
+
+        }
+    );
+
+
+    summaryItems.textContent =
+        totalItems;
+
+
+    if (total > 0) {
+
+        summaryTotal.textContent =
+            total.toLocaleString() +
+            " DA";
+
+    } else {
+
+        summaryTotal.textContent =
+            "PRICE TO BE CONFIRMED";
+
+    }
+
+
+    checkoutBtn.disabled =
+        false;
+
 }
 
 
@@ -586,188 +1497,145 @@ function displayCart() {
 
 function removeItem(index) {
 
-    const cart = getCart();
 
-    cart.splice(index, 1);
-
-    saveCart(cart);
-
-    displayCart();
-}
+    const cart =
+        getCart();
 
 
-/* =========================================
-   CHECKOUT → WHATSAPP
-========================================= */
-
-function checkout() {
-
-    const cart = getCart();
-
-    if (!cart.length) {
-        return;
-    }
-
-    let total = 0;
-    let totalItems = 0;
-
-    /*
-       CREATE WHATSAPP MESSAGE
-    */
-
-    let message =
-        "🛍️ *NEW ORDER — BEQUEM SCRUBS*\n\n";
-
-    cart.forEach((item) => {
-
-        const quantity = Number(item.quantity) || 1;
-        const price = Number(item.price) || 0;
-
-        const itemTotal = price * quantity;
-
-        total += itemTotal;
-        totalItems += quantity;
-
-        message +=
-            "• " +
-            (item.name || "PRODUCT") +
-            "\n";
-
-        if (item.size) {
-            message +=
-                "  Size: " + item.size + "\n";
-        }
-
-        if (item.color) {
-            message +=
-                "  Color: " + item.color + "\n";
-        }
-
-        message +=
-            "  Quantity: " + quantity + "\n";
-
-        message +=
-            "  Price: " +
-            itemTotal.toLocaleString() +
-            " DA\n\n";
-    });
-
-    message +=
-        "━━━━━━━━━━━━━━\n" +
-        "TOTAL ITEMS: " +
-        totalItems +
-        "\n" +
-        "TOTAL: " +
-        total.toLocaleString() +
-        " DA\n\n" +
-        "Hello, I would like to place this order.";
-
-
-    /*
-       SAVE ORDER
-    */
-
-    const order = {
-        items: cart,
-        total: total,
-        date: new Date().toISOString()
-    };
-
-    localStorage.setItem(
-        LAST_ORDER_KEY,
-        JSON.stringify(order)
+    cart.splice(
+        index,
+        1
     );
 
 
-    /*
-       OPEN WHATSAPP
-    */
+    saveCart(
+        cart
+    );
 
-    const whatsappURL =
-        "https://wa.me/" +
-        WHATSAPP_NUMBER +
-        "?text=" +
-        encodeURIComponent(message);
-
-
-    /*
-       OPEN WHATSAPP IN NEW TAB
-    */
-
-    window.open(whatsappURL, "_blank");
-
-
-    /*
-       CLEAR CART
-    */
-
-    localStorage.removeItem(CART_KEY);
 
     displayCart();
 
-
-    /*
-       SHOW REVIEW POPUP
-    */
-
-    setTimeout(() => {
-        openReview();
-    }, 500);
 }
 
 
 /* =========================================
-   OPEN REVIEW POPUP
+   GO TO CHECKOUT
+========================================= */
+
+function goToCheckout() {
+
+
+    const cart =
+        getCart();
+
+
+    if (!cart.length) {
+
+        alert(
+            "YOUR CART IS EMPTY."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       IMPORTANT:
+
+       We DO NOT send WhatsApp here.
+
+       The customer must first enter:
+
+       - First name
+       - Last name
+       - Phone
+       - City
+       - Address
+       - Email
+
+       checkout.js will then create
+       the complete WhatsApp message.
+    */
+
+    window.location.href =
+        "checkout.html";
+
+}
+
+
+/* =========================================
+   REVIEW POPUP
 ========================================= */
 
 function openReview() {
 
+
     const overlay =
-        document.getElementById("reviewOverlay");
+        document.getElementById(
+            "reviewOverlay"
+        );
 
-    overlay.classList.add("show");
 
-    document.body.style.overflow = "hidden";
+    overlay.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
 }
 
-
-/* =========================================
-   CLOSE REVIEW POPUP
-========================================= */
 
 function closeReview() {
 
+
     const overlay =
-        document.getElementById("reviewOverlay");
+        document.getElementById(
+            "reviewOverlay"
+        );
 
-    overlay.classList.remove("show");
 
-    document.body.style.overflow = "";
+    overlay.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
 }
 
 
-/* =========================================
-   CLICK OUTSIDE POPUP
-========================================= */
+function handleOverlayClick(
+    event
+) {
 
-function handleOverlayClick(event) {
 
     if (
         event.target ===
-        document.getElementById("reviewOverlay")
+        document.getElementById(
+            "reviewOverlay"
+        )
     ) {
+
         closeReview();
+
     }
+
 }
 
 
 /* =========================================
-   YES → REVIEWS
+   REVIEWS
 ========================================= */
 
 function goToReviews() {
 
-    window.location.href = "reviews.html";
+    window.location.href =
+        "reviews.html";
+
 }
 
 
@@ -777,8 +1645,11 @@ function goToReviews() {
 
 displayCart();
 
+
 </script>
 
+
 </body>
+
 </html>
 ```
