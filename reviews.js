@@ -2,6 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================
+       SUPABASE
+    ===================================== */
+
+    const SUPABASE_URL =
+        "https://pakwsesbisdkgtoeywam.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
+
+
+    /* =====================================
        RATING — STARS
     ===================================== */
 
@@ -209,10 +220,6 @@ document.addEventListener("DOMContentLoaded", function () {
             String(index + 1).padStart(2, "0");
 
 
-        /*
-         * Small animation
-         */
-
         reviewCard.style.opacity = "0";
 
 
@@ -297,15 +304,6 @@ document.addEventListener("DOMContentLoaded", function () {
     /* =====================================
        CUSTOMER PHOTOS
     ===================================== */
-
-    /*
-     * Pour l'instant on utilise
-     * tes images de démonstration.
-     *
-     * Plus tard, les photos envoyées
-     * par les clients seront ajoutées
-     * automatiquement après validation.
-     */
 
     const customerPhotos = [
 
@@ -428,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     reviewForm.addEventListener(
         "submit",
-        function (event) {
+        async function (event) {
 
             event.preventDefault();
 
@@ -496,34 +494,114 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /*
-             * POUR LE MOMENT
-             *
-             * L'avis n'est pas encore
-             * envoyé vers une base de données.
-             *
-             * On prépare simplement
-             * le formulaire.
-             */
+            /* =========================
+               SENDING
+            ========================= */
 
             reviewMessage.textContent =
-                "Thank you for your review. It has been submitted for approval.";
+                "Sending your review...";
 
 
-            reviewForm.reset();
+            try {
+
+                const response =
+                    await fetch(
+                        SUPABASE_URL +
+                        "/rest/v1/reviews",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "apikey":
+                                    SUPABASE_KEY,
+
+                                "Prefer":
+                                    "return=minimal"
+
+                            },
+
+                            body: JSON.stringify({
+
+                                name: name,
+
+                                city: city,
+
+                                rating: rating,
+
+                                review: text,
+
+                                approved: false
+
+                            })
+
+                        }
+                    );
 
 
-            ratingInput.value = 0;
+                /* =========================
+                   CHECK RESPONSE
+                ========================= */
+
+                if (!response.ok) {
+
+                    const error =
+                        await response.text();
+
+                    console.error(
+                        "Supabase error:",
+                        error
+                    );
+
+                    throw new Error(
+                        "Supabase request failed"
+                    );
+
+                }
 
 
-            stars.forEach(function (star) {
+                /* =========================
+                   SUCCESS
+                ========================= */
 
-                star.classList.remove("selected");
+                reviewMessage.textContent =
+                    "Thank you for your review. It has been submitted for approval.";
 
-            });
+
+                reviewForm.reset();
 
 
-            photoPreview.innerHTML = "";
+                ratingInput.value = 0;
+
+
+                stars.forEach(function (star) {
+
+                    star.classList.remove(
+                        "selected"
+                    );
+
+                });
+
+
+                photoPreview.innerHTML = "";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Review submission error:",
+                    error
+                );
+
+
+                reviewMessage.textContent =
+                    "Something went wrong. Please try again.";
+
+            }
 
         }
     );
