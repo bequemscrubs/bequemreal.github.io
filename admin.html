@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Admin — BEQUEM SCRUBS</title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css">
+
+</head>
+
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="admin-header">
+
+    <a href="index.html" class="brand">
+        BEQUEM SCRUBS
+    </a>
+
+    <div class="admin-session">
+
+        <span id="adminEmail"></span>
+
+        <button
+            type="button"
+            id="logoutButton"
+            class="ghost-button"
+            hidden>
+            LOG OUT
+        </button>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<!-- ================= LOGIN ================= -->
+
+<section class="login-section" id="loginSection" hidden>
+
+    <p class="number">
+        RESTRICTED AREA
+    </p>
+
+    <h1>
+        ADMIN<br>
+        LOGIN.
+    </h1>
+
+    <form id="loginForm">
+
+        <div class="form-group">
+
+            <label for="loginEmail">
+                EMAIL
+            </label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                autocomplete="username"
+                required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="loginPassword">
+                PASSWORD
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                autocomplete="current-password"
+                required>
+
+        </div>
+
+        <button
+            type="submit"
+            class="solid-button"
+            id="loginButton">
+            LOG IN →
+        </button>
+
+        <p
+            id="loginMessage"
+            class="form-message">
+        </p>
+
+    </form>
+
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section class="dashboard-section" id="dashboardSection" hidden>
+
+    <p class="number">
+        REVIEW MODERATION
+    </p>
+
+    <h1>
+        MANAGE<br>
+        REVIEWS.
+    </h1>
+
+    <div class="tabs">
+
+        <button
+            type="button"
+            class="tab active"
+            data-filter="pending">
+            PENDING (<span id="countPending">0</span>)
+        </button>
+
+        <button
+            type="button"
+            class="tab"
+            data-filter="approved">
+            APPROVED (<span id="countApproved">0</span>)
+        </button>
+
+        <button
+            type="button"
+            class="ghost-button"
+            id="refreshButton">
+            REFRESH
+        </button>
+
+    </div>
+
+    <div id="reviewList" class="review-list">
+        <p class="empty">Loading...</p>
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        BEQUEM SCRUBS — ADMIN
+    </p>
+
+</footer>
+
+
+<!-- SUPABASE FIRST -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- YOUR JS SECOND -->
+
+<script src="admin.js"></script>
+
+</body>
+</html>
