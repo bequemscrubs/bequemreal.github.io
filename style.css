@@ -802,14 +802,25 @@ nav {
     left: -44px;
 }
 
-/* ================= HERO LOGO IMAGE - AJOUT UNIQUEMENT ================= */
+/* =========================================================
+   BEQUEM LOGO - AJUSTEMENT
+   ========================================================= */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
 
 .hero-logo-scene {
     position: absolute;
-    right: 4%;
+
+    right: 1%;
     top: 50%;
-    width: min(54vw, 760px);
+
+    width: min(38vw, 540px);
+
     transform: translateY(-50%);
+
     z-index: 2;
     pointer-events: none;
 }
@@ -817,24 +828,35 @@ nav {
 .hero-logo-image {
     width: 100%;
     height: auto;
+
     display: block;
+
     object-fit: contain;
+
+    /* Blend avec le fond du hero */
+    mix-blend-mode: multiply;
 }
 
-/* Mobile : le reste du design existant reste inchangé */
+/* ================= MOBILE ================= */
+
 @media (max-width: 800px) {
+
     .hero-logo-scene {
-        width: 95vw;
-        right: -18%;
+        width: 75vw;
+
+        right: -10%;
+        bottom: 0;
         top: auto;
-        bottom: -5%;
+
         transform: none;
+
         z-index: 1;
-        pointer-events: none;
     }
 
     .hero-logo-image {
         width: 100%;
         height: auto;
+
+        mix-blend-mode: multiply;
     }
 }
