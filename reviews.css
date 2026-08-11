@@ -1,49 +1,29 @@
-/* =========================================
-   BEQUEM SCRUBS — REVIEWS
-========================================= */
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
-    background: #ffffff;
-    color: #111111;
-    font-family: "Inter", Arial, sans-serif;
-    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    background: #f4f1eb;
+    color: #111;
 }
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-
-/* =========================================
-   HEADER
-========================================= */
 
 header {
-    width: 100%;
-    padding: 35px 6vw;
-
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    height: 90px;
+    padding: 0 6%;
+    display: flex;
     align-items: center;
-
-    border-bottom: 1px solid #111111;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
 }
 
 .brand {
-    font-family: "Anton", Arial, sans-serif;
-    font-size: 32px;
-    letter-spacing: 1px;
+    font-weight: 800;
+    text-decoration: none;
+    color: #111;
+    font-size: 20px;
 }
 
 nav {
@@ -51,629 +31,232 @@ nav {
     gap: 30px;
 }
 
-nav a {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    transition: opacity .2s ease;
-}
-
-nav a:hover {
-    opacity: .5;
-}
-
-nav a.active {
-    text-decoration: underline;
-    text-underline-offset: 5px;
-}
-
+nav a,
 .back {
-    justify-self: end;
-
-    font-size: 11px;
+    text-decoration: none;
+    color: #111;
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 1.5px;
 }
 
-
-/* =========================================
-   HERO
-========================================= */
-
-.review-hero {
-    padding: 100px 7vw 150px;
-    border-bottom: 1px solid #111111;
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 80px 6%;
 }
 
-.number,
-.section-title span {
-    display: block;
+.hero {
+    padding-bottom: 100px;
+}
 
-    font-size: 11px;
+.hero p,
+.section-title p {
+    font-size: 12px;
+    letter-spacing: 2px;
     font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    margin-bottom: 25px;
 }
 
-.review-hero h1 {
-    font-family: "Anton", Arial, sans-serif;
-
-    font-size: clamp(80px, 13vw, 190px);
-    line-height: .84;
-
-    letter-spacing: -3px;
-
-    margin-top: 45px;
-}
-
-.intro {
-    max-width: 520px;
-
-    margin-top: 45px;
-
-    font-size: 17px;
-    line-height: 1.6;
-    font-weight: 400;
-}
-
-
-/* =========================================
-   EXPERIENCE
-========================================= */
-
-.experience-section {
-    padding: 110px 7vw 150px;
-}
-
-.section-title {
-    margin-bottom: 80px;
-}
-
-.section-title h2 {
-    font-family: "Anton", Arial, sans-serif;
-
-    font-size: clamp(70px, 10vw, 150px);
-    line-height: .86;
-
-    letter-spacing: -3px;
-
-    margin-top: 30px;
-}
-
-
-/* =========================================
-   FORM
-========================================= */
-
-#reviewForm {
-    width: 100%;
-    max-width: 1050px;
-}
-
-.form-group {
-    margin-bottom: 55px;
-}
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 18px;
-
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 3px;
-}
-
-.form-group input[type="text"],
-.form-group textarea {
-    width: 100%;
-
-    border: none;
-    border-bottom: 1px solid #111111;
-
-    background: transparent;
-
-    padding: 18px 0;
-
-    font-family: "Inter", Arial, sans-serif;
-    font-size: 18px;
-
-    color: #111111;
-
-    outline: none;
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 180px;
-
-    border: 1px solid #111111;
-    padding: 20px;
-}
-
-.form-group input[type="text"]:focus,
-.form-group textarea:focus {
-    border-color: #555555;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #777777;
-}
-
-
-/* =========================================
-   RATING
-========================================= */
-
-.rating {
-    display: flex;
-    gap: 8px;
-}
-
-.star {
-    border: none;
-    background: transparent;
-
-    padding: 0;
-
-    font-size: 32px;
-
-    color: #111111;
-
-    cursor: pointer;
-
-    transition: transform .15s ease,
-                opacity .15s ease;
-}
-
-.star:hover {
-    transform: scale(1.1);
-}
-
-
-/* =========================================
-   PHOTO UPLOAD
-========================================= */
-
-input[type="file"] {
-    width: 100%;
-
-    border: 1px solid #111111;
-
-    padding: 20px;
-
-    font-family: "Inter", Arial, sans-serif;
-
-    cursor: pointer;
-}
-
-.upload-note {
-    margin-top: 10px;
-
-    font-size: 11px;
-
-    color: #666666;
-
-    letter-spacing: .5px;
-}
-
-.photo-preview {
-    display: flex;
-
+.hero h1 {
+    font-size: clamp(60px, 10vw, 140px);
+    line-height: .85;
     margin-bottom: 40px;
 }
 
-.photo-preview img {
-    width: 180px;
-    height: 220px;
-
-    object-fit: cover;
-
-    border: 1px solid #111111;
+.hero span {
+    max-width: 450px;
+    display: block;
+    line-height: 1.7;
 }
 
-
-/* =========================================
-   SUBMIT
-========================================= */
-
-.submit-review {
-    border: 1px solid #111111;
-
-    background: #111111;
-    color: #ffffff;
-
-    padding: 19px 35px;
-
-    font-family: "Inter", Arial, sans-serif;
-
-    font-size: 11px;
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-    cursor: pointer;
-
-    transition: background .2s ease,
-                color .2s ease;
+.form-section,
+.reviews-section {
+    padding: 80px 0;
+    border-top: 1px solid #ccc;
 }
 
-.submit-review:hover {
-    background: #ffffff;
-    color: #111111;
+.section-title {
+    margin-bottom: 60px;
 }
 
-.review-message {
-    margin-top: 20px;
+.section-title h2 {
+    font-size: clamp(45px, 7vw, 90px);
+    line-height: .9;
+}
 
-    font-size: 11px;
+form {
+    max-width: 700px;
+}
+
+label {
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 12px;
     font-weight: 700;
-
     letter-spacing: 1px;
 }
 
-
-/* =========================================
-   CUSTOMER REVIEWS
-========================================= */
-
-.customer-reviews {
-    background: #111111;
-    color: #ffffff;
-
-    padding: 120px 7vw 150px;
-}
-
-.customer-reviews .section-title span {
-    color: #ffffff;
-}
-
-.customer-reviews .section-title h2 {
-    color: #ffffff;
-}
-
-
-/* =========================================
-   REVIEW SLIDER
-========================================= */
-
-.review-slider {
+input,
+textarea {
     width: 100%;
-
-    display: grid;
-    grid-template-columns: 65px 1fr 65px;
-
-    gap: 30px;
-
-    align-items: center;
-}
-
-.slider-arrow {
-    width: 60px;
-    height: 60px;
-
-    border: 1px solid #ffffff;
-
+    border: 1px solid #aaa;
     background: transparent;
-    color: #ffffff;
-
-    font-size: 20px;
-
-    cursor: pointer;
-
-    transition: background .2s ease,
-                color .2s ease;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 15px;
 }
 
-.slider-arrow:hover {
-    background: #ffffff;
-    color: #111111;
-}
-
-
-/* =========================================
-   REVIEW CARD
-========================================= */
-
-.review-card {
-    position: relative;
-
-    min-height: 550px;
-
-    border: 1px solid #ffffff;
-
-    display: grid;
-    grid-template-columns: 42% 58%;
-
-    overflow: hidden;
-}
-
-
-/* =========================================
-   REVIEW PHOTO
-========================================= */
-
-.review-photo-wrapper {
-    width: 100%;
-    height: 100%;
-    min-height: 550px;
-
-    background: #222222;
-
-    overflow: hidden;
-}
-
-.review-photo-wrapper img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    display: block;
-}
-
-
-/* =========================================
-   REVIEW CONTENT
-========================================= */
-
-.review-content {
-    padding: 65px;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
+textarea {
+    resize: vertical;
 }
 
 .stars {
-    font-size: 24px;
-
-    letter-spacing: 4px;
-
-    margin-bottom: 35px;
-}
-
-.review-content blockquote {
-    font-size: clamp(30px, 4vw, 60px);
-
-    line-height: 1.02;
-
-    letter-spacing: -2px;
-
-    font-weight: 500;
-
-    margin-bottom: 50px;
-}
-
-.review-author {
     display: flex;
-    flex-direction: column;
-
-    gap: 8px;
+    gap: 5px;
 }
 
-.review-author strong {
+.stars button {
+    border: 0;
+    background: transparent;
+    font-size: 35px;
+    cursor: pointer;
+    opacity: .25;
+}
+
+.stars button.selected {
+    opacity: 1;
+}
+
+#preview {
+    margin-top: 20px;
+}
+
+#preview img {
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: cover;
+}
+
+#submitButton {
+    margin-top: 35px;
+    padding: 18px 30px;
+    border: 0;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+#submitButton:disabled {
+    opacity: .5;
+    cursor: wait;
+}
+
+#message {
+    margin-top: 20px;
     font-size: 13px;
-
-    letter-spacing: 2px;
+    font-weight: 700;
 }
 
-.review-author span {
-    font-size: 11px;
-
-    letter-spacing: 1px;
-
-    opacity: .6;
+.review-box {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
-
-/* =========================================
-   COUNTER
-========================================= */
-
-.review-counter {
-    position: absolute;
-
-    right: 30px;
-    bottom: 25px;
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
+.review-box > button {
+    border: 1px solid #111;
+    background: transparent;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
 }
 
+.review-box article {
+    flex: 1;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
 
-/* =========================================
-   FOOTER
-========================================= */
+.review-box article img {
+    width: 280px;
+    height: 350px;
+    object-fit: cover;
+}
+
+#reviewStars {
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+blockquote {
+    font-size: 25px;
+    line-height: 1.4;
+    margin-bottom: 30px;
+}
+
+#reviewName {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#reviewCity {
+    font-size: 14px;
+}
 
 footer {
-    background: #ffffff;
-    color: #111111;
-
-    border-top: 1px solid #111111;
-
-    padding: 55px 7vw;
+    padding: 70px 6%;
+    border-top: 1px solid #ccc;
 }
 
-.footer-content {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    gap: 40px;
+footer h2 {
+    font-size: 40px;
 }
 
-.footer-brand h2 {
-    font-family: "Anton", Arial, sans-serif;
-
-    font-size: 32px;
-
-    letter-spacing: 1px;
-
-    margin-bottom: 12px;
+footer p {
+    margin-top: 10px;
+    font-size: 12px;
 }
 
-.footer-brand p {
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 2px;
-}
-
-.footer-socials {
-    display: flex;
-
-    align-items: center;
-
-    gap: 22px;
-}
-
-.footer-social {
-    width: 22px;
-    height: 22px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    color: #111111;
-
-    transition: opacity .2s ease,
-                transform .2s ease;
-}
-
-.footer-social svg {
-    width: 100%;
-    height: 100%;
-
-    fill: currentColor;
-}
-
-.footer-social:hover {
-    opacity: .5;
-    transform: translateY(-3px);
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 800px) {
+@media (max-width: 700px) {
 
     header {
-        padding: 25px 5vw;
-
-        grid-template-columns: 1fr auto;
-
-        row-gap: 20px;
-    }
-
-    .brand {
-        font-size: 25px;
-    }
-
-    nav {
-        grid-column: 1 / -1;
-
-        grid-row: 2;
-
-        justify-content: flex-start;
-
+        height: auto;
+        padding: 25px;
+        flex-wrap: wrap;
         gap: 20px;
     }
 
-    .back {
-        grid-column: 2;
-        grid-row: 1;
-    }
-
-
-    .review-hero {
-        padding: 70px 6vw 100px;
-    }
-
-    .review-hero h1 {
-        font-size: 75px;
-
-        letter-spacing: -2px;
-
-        margin-top: 35px;
-    }
-
-    .intro {
-        font-size: 15px;
-    }
-
-
-    .experience-section {
-        padding: 80px 6vw 100px;
-    }
-
-    .section-title {
-        margin-bottom: 55px;
-    }
-
-    .section-title h2 {
-        font-size: 70px;
-    }
-
-
-    .customer-reviews {
-        padding: 80px 6vw 100px;
-    }
-
-    .review-slider {
-        grid-template-columns: 40px 1fr 40px;
+    nav {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
         gap: 10px;
     }
 
-    .slider-arrow {
-        width: 40px;
-        height: 40px;
-
-        font-size: 15px;
+    main {
+        padding: 50px 25px;
     }
 
-    .review-card {
-        display: flex;
+    .review-box article {
         flex-direction: column;
-
-        min-height: 650px;
+        text-align: center;
     }
 
-    .review-photo-wrapper {
-        height: 280px;
-        min-height: 280px;
+    .review-box article img {
+        width: 100%;
+        height: 300px;
     }
 
-    .review-content {
-        padding: 35px 25px 70px;
+    .review-box {
+        gap: 10px;
     }
 
-    .review-content blockquote {
-        font-size: 30px;
-
-        letter-spacing: -1px;
-
-        margin-bottom: 30px;
-    }
-
-
-    footer {
-        padding: 45px 6vw;
-    }
-
-    .footer-content {
-        flex-direction: column;
-
-        align-items: flex-start;
+    blockquote {
+        font-size: 20px;
     }
 
 }
