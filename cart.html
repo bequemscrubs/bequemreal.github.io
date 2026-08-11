@@ -701,7 +701,7 @@ main {
 <main>
 
     <h1 class="cart-title">
-        YOUR CART
+        <span data-i18n="your-cart">YOUR CART</span>
     </h1>
 
 
@@ -726,14 +726,14 @@ main {
 
 
             <div class="summary-title">
-                ORDER SUMMARY
+                <span data-i18n="order-summary">ORDER SUMMARY</span>
             </div>
 
 
             <div class="summary-row">
 
                 <span>
-                    ITEMS
+                    <span data-i18n="items">ITEMS</span>
                 </span>
 
                 <span id="summaryItems">
@@ -746,7 +746,7 @@ main {
             <div class="summary-total">
 
                 <span>
-                    TOTAL
+                    <span data-i18n="total">TOTAL</span>
                 </span>
 
                 <span id="summaryTotal">
@@ -762,7 +762,7 @@ main {
                 onclick="goToCheckout()"
                 disabled
             >
-                CHECKOUT →
+                <span data-i18n="checkout">CHECKOUT →</span>
             </button>
 
 
@@ -801,7 +801,7 @@ main {
 
 
         <div class="review-small">
-            ORDER CONFIRMED
+            <span data-i18n="order-confirmed">ORDER CONFIRMED</span>
         </div>
 
 
@@ -821,7 +821,7 @@ main {
                 class="review-btn yes"
                 onclick="goToReviews()"
             >
-                YES →
+                <span data-i18n="yes">YES →</span>
             </button>
 
 
@@ -829,7 +829,7 @@ main {
                 class="review-btn no"
                 onclick="closeReview()"
             >
-                NO
+                <span data-i18n="no">NO</span>
             </button>
 
 
@@ -1648,6 +1648,7 @@ displayCart();
 </script>
 
 
+<script src="translations.js"></script>
 </body>
 
 </html>
