@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,41 +6,39 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Reviews — BEQUEM SCRUBS</title>
 
-    <link rel="stylesheet"
-          href="reviews.css">
+    <link
+        rel="stylesheet"
+        href="reviews.css">
 
     <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+        href="https://fonts.googleapis.com">
 
     <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+        href="https://fonts.gstatic.com"
+        crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
 </head>
 
 
 <body>
 
-
 <!-- ================= HEADER ================= -->
 
 <header class="reviews-header">
 
-    <a href="index.html"
-       class="brand">
-
+    <a href="index.html" class="brand">
         BEQUEM SCRUBS
-
     </a>
-
 
     <nav>
 
@@ -51,29 +50,22 @@
             SHOP
         </a>
 
-        <a href="reviews.html"
-           class="active">
+        <a href="reviews.html" class="active">
             REVIEWS
         </a>
 
     </nav>
 
-
-    <a href="shop.html"
-       class="back">
-
+    <a href="shop.html" class="back">
         SHOP →
-
     </a>
 
 </header>
 
 
-
 <!-- ================= HERO ================= -->
 
 <main>
-
 
 <section class="reviews-hero">
 
@@ -81,31 +73,23 @@
         01 / BEQUEM COMMUNITY
     </p>
 
-
     <h1>
-
         WHAT DO<br>
         YOU THINK?
-
     </h1>
 
-
     <p class="intro">
-
         Your experience matters.
         Tell us what you think about
         your BEQUEM SCRUBS.
-
     </p>
 
 </section>
 
 
-
 <!-- ================= REVIEW FORM ================= -->
 
 <section class="review-form-section">
-
 
     <div class="section-title">
 
@@ -121,9 +105,7 @@
     </div>
 
 
-
     <form id="reviewForm">
-
 
         <!-- NAME -->
 
@@ -142,7 +124,6 @@
         </div>
 
 
-
         <!-- CITY -->
 
         <div class="form-group">
@@ -159,27 +140,79 @@
         </div>
 
 
+        <!-- RATING -->
 
-       <div class="form-group">
+        <div class="form-group">
 
-    <label>YOUR RATING *</label>
+            <label>
+                YOUR RATING *
+            </label>
 
-    <div class="rating" id="ratingStars">
+            <div
+                class="rating"
+                id="ratingStars">
 
-        <button type="button" class="star" data-rating="1">★</button>
-        <button type="button" class="star" data-rating="2">★</button>
-        <button type="button" class="star" data-rating="3">★</button>
-        <button type="button" class="star" data-rating="4">★</button>
-        <button type="button" class="star" data-rating="5">★</button>
+                <button
+                    type="button"
+                    class="star"
+                    data-rating="1">
+                    ★
+                </button>
 
-    </div>
+                <button
+                    type="button"
+                    class="star"
+                    data-rating="2">
+                    ★
+                </button>
 
-    <input
-        type="hidden"
-        id="reviewRating"
-        value="0">
+                <button
+                    type="button"
+                    class="star"
+                    data-rating="3">
+                    ★
+                </button>
 
-</div>
+                <button
+                    type="button"
+                    class="star"
+                    data-rating="4">
+                    ★
+                </button>
+
+                <button
+                    type="button"
+                    class="star"
+                    data-rating="5">
+                    ★
+                </button>
+
+            </div>
+
+            <input
+                type="hidden"
+                id="reviewRating"
+                value="0">
+
+        </div>
+
+
+        <!-- REVIEW -->
+
+        <div class="form-group">
+
+            <label for="reviewText">
+                YOUR REVIEW *
+            </label>
+
+            <textarea
+                id="reviewText"
+                rows="7"
+                placeholder="Tell us about your BEQUEM experience..."
+                required></textarea>
+
+        </div>
+
 
         <!-- PHOTOS -->
 
@@ -202,14 +235,13 @@
         </div>
 
 
-
-        <!-- PREVIEW -->
-
-        <div id="photoPreview"
-             class="photo-preview">
+        <div
+            id="photoPreview"
+            class="photo-preview">
         </div>
 
 
+        <!-- SUBMIT -->
 
         <button
             type="submit"
@@ -220,21 +252,19 @@
         </button>
 
 
-        <p id="reviewMessage"
-           class="review-message">
+        <p
+            id="reviewMessage"
+            class="review-message">
         </p>
-
 
     </form>
 
 </section>
 
 
-
 <!-- ================= REVIEWS ================= -->
 
 <section class="customer-reviews">
-
 
     <div class="section-title">
 
@@ -250,16 +280,12 @@
     </div>
 
 
-
     <div class="review-slider">
-
 
         <button
             class="slider-arrow"
             id="reviewPrev">
-
             ←
-
         </button>
 
 
@@ -267,11 +293,10 @@
             class="review-card"
             id="reviewCard">
 
-            <div class="stars"
-                 id="displayStars">
-
+            <div
+                class="stars"
+                id="displayStars">
                 ★★★★★
-
             </div>
 
 
@@ -316,22 +341,17 @@
         <button
             class="slider-arrow"
             id="reviewNext">
-
             →
-
         </button>
-
 
     </div>
 
 </section>
 
 
-
 <!-- ================= CUSTOMER PHOTOS ================= -->
 
 <section class="customer-photos">
-
 
     <div class="section-title">
 
@@ -349,18 +369,14 @@
 
     <div class="photo-slider">
 
-
         <button
             class="slider-arrow"
             id="photoPrev">
-
             ←
-
         </button>
 
 
-        <div
-            class="customer-photo-frame">
+        <div class="customer-photo-frame">
 
             <img
                 id="displayPhoto"
@@ -373,20 +389,14 @@
         <button
             class="slider-arrow"
             id="photoNext">
-
             →
-
         </button>
-
 
     </div>
 
-
 </section>
 
-
 </main>
-
 
 
 <!-- ================= FOOTER ================= -->
@@ -404,9 +414,14 @@
 </footer>
 
 
+<!-- SUPABASE FIRST -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- YOUR JS SECOND -->
+
 <script src="reviews.js"></script>
 
 </body>
-
 </html>
+```
