@@ -22,7 +22,6 @@
 
 <body>
 
-
 <!-- ================= HEADER ================= -->
 
 <header>
@@ -88,7 +87,6 @@
 
 
     <form id="reviewForm">
-
 
         <!-- NAME -->
 
@@ -235,7 +233,6 @@
 
     <div class="review-slider">
 
-
         <button
             class="slider-arrow"
             id="reviewPrev">
@@ -246,7 +243,6 @@
 
 
         <article class="review-card">
-
 
             <div class="review-photo-wrapper">
 
@@ -305,7 +301,6 @@
 
             </div>
 
-
         </article>
 
 
@@ -339,7 +334,6 @@
 </footer>
 
 
-
 <script>
 
 /* =====================================================
@@ -352,7 +346,6 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
 
-
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
@@ -361,8 +354,7 @@ const supabaseClient =
 
 
 /* =====================================================
-   IMPORTANT
-   IGNORE COMPLETELY OLD LOCAL REVIEWS
+   IGNORE OLD LOCAL REVIEWS
 ===================================================== */
 
 localStorage.removeItem("bequemReviews");
@@ -374,9 +366,7 @@ localStorage.removeItem("reviews");
 ===================================================== */
 
 let reviews = [];
-
 let currentReview = 0;
-
 let selectedPhoto = "";
 
 
@@ -449,7 +439,6 @@ photoInput.addEventListener("change", () => {
     if (!file) {
 
         selectedPhoto = "";
-
         photoPreview.innerHTML = "";
 
         return;
@@ -477,7 +466,8 @@ photoInput.addEventListener("change", () => {
 
 
 /* =====================================================
-   LOAD ONLY SUPABASE REVIEWS
+   LOAD REVIEWS FROM SUPABASE
+   ONLY APPROVED REVIEWS
 ===================================================== */
 
 async function loadReviews() {
@@ -486,6 +476,7 @@ async function loadReviews() {
         await supabaseClient
             .from("reviews")
             .select("*")
+            .eq("approved", true)
             .order("created_at", {
                 ascending: true
             });
@@ -550,7 +541,7 @@ reviewForm.addEventListener(
                 .trim();
 
 
-        const text =
+        const reviewText =
             document
                 .getElementById("reviewText")
                 .value
@@ -572,6 +563,15 @@ reviewForm.addEventListener(
         }
 
 
+        if (!reviewText) {
+
+            reviewMessage.textContent =
+                "PLEASE WRITE YOUR REVIEW.";
+
+            return;
+        }
+
+
         submitButton.disabled =
             true;
 
@@ -579,84 +579,131 @@ reviewForm.addEventListener(
             "SENDING...";
 
 
-        const review = {
+        try {
 
-            name: name,
+            /* =================================================
+               IMPORTANT:
+               These names MUST match Supabase exactly:
 
-            city: city,
-
-            text: text,
-
-            rating: rating,
-
-            photo:
-                selectedPhoto || null,
-
-            created_at:
-                new Date().toISOString()
-
-        };
+               name
+               city
+               rating
+               review
+               photo_urls
+               approved
+               created_at
+            ================================================= */
 
 
-        const { data, error } =
-            await supabaseClient
-                .from("reviews")
-                .insert([review])
-                .select()
-                .single();
+            const reviewData = {
+
+                name: name,
+
+                city: city || null,
+
+                rating: rating,
+
+                review: reviewText,
+
+                photo_urls:
+                    selectedPhoto || null,
+
+                approved: false,
+
+                created_at:
+                    new Date().toISOString()
+
+            };
 
 
-        if (error) {
-
-    console.error("SUPABASE REVIEW ERROR:", error);
-
-    reviewMessage.textContent =
-        "SUPABASE ERROR: " + error.message;
-
-    submitButton.disabled = false;
-    submitButton.textContent = "SEND REVIEW →";
-
-    return;
-}
-
-        reviews.push(data);
-
-        currentReview =
-            reviews.length - 1;
+            const { data, error } =
+                await supabaseClient
+                    .from("reviews")
+                    .insert([reviewData])
+                    .select()
+                    .single();
 
 
-        reviewForm.reset();
+            if (error) {
 
-        ratingInput.value =
-            "0";
+                console.error(
+                    "SUPABASE REVIEW ERROR:",
+                    error
+                );
 
-        selectedPhoto =
-            "";
+                reviewMessage.textContent =
+                    "SUPABASE ERROR: " +
+                    error.message;
 
-        photoPreview.innerHTML =
-            "";
+                submitButton.disabled =
+                    false;
 
+                submitButton.textContent =
+                    "SEND REVIEW →";
 
-        stars.forEach(star => {
-
-            star.style.opacity =
-                "1";
-
-        });
-
-
-        reviewMessage.textContent =
-            "THANK YOU — YOUR REVIEW HAS BEEN SENT.";
+                return;
+            }
 
 
-        submitButton.disabled =
-            false;
+            /* ==============================================
+               SUCCESS
+            ============================================== */
 
-        submitButton.textContent =
-            "SEND REVIEW →";
+            reviewMessage.textContent =
+                "THANK YOU — YOUR REVIEW HAS BEEN SENT.";
 
 
-        displayReview();
+            reviewForm.reset();
+
+            ratingInput.value =
+                "0";
+
+            selectedPhoto =
+                "";
+
+            photoPreview.innerHTML =
+                "";
+
+
+            stars.forEach(star => {
+
+                star.style.opacity =
+                    "1";
+
+            });
+
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "SEND REVIEW →";
+
+
+            /*
+               The review is inserted with approved = false,
+               so it will not appear publicly until approved
+               in Supabase.
+            */
+
+
+        } catch (error) {
+
+            console.error(
+                "JAVASCRIPT ERROR:",
+                error
+            );
+
+            reviewMessage.textContent =
+                "ERROR: " + error.message;
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "SEND REVIEW →";
+
+        }
 
     }
 );
@@ -704,6 +751,10 @@ function displayReview() {
         );
 
 
+    /* ==============================================
+       NO REVIEWS
+    ============================================== */
+
     if (!reviews.length) {
 
         displayPhoto.style.display =
@@ -731,6 +782,10 @@ function displayReview() {
     }
 
 
+    /* ==============================================
+       CURRENT REVIEW
+    ============================================== */
+
     if (currentReview >= reviews.length) {
 
         currentReview = 0;
@@ -750,10 +805,15 @@ function displayReview() {
         reviews[currentReview];
 
 
-    if (review.photo) {
+    /* ==============================================
+       PHOTO
+       SUPABASE COLUMN = photo_urls
+    ============================================== */
+
+    if (review.photo_urls) {
 
         displayPhoto.src =
-            review.photo;
+            review.photo_urls;
 
         displayPhoto.style.display =
             "block";
@@ -770,6 +830,10 @@ function displayReview() {
     }
 
 
+    /* ==============================================
+       RATING
+    ============================================== */
+
     const rating =
         Number(review.rating);
 
@@ -779,19 +843,36 @@ function displayReview() {
         "☆".repeat(5 - rating);
 
 
-    displayReview.textContent =
-        `"${review.text}"`;
+    /* ==============================================
+       REVIEW TEXT
+       SUPABASE COLUMN = review
+    ============================================== */
 
+    displayReview.textContent =
+        `"${review.review}"`;
+
+
+    /* ==============================================
+       NAME
+    ============================================== */
 
     displayName.textContent =
         review.name;
 
+
+    /* ==============================================
+       CITY
+    ============================================== */
 
     displayCity.textContent =
         review.city
             ? "— " + review.city
             : "—";
 
+
+    /* ==============================================
+       COUNTER
+    ============================================== */
 
     reviewCurrent.textContent =
         String(
@@ -820,6 +901,7 @@ document
 
         currentReview++;
 
+
         if (
             currentReview >=
             reviews.length
@@ -828,6 +910,7 @@ document
             currentReview = 0;
 
         }
+
 
         displayReview();
 
@@ -847,12 +930,14 @@ document
 
         currentReview--;
 
+
         if (currentReview < 0) {
 
             currentReview =
                 reviews.length - 1;
 
         }
+
 
         displayReview();
 
