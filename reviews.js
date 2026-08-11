@@ -63,45 +63,45 @@ const submitButton =
    RATING
 ===================================================== */
 
-document
-    .querySelectorAll(".stars button")
-    .forEach(button => {
+d/* ==========================================
+   RATING
+========================================== */
 
-        button.addEventListener("click", () => {
+const ratingButtons =
+    document.querySelectorAll(".stars button");
 
-            const rating =
-                Number(button.dataset.rating);
+ratingButtons.forEach(button => {
 
-            ratingInput.value = rating;
+    button.addEventListener("click", function () {
 
+        const rating =
+            Number(this.getAttribute("data-rating"));
 
-            document
-                .querySelectorAll(".stars button")
-                .forEach(star => {
+        document.getElementById("reviewRating").value =
+            rating;
 
-                    const value =
-                        Number(star.dataset.rating);
+        ratingButtons.forEach(star => {
 
-                    if (value <= rating) {
+            const starRating =
+                Number(star.getAttribute("data-rating"));
 
-                        star.classList.add(
-                            "selected"
-                        );
+            if (starRating <= rating) {
 
-                    } else {
+                star.classList.add("selected");
 
-                        star.classList.remove(
-                            "selected"
-                        );
+            } else {
 
-                    }
+                star.classList.remove("selected");
 
-                });
+            }
 
         });
 
+        console.log("Rating selected:", rating);
+
     });
 
+});
 
 /* =====================================================
    PHOTO PREVIEW
