@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const CART_KEY = "bequemCart";
     const LAST_ORDER_KEY = "bequemLastOrder";
 
-    // BEQUEM SCRUBS - WhatsApp réception
+    // WhatsApp BEQUEM SCRUBS
     const WHATSAPP_NUMBER = "213781952022";
 
 
@@ -27,20 +27,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================
-       LOAD CART
+       CART
     ========================================= */
 
-    let cart = [];
+    function getCart() {
 
-    try {
+        try {
 
-        cart = JSON.parse(
-            localStorage.getItem(CART_KEY) || "[]"
-        );
+            return JSON.parse(
+                localStorage.getItem(CART_KEY) || "[]"
+            ) || [];
 
-    } catch (error) {
+        } catch (error) {
 
-        cart = [];
+            return [];
+
+        }
+
+    }
+
+
+    const cart = getCart();
+
+
+    /* =========================================
+       EMPTY CART
+    ========================================= */
+
+    if (!cart.length) {
+
+        if (orderSummary) {
+
+            orderSummary.innerHTML = `
+                <p style="
+                    padding:20px 0;
+                    font-weight:600;
+                ">
+                    YOUR CART IS EMPTY.
+                </p>
+            `;
+
+        }
+
+        return;
 
     }
 
@@ -49,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
        HELPERS
     ========================================= */
 
-    function getQuantity(item) {
+    function quantityOf(item) {
 
         return Number(item.quantity) || 1;
 
@@ -61,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!item.motif) {
 
             return {
-                name: "NO MOTIF",
+                name: "—",
                 placement: "—",
                 description: "—"
             };
@@ -83,30 +112,15 @@ document.addEventListener("DOMContentLoaded", function () {
         return {
 
             name:
-                item.motif.name ||
-                "NO MOTIF",
+                item.motif.name || "—",
 
             placement:
-                item.motif.placement ||
-                "—",
+                item.motif.placement || "—",
 
             description:
-                item.motif.description ||
-                "—"
+                item.motif.description || "—"
 
         };
-
-    }
-
-
-    function isCompressionSock(item) {
-
-        return (
-            item.category === "ACCESSORY" ||
-            !!item.product ||
-            !!item.model ||
-            !!item.compressionSock
-        );
 
     }
 
@@ -115,7 +129,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return (
             !!item.top ||
-            !!item.pants
+            !!item.pants ||
+            item.category === "SCRUB SET"
+        );
+
+    }
+
+
+    function isCompressionSock(item) {
+
+        return (
+            item.category === "ACCESSORY" ||
+            item.name === "BAS DE CONTENTION" ||
+            !!item.product ||
+            !!item.model
         );
 
     }
@@ -127,30 +154,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayOrder() {
 
-        orderSummary.innerHTML = "";
-
-
-        if (!cart.length) {
-
-            orderSummary.innerHTML = `
-                <p>
-                    YOUR CART IS EMPTY.
-                </p>
-            `;
-
-            if (orderTotal) {
-
-                orderTotal.textContent =
-                    "0 DA";
-
-            }
-
+        if (!orderSummary) {
             return;
-
         }
 
 
-        let totalItems = 0;
+        orderSummary.innerHTML = "";
+
 
         let total = 0;
 
@@ -158,18 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cart.forEach(function (item, index) {
 
             const quantity =
-                getQuantity(item);
-
-
-            totalItems += quantity;
-
-
-            /*
-             * PRICE
-             *
-             * If you add prices later,
-             * this will automatically use them.
-             */
+                quantityOf(item);
 
             const price =
                 Number(item.price) || 0;
@@ -187,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "order-item";
 
 
-            /* =================================
+            /* ================================
                TENUE
             ================================= */
 
@@ -200,149 +199,104 @@ document.addEventListener("DOMContentLoaded", function () {
                 article.innerHTML = `
 
                     <h3>
-                        TENUE BEQUEM
+                        🩺 TENUE BEQUEM
                     </h3>
 
-                    <div class="order-details">
+                    <p>
+                        TOP:
+                        ${item.top || "—"}
+                    </p>
 
-                        <span>
-                            TOP:
-                            ${item.top || "—"}
-                        </span>
+                    <p>
+                        PANTS:
+                        ${item.pants || "—"}
+                    </p>
 
-                        <span>
-                            PANTS:
-                            ${item.pants || "—"}
-                        </span>
+                    <p>
+                        COLOR:
+                        ${
+                            item.color ||
+                            item.scrubColor ||
+                            "—"
+                        }
+                    </p>
 
-                        <span>
-                            COLOR:
-                            ${
-                                item.color ||
-                                item.scrubColor ||
-                                "—"
-                            }
-                        </span>
+                    <p>
+                        SIZE:
+                        ${
+                            item.size ||
+                            item.scrubSize ||
+                            "—"
+                        }
+                    </p>
 
-                        <span>
-                            SIZE:
-                            ${
-                                item.size ||
-                                item.scrubSize ||
-                                "—"
-                            }
-                        </span>
+                    <p>
+                        MOTIF:
+                        ${motif.name}
+                    </p>
 
-                        <span>
-                            MOTIF:
-                            ${motif.name}
-                        </span>
+                    <p>
+                        PLACEMENT:
+                        ${motif.placement}
+                    </p>
 
-                        <span>
-                            PLACEMENT:
-                            ${motif.placement}
-                        </span>
+                    <p>
+                        MOTIF DETAILS:
+                        ${motif.description}
+                    </p>
 
-                        <span>
-                            DESCRIPTION:
-                            ${motif.description}
-                        </span>
-
-                        <span>
-                            QTY:
-                            ${quantity}
-                        </span>
-
-                    </div>
+                    <p>
+                        QUANTITY:
+                        ${quantity}
+                    </p>
 
                 `;
 
             }
 
 
-            /* =================================
+            /* ================================
                BAS DE CONTENTION
             ================================= */
 
-            else if (
-                isCompressionSock(item)
-            ) {
-
-                /*
-                 * Support both:
-                 *
-                 * NEW FORMAT:
-                 * product / model / color / size
-                 *
-                 * OLD FORMAT:
-                 * compressionSock: {}
-                 */
-
-                const socks =
-                    item.compressionSock ||
-                    item;
-
-
-                const model =
-                    item.model ||
-                    item.product ||
-                    socks.model ||
-                    "—";
-
-
-                const color =
-                    item.color ||
-                    socks.color ||
-                    "—";
-
-
-                const size =
-                    item.size ||
-                    socks.size ||
-                    "—";
-
-
-                const sockQuantity =
-                    socks.quantity ||
-                    quantity;
-
+            else if (isCompressionSock(item)) {
 
                 article.innerHTML = `
 
                     <h3>
-                        BAS DE CONTENTION
+                        🧦 BAS DE CONTENTION
                     </h3>
 
-                    <div class="order-details">
+                    <p>
+                        MODEL:
+                        ${
+                            item.model ||
+                            item.product ||
+                            "—"
+                        }
+                    </p>
 
-                        <span>
-                            MODEL:
-                            ${model}
-                        </span>
+                    <p>
+                        COLOR:
+                        ${item.color || "—"}
+                    </p>
 
-                        <span>
-                            COLOR:
-                            ${color}
-                        </span>
+                    <p>
+                        SIZE:
+                        ${item.size || "—"}
+                    </p>
 
-                        <span>
-                            SIZE:
-                            ${size}
-                        </span>
-
-                        <span>
-                            QTY:
-                            ${sockQuantity}
-                        </span>
-
-                    </div>
+                    <p>
+                        QUANTITY:
+                        ${quantity}
+                    </p>
 
                 `;
 
             }
 
 
-            /* =================================
+            /* ================================
                OTHER PRODUCT
             ================================= */
 
@@ -354,48 +308,24 @@ document.addEventListener("DOMContentLoaded", function () {
                         ${item.name || "PRODUCT"}
                     </h3>
 
-                    <div class="order-details">
-
-                        ${
-                            item.color
-                            ? `
-                                <span>
-                                    COLOR:
-                                    ${item.color}
-                                </span>
-                            `
-                            : ""
-                        }
-
-                        ${
-                            item.size
-                            ? `
-                                <span>
-                                    SIZE:
-                                    ${item.size}
-                                </span>
-                            `
-                            : ""
-                        }
-
-                        <span>
-                            QTY:
-                            ${quantity}
-                        </span>
-
-                    </div>
+                    <p>
+                        QUANTITY:
+                        ${quantity}
+                    </p>
 
                 `;
 
             }
 
 
-            orderSummary.appendChild(
-                article
-            );
+            orderSummary.appendChild(article);
 
         });
 
+
+        /* ================================
+           TOTAL
+        ================================= */
 
         if (orderTotal) {
 
@@ -408,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
 
                 orderTotal.textContent =
-                    "PRICE TO BE ADDED";
+                    "PRICE TO BE CONFIRMED";
 
             }
 
@@ -436,8 +366,8 @@ document.addEventListener("DOMContentLoaded", function () {
             "━━━━━━━━━━━━━━━━━━━━\n\n";
 
 
-        /* =================================
-           ORDER ID
+        /* ================================
+           ORDER NUMBER
         ================================= */
 
         message +=
@@ -450,13 +380,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         message +=
             "Date : " +
-            new Date().toLocaleString(
-                "fr-FR"
-            ) +
+            new Date().toLocaleString("fr-FR") +
             "\n\n";
 
 
-        /* =================================
+        /* ================================
            CUSTOMER
         ================================= */
 
@@ -499,8 +427,8 @@ document.addEventListener("DOMContentLoaded", function () {
         message += "\n";
 
 
-        /* =================================
-           ITEMS
+        /* ================================
+           PRODUCTS
         ================================= */
 
         message +=
@@ -510,264 +438,181 @@ document.addEventListener("DOMContentLoaded", function () {
             "━━━━━━━━━━━━━━━━━━━━\n\n";
 
 
-        let totalItems = 0;
-
         let total = 0;
 
-
-        order.items.forEach(
-            function (item, index) {
-
-                const quantity =
-                    getQuantity(item);
+        let totalItems = 0;
 
 
-                totalItems +=
-                    quantity;
+        order.items.forEach(function (item, index) {
+
+            const quantity =
+                quantityOf(item);
+
+            const price =
+                Number(item.price) || 0;
 
 
-                const price =
-                    Number(item.price) || 0;
+            total +=
+                price * quantity;
+
+            totalItems +=
+                quantity;
 
 
-                total +=
-                    price * quantity;
+            /* -------------------------------
+               OUTFIT
+            -------------------------------- */
+
+            if (isOutfit(item)) {
+
+                const motif =
+                    getMotif(item);
 
 
-                /*
-                 * TENUE
-                 */
-
-                if (isOutfit(item)) {
-
-                    const motif =
-                        getMotif(item);
+                message +=
+                    "🩺 *ARTICLE " +
+                    (index + 1) +
+                    " — TENUE*\n";
 
 
-                    message +=
-                        "🩺 *ARTICLE " +
-                        (index + 1) +
-                        " — TENUE BEQUEM*\n";
+                message +=
+                    "Top : " +
+                    (item.top || "—") +
+                    "\n";
 
 
-                    message +=
-                        "Top : " +
-                        (item.top || "—") +
-                        "\n";
+                message +=
+                    "Pantalon : " +
+                    (item.pants || "—") +
+                    "\n";
 
 
-                    message +=
-                        "Pantalon : " +
-                        (item.pants || "—") +
-                        "\n";
-
-
-                    message +=
-                        "Couleur : " +
-                        (
-                            item.color ||
-                            item.scrubColor ||
-                            "—"
-                        ) +
-                        "\n";
-
-
-                    message +=
-                        "Taille : " +
-                        (
-                            item.size ||
-                            item.scrubSize ||
-                            "—"
-                        ) +
-                        "\n";
-
-
-                    message +=
-                        "Motif : " +
-                        motif.name +
-                        "\n";
-
-
-                    message +=
-                        "Placement : " +
-                        motif.placement +
-                        "\n";
-
-
-                    message +=
-                        "Description motif : " +
-                        motif.description +
-                        "\n";
-
-
-                    message +=
-                        "Quantité : " +
-                        quantity +
-                        "\n";
-
-
-                    if (price > 0) {
-
-                        message +=
-                            "Prix : " +
-                            (
-                                price * quantity
-                            ).toLocaleString(
-                                "fr-FR"
-                            ) +
-                            " DA\n";
-
-                    }
-
-
-                    message += "\n";
-
-                }
-
-
-                /*
-                 * BAS DE CONTENTION
-                 */
-
-                else if (
-                    isCompressionSock(item)
-                ) {
-
-                    const socks =
-                        item.compressionSock ||
-                        item;
-
-
-                    const model =
-                        item.model ||
-                        item.product ||
-                        socks.model ||
-                        "—";
-
-
-                    const color =
+                message +=
+                    "Couleur : " +
+                    (
                         item.color ||
-                        socks.color ||
-                        "—";
+                        item.scrubColor ||
+                        "—"
+                    ) +
+                    "\n";
 
 
-                    const size =
+                message +=
+                    "Taille : " +
+                    (
                         item.size ||
-                        socks.size ||
-                        "—";
+                        item.scrubSize ||
+                        "—"
+                    ) +
+                    "\n";
 
 
-                    const sockQuantity =
-                        socks.quantity ||
-                        quantity;
+                message +=
+                    "Motif : " +
+                    motif.name +
+                    "\n";
 
 
-                    message +=
-                        "🧦 *ARTICLE " +
-                        (index + 1) +
-                        " — BAS DE CONTENTION*\n";
+                message +=
+                    "Placement : " +
+                    motif.placement +
+                    "\n";
 
 
-                    message +=
-                        "Modèle : " +
-                        model +
-                        "\n";
+                message +=
+                    "Détails motif : " +
+                    motif.description +
+                    "\n";
 
 
-                    message +=
-                        "Couleur : " +
-                        color +
-                        "\n";
-
-
-                    message +=
-                        "Taille : " +
-                        size +
-                        "\n";
-
-
-                    message +=
-                        "Quantité : " +
-                        sockQuantity +
-                        "\n";
-
-
-                    if (price > 0) {
-
-                        message +=
-                            "Prix : " +
-                            (
-                                price *
-                                sockQuantity
-                            ).toLocaleString(
-                                "fr-FR"
-                            ) +
-                            " DA\n";
-
-                    }
-
-
-                    message += "\n";
-
-                }
-
-
-                /*
-                 * OTHER
-                 */
-
-                else {
-
-                    message +=
-                        "🛍️ *ARTICLE " +
-                        (index + 1) +
-                        "*\n";
-
-
-                    message +=
-                        "Produit : " +
-                        (
-                            item.name ||
-                            "PRODUCT"
-                        ) +
-                        "\n";
-
-
-                    if (item.color) {
-
-                        message +=
-                            "Couleur : " +
-                            item.color +
-                            "\n";
-
-                    }
-
-
-                    if (item.size) {
-
-                        message +=
-                            "Taille : " +
-                            item.size +
-                            "\n";
-
-                    }
-
-
-                    message +=
-                        "Quantité : " +
-                        quantity +
-                        "\n";
-
-
-                    message += "\n";
-
-                }
+                message +=
+                    "Quantité : " +
+                    quantity +
+                    "\n\n";
 
             }
-        );
 
 
-        /* =================================
+            /* -------------------------------
+               COMPRESSION SOCKS
+            -------------------------------- */
+
+            else if (isCompressionSock(item)) {
+
+                message +=
+                    "🧦 *ARTICLE " +
+                    (index + 1) +
+                    " — BAS DE CONTENTION*\n";
+
+
+                message +=
+                    "Modèle : " +
+                    (
+                        item.model ||
+                        item.product ||
+                        "—"
+                    ) +
+                    "\n";
+
+
+                message +=
+                    "Couleur : " +
+                    (
+                        item.color ||
+                        "—"
+                    ) +
+                    "\n";
+
+
+                message +=
+                    "Taille : " +
+                    (
+                        item.size ||
+                        "—"
+                    ) +
+                    "\n";
+
+
+                message +=
+                    "Quantité : " +
+                    quantity +
+                    "\n\n";
+
+            }
+
+
+            /* -------------------------------
+               OTHER
+            -------------------------------- */
+
+            else {
+
+                message +=
+                    "🛍️ *ARTICLE " +
+                    (index + 1) +
+                    "*\n";
+
+
+                message +=
+                    "Produit : " +
+                    (
+                        item.name ||
+                        "PRODUCT"
+                    ) +
+                    "\n";
+
+
+                message +=
+                    "Quantité : " +
+                    quantity +
+                    "\n\n";
+
+            }
+
+        });
+
+
+        /* ================================
            TOTAL
         ================================= */
 
@@ -778,7 +623,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "📊 *RÉCAPITULATIF*\n";
 
         message +=
-            "Nombre d'articles : " +
+            "Articles : " +
             totalItems +
             "\n";
 
@@ -787,9 +632,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             message +=
                 "Total : " +
-                total.toLocaleString(
-                    "fr-FR"
-                ) +
+                total.toLocaleString("fr-FR") +
                 " DA\n";
 
         } else {
@@ -803,7 +646,7 @@ document.addEventListener("DOMContentLoaded", function () {
         message += "\n";
 
 
-        /* =================================
+        /* ================================
            DELIVERY
         ================================= */
 
@@ -818,20 +661,340 @@ document.addEventListener("DOMContentLoaded", function () {
         message +=
             "Adresse : " +
             customer.address +
-            "\n";
+            "\n\n";
 
-
-        message += "\n";
-
-
-        /* =================================
-           FINAL MESSAGE
-        ================================= */
 
         message +=
             "Merci, je souhaite confirmer cette commande.";
 
+
         return message;
+
+    }
+
+
+    /* =========================================
+       OPEN WHATSAPP
+    ========================================= */
+
+    function sendToWhatsApp(
+        customer,
+        order
+    ) {
+
+        const message =
+            createWhatsAppMessage(
+                customer,
+                order
+            );
+
+
+        const whatsappURL =
+            "https://wa.me/" +
+            WHATSAPP_NUMBER +
+            "?text=" +
+            encodeURIComponent(message);
+
+
+        /*
+         * Open WhatsApp.
+         */
+
+        window.open(
+            whatsappURL,
+            "_blank"
+        );
+
+    }
+
+
+    /* =========================================
+       SMALL REVIEW POPUP
+    ========================================= */
+
+    function showReviewPopup() {
+
+        /*
+         * Prevent duplicates.
+         */
+
+        if (
+            document.getElementById(
+                "bequemReviewPopup"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        const popup =
+            document.createElement("div");
+
+
+        popup.id =
+            "bequemReviewPopup";
+
+
+        popup.innerHTML = `
+
+            <div class="bequem-review-overlay">
+
+                <div class="bequem-review-box">
+
+                    <button
+                        class="bequem-review-close"
+                        id="reviewClose"
+                        aria-label="Close"
+                    >
+                        ×
+                    </button>
+
+
+                    <div class="bequem-review-icon">
+                        ★
+                    </div>
+
+
+                    <h3>
+                        YOUR ORDER IS READY
+                    </h3>
+
+
+                    <p>
+                        Would you like to leave
+                        us a review?
+                    </p>
+
+
+                    <div class="bequem-review-buttons">
+
+                        <button
+                            id="reviewYes"
+                            class="bequem-review-yes"
+                        >
+                            YES
+                        </button>
+
+
+                        <button
+                            id="reviewNo"
+                            class="bequem-review-no"
+                        >
+                            NO
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        /* =====================================
+           POPUP STYLE
+        ===================================== */
+
+        const style =
+            document.createElement("style");
+
+
+        style.textContent = `
+
+            #bequemReviewPopup {
+                position: fixed;
+                inset: 0;
+                z-index: 999999;
+                pointer-events: none;
+            }
+
+
+            .bequem-review-overlay {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-end;
+                padding: 25px;
+                background: rgba(0,0,0,0.08);
+                pointer-events: auto;
+            }
+
+
+            .bequem-review-box {
+                position: relative;
+                width: 300px;
+                background: #ffffff;
+                border: 1px solid #111111;
+                padding: 25px;
+                box-shadow:
+                    0 12px 40px rgba(0,0,0,0.18);
+                animation:
+                    bequemReviewAppear
+                    0.3s ease;
+            }
+
+
+            .bequem-review-icon {
+                width: 38px;
+                height: 38px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #111111;
+                color: #ffffff;
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+
+
+            .bequem-review-box h3 {
+                margin: 0 0 10px;
+                font-size: 18px;
+                letter-spacing: 0.5px;
+            }
+
+
+            .bequem-review-box p {
+                margin: 0 0 20px;
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+
+            .bequem-review-close {
+                position: absolute;
+                top: 8px;
+                right: 10px;
+                border: 0;
+                background: transparent;
+                font-size: 22px;
+                cursor: pointer;
+                line-height: 1;
+            }
+
+
+            .bequem-review-buttons {
+                display: flex;
+                gap: 8px;
+            }
+
+
+            .bequem-review-buttons button {
+                flex: 1;
+                padding: 11px 8px;
+                cursor: pointer;
+                font-family: inherit;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+
+
+            .bequem-review-yes {
+                background: #111111;
+                color: #ffffff;
+                border: 1px solid #111111;
+            }
+
+
+            .bequem-review-no {
+                background: #ffffff;
+                color: #111111;
+                border: 1px solid #111111;
+            }
+
+
+            @keyframes bequemReviewAppear {
+
+                from {
+                    opacity: 0;
+                    transform:
+                        translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform:
+                        translateY(0);
+                }
+
+            }
+
+
+            @media (max-width: 500px) {
+
+                .bequem-review-overlay {
+                    padding: 15px;
+                }
+
+
+                .bequem-review-box {
+                    width: 100%;
+                }
+
+            }
+
+        `;
+
+
+        document.head.appendChild(style);
+
+        document.body.appendChild(popup);
+
+
+        /* =====================================
+           YES
+        ===================================== */
+
+        document
+            .getElementById("reviewYes")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "reviews.html";
+
+                }
+            );
+
+
+        /* =====================================
+           NO
+        ===================================== */
+
+        document
+            .getElementById("reviewNo")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+        /* =====================================
+           CLOSE = HOME
+        ===================================== */
+
+        document
+            .getElementById("reviewClose")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
 
     }
 
@@ -840,175 +1003,140 @@ document.addEventListener("DOMContentLoaded", function () {
        FORM SUBMIT
     ========================================= */
 
-    form.addEventListener(
-        "submit",
-        function (event) {
+    if (form) {
 
-            event.preventDefault();
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
 
 
-            /* ===============================
-               EMPTY CART
-            =============================== */
+                /* ================================
+                   CUSTOMER DATA
+                ================================= */
 
-            if (!cart.length) {
+                const firstName =
+                    document
+                        .getElementById("firstName")
+                        .value
+                        .trim();
 
-                alert(
-                    "YOUR CART IS EMPTY."
+
+                const lastName =
+                    document
+                        .getElementById("lastName")
+                        .value
+                        .trim();
+
+
+                const phone =
+                    document
+                        .getElementById("phone")
+                        .value
+                        .trim();
+
+
+                const city =
+                    document
+                        .getElementById("city")
+                        .value
+                        .trim();
+
+
+                const address =
+                    document
+                        .getElementById("address")
+                        .value
+                        .trim();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                /* ================================
+                   ORDER
+                ================================= */
+
+                const order = {
+
+                    id:
+                        "BQ-" +
+                        Date.now(),
+
+                    date:
+                        new Date().toISOString(),
+
+                    customer: {
+
+                        firstName:
+                            firstName,
+
+                        lastName:
+                            lastName,
+
+                        phone:
+                            phone,
+
+                        city:
+                            city,
+
+                        address:
+                            address,
+
+                        email:
+                            email
+
+                    },
+
+                    items:
+                        cart
+
+                };
+
+
+                /* ================================
+                   SAVE LAST ORDER
+                ================================= */
+
+                localStorage.setItem(
+                    LAST_ORDER_KEY,
+                    JSON.stringify(order)
                 );
 
-                return;
 
-            }
+                /* ================================
+                   WHATSAPP
+                ================================= */
 
-
-            /* ===============================
-               CUSTOMER
-            =============================== */
-
-            const customer = {
-
-                firstName:
-                    document
-                        .getElementById(
-                            "firstName"
-                        )
-                        .value
-                        .trim(),
-
-                lastName:
-                    document
-                        .getElementById(
-                            "lastName"
-                        )
-                        .value
-                        .trim(),
-
-                phone:
-                    document
-                        .getElementById(
-                            "phone"
-                        )
-                        .value
-                        .trim(),
-
-                city:
-                    document
-                        .getElementById(
-                            "city"
-                        )
-                        .value
-                        .trim(),
-
-                address:
-                    document
-                        .getElementById(
-                            "address"
-                        )
-                        .value
-                        .trim(),
-
-                email:
-                    document
-                        .getElementById(
-                            "email"
-                        )
-                        .value
-                        .trim()
-
-            };
-
-
-            /* ===============================
-               ORDER ID
-            =============================== */
-
-            const orderId =
-                "BQ-" +
-                Date.now();
-
-
-            /* ===============================
-               ORDER
-            =============================== */
-
-            const order = {
-
-                id:
-                    orderId,
-
-                date:
-                    new Date().toISOString(),
-
-                customer:
-                    customer,
-
-                items:
-                    cart
-
-            };
-
-
-            /* ===============================
-               SAVE LAST ORDER
-            =============================== */
-
-            localStorage.setItem(
-                LAST_ORDER_KEY,
-                JSON.stringify(order)
-            );
-
-
-            /* ===============================
-               CREATE MESSAGE
-            =============================== */
-
-            const message =
-                createWhatsAppMessage(
-                    customer,
+                sendToWhatsApp(
+                    order.customer,
                     order
                 );
 
 
-            /* ===============================
-               WHATSAPP URL
-            =============================== */
+                /* ================================
+                   REVIEW POPUP
+                   AFTER CHECKOUT
+                ================================= */
 
-            const whatsappURL =
-                "https://wa.me/" +
-                WHATSAPP_NUMBER +
-                "?text=" +
-                encodeURIComponent(
-                    message
+                setTimeout(
+                    function () {
+
+                        showReviewPopup();
+
+                    },
+                    700
                 );
 
+            }
+        );
 
-            /* ===============================
-               OPEN WHATSAPP
-            =============================== */
-
-            window.location.href =
-                whatsappURL;
-
-
-            /* ===============================
-               CLEAR CART
-               AFTER MESSAGE IS OPENED
-            =============================== */
-
-            setTimeout(
-                function () {
-
-                    localStorage.removeItem(
-                        CART_KEY
-                    );
-
-                },
-                3000
-            );
-
-        }
-    );
+    }
 
 
     /* =========================================
