@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,10 +23,6 @@
         min-height: 100vh;
     }
 
-    /* =========================
-       HEADER
-    ========================= */
-
     header {
         border-bottom: 1px solid #d8d8d5;
         padding: 55px 7vw 40px;
@@ -44,10 +41,6 @@
         letter-spacing: 2px;
         color: #555;
     }
-
-    /* =========================
-       CART
-    ========================= */
 
     main {
         padding: 60px 7vw 100px;
@@ -117,10 +110,6 @@
         letter-spacing: 1px;
     }
 
-    /* =========================
-       SUMMARY
-    ========================= */
-
     .summary {
         border: 1px solid #111;
         padding: 30px;
@@ -183,11 +172,6 @@
         color: #666;
     }
 
-    /* =========================
-       REVIEW POPUP
-       HIDDEN BY DEFAULT
-    ========================= */
-
     .review-overlay {
         position: fixed;
         inset: 0;
@@ -207,8 +191,6 @@
 
         z-index: 9999;
     }
-
-    /* WHEN OPEN */
 
     .review-overlay.show {
         opacity: 1;
@@ -302,10 +284,6 @@
         background: #e8e8e5;
     }
 
-    /* =========================
-       MOBILE
-    ========================= */
-
     @media (max-width: 800px) {
 
         header {
@@ -379,11 +357,8 @@
 
     <div class="cart-wrapper">
 
-        <!-- CART ITEMS -->
         <div id="cartItems" class="cart-items"></div>
 
-
-        <!-- SUMMARY -->
         <aside class="summary">
 
             <div class="summary-title">
@@ -414,11 +389,6 @@
 
 </main>
 
-
-<!-- =========================================
-     REVIEW POPUP
-     THIS IS INVISIBLE UNTIL CHECKOUT
-========================================= -->
 
 <div
     id="reviewOverlay"
@@ -470,12 +440,14 @@
 
 <script>
 
-/* =========================================
-   CART STORAGE
-========================================= */
-
 const CART_KEY = "bequemCart";
 const LAST_ORDER_KEY = "bequemLastOrder";
+
+/* =========================================
+   WHATSAPP NUMBER
+========================================= */
+
+const WHATSAPP_NUMBER = "213781952022";
 
 
 /* =========================================
@@ -531,10 +503,8 @@ function displayCart() {
         return;
     }
 
-
     let total = 0;
     let totalItems = 0;
-
 
     cart.forEach((item, index) => {
 
@@ -544,14 +514,11 @@ function displayCart() {
         total += price * quantity;
         totalItems += quantity;
 
-
         const image = item.image || "";
-
 
         const itemElement = document.createElement("div");
 
         itemElement.className = "cart-item";
-
 
         itemElement.innerHTML = `
 
@@ -605,7 +572,6 @@ function displayCart() {
 
     });
 
-
     summaryItems.textContent = totalItems;
     summaryTotal.textContent =
         total.toLocaleString() + " DA";
@@ -631,7 +597,7 @@ function removeItem(index) {
 
 
 /* =========================================
-   CHECKOUT
+   CHECKOUT → WHATSAPP
 ========================================= */
 
 function checkout() {
@@ -642,29 +608,70 @@ function checkout() {
         return;
     }
 
-
-    /* Calculate total */
-
     let total = 0;
+    let totalItems = 0;
 
-    cart.forEach(item => {
+    /*
+       CREATE WHATSAPP MESSAGE
+    */
+
+    let message =
+        "🛍️ *NEW ORDER — BEQUEM SCRUBS*\n\n";
+
+    cart.forEach((item) => {
 
         const quantity = Number(item.quantity) || 1;
         const price = Number(item.price) || 0;
 
-        total += price * quantity;
+        const itemTotal = price * quantity;
 
+        total += itemTotal;
+        totalItems += quantity;
+
+        message +=
+            "• " +
+            (item.name || "PRODUCT") +
+            "\n";
+
+        if (item.size) {
+            message +=
+                "  Size: " + item.size + "\n";
+        }
+
+        if (item.color) {
+            message +=
+                "  Color: " + item.color + "\n";
+        }
+
+        message +=
+            "  Quantity: " + quantity + "\n";
+
+        message +=
+            "  Price: " +
+            itemTotal.toLocaleString() +
+            " DA\n\n";
     });
 
+    message +=
+        "━━━━━━━━━━━━━━\n" +
+        "TOTAL ITEMS: " +
+        totalItems +
+        "\n" +
+        "TOTAL: " +
+        total.toLocaleString() +
+        " DA\n\n" +
+        "Hello, I would like to place this order.";
 
-    /* Save the order */
+
+    /*
+       SAVE ORDER
+    */
 
     const order = {
         items: cart,
         total: total,
         date: new Date().toISOString()
     };
-
 
     localStorage.setItem(
         LAST_ORDER_KEY,
@@ -673,8 +680,25 @@ function checkout() {
 
 
     /*
-       IMPORTANT:
-       The cart is cleared after checkout.
+       OPEN WHATSAPP
+    */
+
+    const whatsappURL =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(message);
+
+
+    /*
+       OPEN WHATSAPP IN NEW TAB
+    */
+
+    window.open(whatsappURL, "_blank");
+
+
+    /*
+       CLEAR CART
     */
 
     localStorage.removeItem(CART_KEY);
@@ -683,13 +707,12 @@ function checkout() {
 
 
     /*
-       WAIT A LITTLE SO THE CHECKOUT
-       FEELS SMOOTH, THEN SHOW POPUP.
+       SHOW REVIEW POPUP
     */
 
     setTimeout(() => {
         openReview();
-    }, 250);
+    }, 500);
 }
 
 
@@ -758,3 +781,4 @@ displayCart();
 
 </body>
 </html>
+```
