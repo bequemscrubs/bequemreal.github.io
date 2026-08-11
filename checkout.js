@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const CART_KEY = "bequemCart";
@@ -17,11 +16,15 @@ document.addEventListener("DOMContentLoaded", function () {
     function getCart() {
 
         try {
+
             return JSON.parse(
                 localStorage.getItem(CART_KEY) || "[]"
             ) || [];
+
         } catch (error) {
+
             return [];
+
         }
 
     }
@@ -107,7 +110,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return {
 
-            name: item.motif.name || "—",
+            name:
+                item.motif.name || "—",
 
             placement:
                 item.motif.placement || "—",
@@ -121,13 +125,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================
+       CATEGORY
+    ========================================= */
+
+    function getCategory(item) {
+
+        if (item.category === "FEMMES") {
+
+            return "FEMME";
+
+        }
+
+
+        if (item.category === "HIJABI") {
+
+            return "HIJAB";
+
+        }
+
+
+        return "HOMME";
+
+    }
+
+
+    /* =========================================
        DISPLAY ORDER
     ========================================= */
 
     function displayOrder() {
 
         if (!orderSummary) {
+
             return;
+
         }
 
 
@@ -140,6 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const quantity =
                 getQuantity(item);
+
 
             const price =
                 Number(item.price) || 0;
@@ -165,9 +197,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     getMotif(item);
 
 
+                const category =
+                    getCategory(item);
+
+
                 article.innerHTML = `
 
                     <h3>🩺 TENUE BEQUEM</h3>
+
+                    <p>
+                        CATEGORY:
+                        ${category}
+                    </p>
 
                     <p>
                         TOP:
@@ -315,6 +356,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let message = "";
 
+
         message +=
             "🛍️ *NOUVELLE COMMANDE — BEQUEM SCRUBS*\n";
 
@@ -397,12 +439,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const quantity =
                 getQuantity(item);
 
+
             const price =
                 Number(item.price) || 0;
 
 
             total +=
                 price * quantity;
+
 
             totalItems +=
                 quantity;
@@ -415,22 +459,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 const motif =
                     getMotif(item);
 
-const category =
-    item.category === "FEMMES"
-        ? "FEMME"
-        : item.category === "HIJABI"
-            ? "HIJAB"
-            : "HOMME";
 
-message +=
-    "🩺 *ARTICLE " +
-    (index + 1) +
-    " — TENUE*\n";
+                const category =
+                    getCategory(item);
 
-message +=
-    "Catégorie : " +
-    category +
-    "\n";
+
+                message +=
+                    "🩺 *ARTICLE " +
+                    (index + 1) +
+                    " — TENUE*\n";
+
+
+                /*
+                   CATEGORY
+                */
+
+                message +=
+                    "Catégorie : " +
+                    category +
+                    "\n";
 
 
                 message +=
@@ -646,7 +693,8 @@ message +=
             encodeURIComponent(message);
 
 
-        window.location.href = url;
+        window.location.href =
+            url;
 
     }
 
@@ -739,113 +787,204 @@ message +=
         style.textContent = `
 
             #bequemReviewPopup {
+
                 position: fixed;
+
                 inset: 0;
+
                 z-index: 999999;
+
             }
+
 
             .review-overlay {
+
                 position: fixed;
+
                 inset: 0;
+
                 display: flex;
+
                 align-items: flex-end;
+
                 justify-content: flex-end;
+
                 padding: 24px;
-                background: rgba(0,0,0,0.08);
+
+                background:
+                    rgba(0,0,0,0.08);
+
             }
+
 
             .review-box {
+
                 position: relative;
+
                 width: 280px;
+
                 background: #fff;
+
                 border: 1px solid #111;
+
                 padding: 24px;
+
                 box-shadow:
-                    0 12px 40px rgba(0,0,0,.18);
+                    0 12px 40px
+                    rgba(0,0,0,.18);
+
                 animation:
                     reviewAppear .3s ease;
+
             }
+
 
             .review-icon {
+
                 width: 36px;
+
                 height: 36px;
+
                 display: flex;
+
                 align-items: center;
+
                 justify-content: center;
+
                 background: #111;
+
                 color: #fff;
+
                 margin-bottom: 14px;
+
                 font-size: 16px;
+
             }
+
 
             .review-box h3 {
+
                 margin: 0 0 8px;
+
                 font-size: 17px;
+
             }
+
 
             .review-box p {
+
                 margin: 0 0 18px;
+
                 font-size: 13px;
+
                 line-height: 1.5;
+
             }
+
 
             .review-close {
+
                 position: absolute;
+
                 top: 7px;
+
                 right: 9px;
+
                 border: 0;
+
                 background: transparent;
+
                 font-size: 22px;
+
                 cursor: pointer;
+
             }
+
 
             .review-buttons {
+
                 display: flex;
+
                 gap: 8px;
+
             }
+
 
             .review-buttons button {
+
                 flex: 1;
+
                 padding: 10px;
+
                 cursor: pointer;
+
                 font-weight: 700;
+
                 font-size: 11px;
+
             }
+
 
             .review-yes {
+
                 background: #111;
+
                 color: #fff;
+
                 border: 1px solid #111;
+
             }
 
+
             .review-no {
+
                 background: #fff;
+
                 color: #111;
+
                 border: 1px solid #111;
+
             }
+
 
             @keyframes reviewAppear {
 
                 from {
+
                     opacity: 0;
-                    transform: translateY(20px);
+
+                    transform:
+                        translateY(20px);
+
                 }
 
+
                 to {
+
                     opacity: 1;
-                    transform: translateY(0);
+
+                    transform:
+                        translateY(0);
+
                 }
 
             }
 
+
             @media (max-width: 500px) {
 
                 .review-overlay {
+
                     padding: 14px;
+
                 }
 
+
                 .review-box {
-                    width: calc(100% - 28px);
+
+                    width:
+                        calc(100% - 28px);
+
                 }
 
             }
@@ -854,6 +993,7 @@ message +=
 
 
         document.head.appendChild(style);
+
         document.body.appendChild(popup);
 
 
@@ -966,7 +1106,8 @@ message +=
                         Date.now(),
 
                     date:
-                        new Date().toISOString(),
+                        new Date()
+                            .toISOString(),
 
                     customer: {
 
@@ -996,16 +1137,36 @@ message +=
                 };
 
 
+                /* SAVE LAST ORDER */
+
                 localStorage.setItem(
+
                     LAST_ORDER_KEY,
+
                     JSON.stringify(order)
+
                 );
 
 
                 /*
                  * IMPORTANT:
                  *
-                 * Open WhatsApp first.
+                 * Clear the active cart
+                 * after creating the order.
+                 *
+                 * This prevents the same
+                 * order from appearing again
+                 * when the customer returns
+                 * to the website.
+                 */
+
+                localStorage.removeItem(
+                    CART_KEY
+                );
+
+
+                /*
+                 * Open WhatsApp.
                  */
 
                 const message =
