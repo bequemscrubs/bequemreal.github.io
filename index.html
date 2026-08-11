@@ -275,23 +275,130 @@
 
 
         <!-- ================= REVIEWS ================= -->
+<!-- ================= REVIEWS ================= -->
 
-        <section class="reviews" id="reviews">
+<section class="reviews" id="reviews">
 
-            <div class="section-number">
-                02 / REVIEWS
+    <div class="section-number">
+        02 / REVIEWS
+    </div>
+
+
+    <h2>
+        OUR<br>
+        COMMUNITY.
+    </h2>
+
+
+    <p class="reviews-intro">
+        Votre confort. Votre style. Votre expérience.
+    </p>
+
+
+
+    <div class="home-review-slider">
+
+
+        <button
+            class="home-review-arrow"
+            id="homeReviewPrev">
+            ←
+        </button>
+
+
+
+        <article
+            class="home-review-card"
+            id="homeReviewCard">
+
+
+            <!-- PHOTO + AVIS = MÊME CLIENT -->
+
+            <div
+                class="home-review-photo"
+                id="homeReviewPhoto">
+
+                <img
+                    id="homeReviewImage"
+                    src=""
+                    alt="BEQUEM customer">
+
             </div>
 
-            <h2>
-                OUR<br>
-                COMMUNITY.
-            </h2>
 
-            <p>
-                Votre confort. Votre style. Votre expérience.
-            </p>
 
-        </section>
+            <div class="home-review-content">
+
+                <div
+                    class="home-review-stars"
+                    id="homeReviewStars">
+
+                    ★★★★★
+
+                </div>
+
+
+                <blockquote
+                    id="homeReviewText">
+
+                    "Your review will appear here."
+
+                </blockquote>
+
+
+                <div class="home-review-author">
+
+                    <strong
+                        id="homeReviewName">
+
+                        BEQUEM CUSTOMER
+
+                    </strong>
+
+
+                    <span
+                        id="homeReviewCity">
+
+                        —
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="home-review-counter">
+
+                <span id="homeReviewCurrent">
+                    01
+                </span>
+
+                /
+
+                <span id="homeReviewTotal">
+                    01
+                </span>
+
+            </div>
+
+
+        </article>
+
+
+
+        <button
+            class="home-review-arrow"
+            id="homeReviewNext">
+
+            →
+
+        </button>
+
+
+    </div>
+
+</section>
 
     </main>
 
@@ -327,6 +434,283 @@
 
 
     </script>
+<script>
 
+/* =========================================
+   HOME REVIEWS
+========================================= */
+
+const HOME_REVIEWS_KEY =
+    "bequemReviews";
+
+
+let homeReviewIndex = 0;
+
+
+function getHomeReviews() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                HOME_REVIEWS_KEY
+            )
+        ) || [];
+
+    } catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================
+   DISPLAY
+========================================= */
+
+function displayHomeReview() {
+
+    const reviews =
+        getHomeReviews();
+
+
+    const image =
+        document.getElementById(
+            "homeReviewImage"
+        );
+
+    const photo =
+        document.getElementById(
+            "homeReviewPhoto"
+        );
+
+    const stars =
+        document.getElementById(
+            "homeReviewStars"
+        );
+
+    const text =
+        document.getElementById(
+            "homeReviewText"
+        );
+
+    const name =
+        document.getElementById(
+            "homeReviewName"
+        );
+
+    const city =
+        document.getElementById(
+            "homeReviewCity"
+        );
+
+    const current =
+        document.getElementById(
+            "homeReviewCurrent"
+        );
+
+    const total =
+        document.getElementById(
+            "homeReviewTotal"
+        );
+
+
+    /* No reviews */
+
+    if (!reviews.length) {
+
+        photo.style.display =
+            "none";
+
+        stars.textContent =
+            "★★★★★";
+
+        text.textContent =
+            '"Your review will appear here."';
+
+        name.textContent =
+            "BEQUEM CUSTOMER";
+
+        city.textContent =
+            "—";
+
+        current.textContent =
+            "01";
+
+        total.textContent =
+            "01";
+
+        return;
+
+    }
+
+
+    if (
+        homeReviewIndex >=
+        reviews.length
+    ) {
+
+        homeReviewIndex = 0;
+
+    }
+
+
+    const review =
+        reviews[homeReviewIndex];
+
+
+    /* PHOTO */
+
+    if (review.photo) {
+
+        image.src =
+            review.photo;
+
+        photo.style.display =
+            "block";
+
+    } else {
+
+        image.removeAttribute("src");
+
+        photo.style.display =
+            "none";
+
+    }
+
+
+    /* STARS */
+
+    stars.textContent =
+        "★".repeat(review.rating) +
+        "☆".repeat(5 - review.rating);
+
+
+    /* TEXT */
+
+    text.textContent =
+        `"${review.text}"`;
+
+
+    /* NAME */
+
+    name.textContent =
+        review.name;
+
+
+    /* CITY */
+
+    city.textContent =
+        review.city
+            ? "— " + review.city
+            : "—";
+
+
+    /* COUNTER */
+
+    current.textContent =
+        String(homeReviewIndex + 1)
+        .padStart(2, "0");
+
+
+    total.textContent =
+        String(reviews.length)
+        .padStart(2, "0");
+
+}
+
+
+/* =========================================
+   NEXT
+========================================= */
+
+document
+.getElementById("homeReviewNext")
+.addEventListener("click", () => {
+
+    const reviews =
+        getHomeReviews();
+
+    if (!reviews.length) return;
+
+    homeReviewIndex++;
+
+    if (
+        homeReviewIndex >=
+        reviews.length
+    ) {
+
+        homeReviewIndex = 0;
+
+    }
+
+    displayHomeReview();
+
+});
+
+
+/* =========================================
+   PREVIOUS
+========================================= */
+
+document
+.getElementById("homeReviewPrev")
+.addEventListener("click", () => {
+
+    const reviews =
+        getHomeReviews();
+
+    if (!reviews.length) return;
+
+    homeReviewIndex--;
+
+    if (homeReviewIndex < 0) {
+
+        homeReviewIndex =
+            reviews.length - 1;
+
+    }
+
+    displayHomeReview();
+
+});
+
+
+/* =========================================
+   AUTO SLIDE
+========================================= */
+
+setInterval(() => {
+
+    const reviews =
+        getHomeReviews();
+
+    if (!reviews.length) return;
+
+    homeReviewIndex++;
+
+    if (
+        homeReviewIndex >=
+        reviews.length
+    ) {
+
+        homeReviewIndex = 0;
+
+    }
+
+    displayHomeReview();
+
+}, 5000);
+
+
+/* =========================================
+   START
+========================================= */
+
+displayHomeReview();
+
+</script>
 </body>
 </html>
