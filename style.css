@@ -797,4 +797,8 @@ footer p {
         background: #eeeeec !important;
     }
 }
-```
+/* Décaler le menu du haut vers la gauche */
+nav {
+    position: relative;
+    left: -30px;
+}
