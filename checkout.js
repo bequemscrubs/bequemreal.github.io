@@ -1,29 +1,13 @@
-```javascript
-document.addEventListener("DOMContentLoaded", function () {
 
-    /* =========================================
-       CONFIGURATION
-    ========================================= */
+document.addEventListener("DOMContentLoaded", function () {
 
     const CART_KEY = "bequemCart";
     const LAST_ORDER_KEY = "bequemLastOrder";
-
-    // WhatsApp BEQUEM SCRUBS
     const WHATSAPP_NUMBER = "213781952022";
 
-
-    /* =========================================
-       ELEMENTS
-    ========================================= */
-
-    const form =
-        document.getElementById("orderForm");
-
-    const orderSummary =
-        document.getElementById("orderSummary");
-
-    const orderTotal =
-        document.getElementById("orderTotal");
+    const form = document.getElementById("orderForm");
+    const orderSummary = document.getElementById("orderSummary");
+    const orderTotal = document.getElementById("orderTotal");
 
 
     /* =========================================
@@ -33,15 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function getCart() {
 
         try {
-
             return JSON.parse(
                 localStorage.getItem(CART_KEY) || "[]"
             ) || [];
-
         } catch (error) {
-
             return [];
-
         }
 
     }
@@ -50,19 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const cart = getCart();
 
 
-    /* =========================================
-       EMPTY CART
-    ========================================= */
-
     if (!cart.length) {
 
         if (orderSummary) {
 
             orderSummary.innerHTML = `
-                <p style="
-                    padding:20px 0;
-                    font-weight:600;
-                ">
+                <p style="padding:20px 0;font-weight:600;">
                     YOUR CART IS EMPTY.
                 </p>
             `;
@@ -78,9 +51,32 @@ document.addEventListener("DOMContentLoaded", function () {
        HELPERS
     ========================================= */
 
-    function quantityOf(item) {
+    function getQuantity(item) {
 
         return Number(item.quantity) || 1;
+
+    }
+
+
+    function isOutfit(item) {
+
+        return (
+            !!item.top ||
+            !!item.pants ||
+            item.category === "SCRUB SET"
+        );
+
+    }
+
+
+    function isSock(item) {
+
+        return (
+            item.category === "ACCESSORY" ||
+            item.name === "BAS DE CONTENTION" ||
+            !!item.product ||
+            !!item.model
+        );
 
     }
 
@@ -111,8 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return {
 
-            name:
-                item.motif.name || "—",
+            name: item.motif.name || "—",
 
             placement:
                 item.motif.placement || "—",
@@ -121,29 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 item.motif.description || "—"
 
         };
-
-    }
-
-
-    function isOutfit(item) {
-
-        return (
-            !!item.top ||
-            !!item.pants ||
-            item.category === "SCRUB SET"
-        );
-
-    }
-
-
-    function isCompressionSock(item) {
-
-        return (
-            item.category === "ACCESSORY" ||
-            item.name === "BAS DE CONTENTION" ||
-            !!item.product ||
-            !!item.model
-        );
 
     }
 
@@ -161,14 +133,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         orderSummary.innerHTML = "";
 
-
         let total = 0;
 
 
-        cart.forEach(function (item, index) {
+        cart.forEach(function (item) {
 
             const quantity =
-                quantityOf(item);
+                getQuantity(item);
 
             const price =
                 Number(item.price) || 0;
@@ -186,9 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "order-item";
 
 
-            /* ================================
-               TENUE
-            ================================= */
+            /* TENUE */
 
             if (isOutfit(item)) {
 
@@ -198,9 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 article.innerHTML = `
 
-                    <h3>
-                        🩺 TENUE BEQUEM
-                    </h3>
+                    <h3>🩺 TENUE BEQUEM</h3>
 
                     <p>
                         TOP:
@@ -255,17 +222,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* ================================
-               BAS DE CONTENTION
-            ================================= */
+            /* BAS */
 
-            else if (isCompressionSock(item)) {
+            else if (isSock(item)) {
 
                 article.innerHTML = `
 
-                    <h3>
-                        🧦 BAS DE CONTENTION
-                    </h3>
+                    <h3>🧦 BAS DE CONTENTION</h3>
 
                     <p>
                         MODEL:
@@ -296,9 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* ================================
-               OTHER PRODUCT
-            ================================= */
+            /* OTHER */
 
             else {
 
@@ -322,10 +283,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         });
 
-
-        /* ================================
-           TOTAL
-        ================================= */
 
         if (orderTotal) {
 
@@ -358,7 +315,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let message = "";
 
-
         message +=
             "🛍️ *NOUVELLE COMMANDE — BEQUEM SCRUBS*\n";
 
@@ -366,9 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "━━━━━━━━━━━━━━━━━━━━\n\n";
 
 
-        /* ================================
-           ORDER NUMBER
-        ================================= */
+        /* ORDER */
 
         message +=
             "📋 *COMMANDE*\n";
@@ -384,9 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "\n\n";
 
 
-        /* ================================
-           CUSTOMER
-        ================================= */
+        /* CLIENT */
 
         message +=
             "👤 *CLIENT*\n";
@@ -427,9 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
         message += "\n";
 
 
-        /* ================================
-           PRODUCTS
-        ================================= */
+        /* PRODUCTS */
 
         message +=
             "📦 *DÉTAILS DE LA COMMANDE*\n";
@@ -439,14 +389,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         let total = 0;
-
         let totalItems = 0;
 
 
         order.items.forEach(function (item, index) {
 
             const quantity =
-                quantityOf(item);
+                getQuantity(item);
 
             const price =
                 Number(item.price) || 0;
@@ -459,9 +408,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 quantity;
 
 
-            /* -------------------------------
-               OUTFIT
-            -------------------------------- */
+            /* TENUE */
 
             if (isOutfit(item)) {
 
@@ -533,11 +480,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* -------------------------------
-               COMPRESSION SOCKS
-            -------------------------------- */
+            /* BAS */
 
-            else if (isCompressionSock(item)) {
+            else if (isSock(item)) {
 
                 message +=
                     "🧦 *ARTICLE " +
@@ -581,9 +526,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* -------------------------------
-               OTHER
-            -------------------------------- */
+            /* OTHER */
 
             else {
 
@@ -612,9 +555,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        /* ================================
-           TOTAL
-        ================================= */
+        /* TOTAL */
 
         message +=
             "━━━━━━━━━━━━━━━━━━━━\n";
@@ -646,9 +587,7 @@ document.addEventListener("DOMContentLoaded", function () {
         message += "\n";
 
 
-        /* ================================
-           DELIVERY
-        ================================= */
+        /* DELIVERY */
 
         message +=
             "🚚 *LIVRAISON*\n";
@@ -674,7 +613,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================
-       OPEN WHATSAPP
+       WHATSAPP
     ========================================= */
 
     function sendToWhatsApp(
@@ -689,34 +628,23 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        const whatsappURL =
+        const url =
             "https://wa.me/" +
             WHATSAPP_NUMBER +
             "?text=" +
             encodeURIComponent(message);
 
 
-        /*
-         * Open WhatsApp.
-         */
-
-        window.open(
-            whatsappURL,
-            "_blank"
-        );
+        window.location.href = url;
 
     }
 
 
     /* =========================================
-       SMALL REVIEW POPUP
+       REVIEW POPUP
     ========================================= */
 
     function showReviewPopup() {
-
-        /*
-         * Prevent duplicates.
-         */
 
         if (
             document.getElementById(
@@ -739,26 +667,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
         popup.innerHTML = `
 
-            <div class="bequem-review-overlay">
+            <div class="review-overlay">
 
-                <div class="bequem-review-box">
+                <div class="review-box">
 
                     <button
-                        class="bequem-review-close"
                         id="reviewClose"
-                        aria-label="Close"
+                        class="review-close"
                     >
                         ×
                     </button>
 
 
-                    <div class="bequem-review-icon">
+                    <div class="review-icon">
                         ★
                     </div>
 
 
                     <h3>
-                        YOUR ORDER IS READY
+                        ORDER CONFIRMED
                     </h3>
 
 
@@ -768,11 +695,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     </p>
 
 
-                    <div class="bequem-review-buttons">
+                    <div class="review-buttons">
 
                         <button
                             id="reviewYes"
-                            class="bequem-review-yes"
+                            class="review-yes"
                         >
                             YES
                         </button>
@@ -780,7 +707,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         <button
                             id="reviewNo"
-                            class="bequem-review-no"
+                            class="review-no"
                         >
                             NO
                         </button>
@@ -794,10 +721,6 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
 
-        /* =====================================
-           POPUP STYLE
-        ===================================== */
-
         const style =
             document.createElement("style");
 
@@ -808,132 +731,110 @@ document.addEventListener("DOMContentLoaded", function () {
                 position: fixed;
                 inset: 0;
                 z-index: 999999;
-                pointer-events: none;
             }
 
-
-            .bequem-review-overlay {
-                position: absolute;
+            .review-overlay {
+                position: fixed;
                 inset: 0;
                 display: flex;
                 align-items: flex-end;
                 justify-content: flex-end;
-                padding: 25px;
+                padding: 24px;
                 background: rgba(0,0,0,0.08);
-                pointer-events: auto;
             }
 
-
-            .bequem-review-box {
+            .review-box {
                 position: relative;
-                width: 300px;
-                background: #ffffff;
-                border: 1px solid #111111;
-                padding: 25px;
+                width: 280px;
+                background: #fff;
+                border: 1px solid #111;
+                padding: 24px;
                 box-shadow:
-                    0 12px 40px rgba(0,0,0,0.18);
+                    0 12px 40px rgba(0,0,0,.18);
                 animation:
-                    bequemReviewAppear
-                    0.3s ease;
+                    reviewAppear .3s ease;
             }
 
-
-            .bequem-review-icon {
-                width: 38px;
-                height: 38px;
+            .review-icon {
+                width: 36px;
+                height: 36px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: #111111;
-                color: #ffffff;
-                font-size: 18px;
-                margin-bottom: 15px;
+                background: #111;
+                color: #fff;
+                margin-bottom: 14px;
+                font-size: 16px;
             }
 
-
-            .bequem-review-box h3 {
-                margin: 0 0 10px;
-                font-size: 18px;
-                letter-spacing: 0.5px;
+            .review-box h3 {
+                margin: 0 0 8px;
+                font-size: 17px;
             }
 
-
-            .bequem-review-box p {
-                margin: 0 0 20px;
+            .review-box p {
+                margin: 0 0 18px;
                 font-size: 13px;
                 line-height: 1.5;
             }
 
-
-            .bequem-review-close {
+            .review-close {
                 position: absolute;
-                top: 8px;
-                right: 10px;
+                top: 7px;
+                right: 9px;
                 border: 0;
                 background: transparent;
                 font-size: 22px;
                 cursor: pointer;
-                line-height: 1;
             }
 
-
-            .bequem-review-buttons {
+            .review-buttons {
                 display: flex;
                 gap: 8px;
             }
 
-
-            .bequem-review-buttons button {
+            .review-buttons button {
                 flex: 1;
-                padding: 11px 8px;
+                padding: 10px;
                 cursor: pointer;
-                font-family: inherit;
-                font-size: 11px;
                 font-weight: 700;
-                letter-spacing: 0.5px;
+                font-size: 11px;
             }
 
-
-            .bequem-review-yes {
-                background: #111111;
-                color: #ffffff;
-                border: 1px solid #111111;
+            .review-yes {
+                background: #111;
+                color: #fff;
+                border: 1px solid #111;
             }
 
-
-            .bequem-review-no {
-                background: #ffffff;
-                color: #111111;
-                border: 1px solid #111111;
+            .review-no {
+                background: #fff;
+                color: #111;
+                border: 1px solid #111;
             }
 
-
-            @keyframes bequemReviewAppear {
+            @keyframes reviewAppear {
 
                 from {
                     opacity: 0;
-                    transform:
-                        translateY(20px);
+                    transform: translateY(20px);
                 }
 
                 to {
                     opacity: 1;
-                    transform:
-                        translateY(0);
+                    transform: translateY(0);
                 }
 
             }
 
-
             @media (max-width: 500px) {
 
-                .bequem-review-overlay {
-                    padding: 15px;
+                .review-overlay {
+                    padding: 14px;
                 }
 
-
-                .bequem-review-box {
-                    width: 100%;
+                .review-box {
+                    width: calc(100% - 28px);
                 }
 
             }
@@ -942,13 +843,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         document.head.appendChild(style);
-
         document.body.appendChild(popup);
 
 
-        /* =====================================
-           YES
-        ===================================== */
+        /* YES */
 
         document
             .getElementById("reviewYes")
@@ -963,9 +861,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        /* =====================================
-           NO
-        ===================================== */
+        /* NO */
 
         document
             .getElementById("reviewNo")
@@ -980,9 +876,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        /* =====================================
-           CLOSE = HOME
-        ===================================== */
+        /* X */
 
         document
             .getElementById("reviewClose")
@@ -1000,7 +894,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================
-       FORM SUBMIT
+       SUBMIT
     ========================================= */
 
     if (form) {
@@ -1011,10 +905,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 event.preventDefault();
 
-
-                /* ================================
-                   CUSTOMER DATA
-                ================================= */
 
                 const firstName =
                     document
@@ -1058,10 +948,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         .trim();
 
 
-                /* ================================
-                   ORDER
-                ================================= */
-
                 const order = {
 
                     id:
@@ -1099,38 +985,53 @@ document.addEventListener("DOMContentLoaded", function () {
                 };
 
 
-                /* ================================
-                   SAVE LAST ORDER
-                ================================= */
-
                 localStorage.setItem(
                     LAST_ORDER_KEY,
                     JSON.stringify(order)
                 );
 
 
-                /* ================================
-                   WHATSAPP
-                ================================= */
+                /*
+                 * IMPORTANT:
+                 *
+                 * Open WhatsApp first.
+                 */
 
-                sendToWhatsApp(
-                    order.customer,
-                    order
-                );
+                const message =
+                    createWhatsAppMessage(
+                        order.customer,
+                        order
+                    );
 
 
-                /* ================================
-                   REVIEW POPUP
-                   AFTER CHECKOUT
-                ================================= */
+                const whatsappURL =
+                    "https://wa.me/" +
+                    WHATSAPP_NUMBER +
+                    "?text=" +
+                    encodeURIComponent(
+                        message
+                    );
 
-                setTimeout(
-                    function () {
 
-                        showReviewPopup();
+                /*
+                 * Open WhatsApp in same tab.
+                 * This avoids popup blockers.
+                 */
 
-                    },
-                    700
+                window.location.href =
+                    whatsappURL;
+
+
+                /*
+                 * The review popup cannot reliably
+                 * appear after leaving the page.
+                 *
+                 * So save a flag.
+                 */
+
+                localStorage.setItem(
+                    "bequemShowReview",
+                    "true"
                 );
 
             }
@@ -1146,4 +1047,3 @@ document.addEventListener("DOMContentLoaded", function () {
     displayOrder();
 
 });
-```
