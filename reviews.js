@@ -1048,3 +1048,4 @@ function escapeHTML(value) {
         );
 
 }
+alert("REVIEWS.JS IS WORKING");
