@@ -271,3 +271,40 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPendingReviews();
 
 });
+// ==========================================
+// STAR RATING
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const stars = document.querySelectorAll(".star");
+    const ratingInput = document.getElementById("reviewRating");
+
+    if (!stars.length || !ratingInput) return;
+
+    stars.forEach(star => {
+
+        star.addEventListener("click", () => {
+
+            const rating = Number(star.dataset.rating);
+
+            ratingInput.value = rating;
+
+            stars.forEach(s => {
+
+                const starValue =
+                    Number(s.dataset.rating);
+
+                if (starValue <= rating) {
+                    s.classList.add("active");
+                } else {
+                    s.classList.remove("active");
+                }
+
+            });
+
+        });
+
+    });
+
+});
