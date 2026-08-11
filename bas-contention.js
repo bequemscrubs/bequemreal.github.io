@@ -2,43 +2,543 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================
-       LOAD CART
+       VARIABLES
     ===================================== */
 
-    let cart = JSON.parse(
-        localStorage.getItem("bequemCart") || "[]"
-    );
-
-
-    const container =
-        document.getElementById("cartContainer") ||
-        document.getElementById("cartItems");
-
-    const emptyCart =
-        document.getElementById("emptyCart");
-
-    const cartSummary =
-        document.getElementById("cartSummary");
-
-    const cartCount =
-        document.getElementById("cartCount");
-
-    const summaryItems =
-        document.getElementById("summaryItems");
-
-    const summaryTotal =
-        document.getElementById("summaryTotal");
+    let selectedProduct = "CLASSIC";
+    let selectedColor = null;
+    let selectedSize = null;
+    let quantity = 1;
 
 
     /* =====================================
-       SAVE CART
+       CURRENT OUTFIT
     ===================================== */
 
-    function saveCart() {
+    let savedOutfit = null;
 
-        localStorage.setItem(
-            "bequemCart",
-            JSON.stringify(cart)
+    try {
+
+        savedOutfit =
+            JSON.parse(
+                localStorage.getItem(
+                    "bequemCurrentOutfit"
+                )
+            );
+
+    } catch (error) {
+
+        savedOutfit = null;
+
+    }
+
+
+    /* =====================================
+       ELEMENTS
+    ===================================== */
+
+    const products =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    const selectedProductText =
+        document.getElementById(
+            "selectedProduct"
+        );
+
+
+    const summaryProduct =
+        document.getElementById(
+            "summaryProduct"
+        );
+
+
+    const summaryColor =
+        document.getElementById(
+            "summaryColor"
+        );
+
+
+    const summarySize =
+        document.getElementById(
+            "summarySize"
+        );
+
+
+    const summaryQuantity =
+        document.getElementById(
+            "summaryQuantity"
+        );
+
+
+    const status =
+        document.getElementById(
+            "selectionStatus"
+        );
+
+
+    /* =====================================
+       PRODUCT / MODEL
+    ===================================== */
+
+    products.forEach(function (product) {
+
+        product.addEventListener(
+            "click",
+            function () {
+
+                products.forEach(
+                    function (p) {
+
+                        p.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+
+                product.classList.add(
+                    "selected"
+                );
+
+
+                selectedProduct =
+                    product.dataset.value;
+
+
+                if (selectedProductText) {
+
+                    selectedProductText.textContent =
+                        selectedProduct;
+
+                }
+
+
+                if (summaryProduct) {
+
+                    summaryProduct.textContent =
+                        selectedProduct;
+
+                }
+
+            }
+        );
+
+    });
+
+
+    /* =====================================
+       COLOR
+    ===================================== */
+
+    document
+        .querySelectorAll(
+            ".color-choice"
+        )
+        .forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    document
+                        .querySelectorAll(
+                            ".color-choice"
+                        )
+                        .forEach(
+                            function (b) {
+
+                                b.classList.remove(
+                                    "selected"
+                                );
+
+                            }
+                        );
+
+
+                    button.classList.add(
+                        "selected"
+                    );
+
+
+                    selectedColor =
+                        button.dataset.color;
+
+
+                    if (summaryColor) {
+
+                        summaryColor.textContent =
+                            selectedColor;
+
+                    }
+
+
+                    updateStatus();
+
+                }
+            );
+
+        });
+
+
+    /* =====================================
+       SIZE
+    ===================================== */
+
+    document
+        .querySelectorAll(
+            ".size-choice"
+        )
+        .forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    document
+                        .querySelectorAll(
+                            ".size-choice"
+                        )
+                        .forEach(
+                            function (b) {
+
+                                b.classList.remove(
+                                    "selected"
+                                );
+
+                            }
+                        );
+
+
+                    button.classList.add(
+                        "selected"
+                    );
+
+
+                    selectedSize =
+                        button.dataset.size;
+
+
+                    if (summarySize) {
+
+                        summarySize.textContent =
+                            selectedSize;
+
+                    }
+
+
+                    updateStatus();
+
+                }
+            );
+
+        });
+
+
+    /* =====================================
+       QUANTITY +
+    ===================================== */
+
+    const plusButton =
+        document.getElementById(
+            "plus"
+        );
+
+
+    if (plusButton) {
+
+        plusButton.addEventListener(
+            "click",
+            function () {
+
+                quantity++;
+
+
+                if (summaryQuantity) {
+
+                    summaryQuantity.textContent =
+                        quantity;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+       QUANTITY -
+    ===================================== */
+
+    const minusButton =
+        document.getElementById(
+            "minus"
+        );
+
+
+    if (minusButton) {
+
+        minusButton.addEventListener(
+            "click",
+            function () {
+
+                if (quantity > 1) {
+
+                    quantity--;
+
+                }
+
+
+                if (summaryQuantity) {
+
+                    summaryQuantity.textContent =
+                        quantity;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+       STATUS
+    ===================================== */
+
+    function updateStatus() {
+
+        if (
+            selectedColor &&
+            selectedSize
+        ) {
+
+            status.textContent =
+                "READY TO ADD TO CART.";
+
+        } else {
+
+            status.textContent =
+                "Choose your color and size.";
+
+        }
+
+    }
+
+
+    /* =====================================
+       ADD TO CART
+    ===================================== */
+
+    const addToCartButton =
+        document.getElementById(
+            "addToCart"
+        );
+
+
+    if (addToCartButton) {
+
+        addToCartButton.addEventListener(
+            "click",
+            function () {
+
+
+                /* =========================
+                   VALIDATION
+                ========================= */
+
+                if (!selectedColor) {
+
+                    alert(
+                        "Please choose a color."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!selectedSize) {
+
+                    alert(
+                        "Please choose a size."
+                    );
+
+                    return;
+
+                }
+
+
+                /* =========================
+                   LOAD CART
+                ========================= */
+
+                let cart = [];
+
+                try {
+
+                    cart =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "bequemCart"
+                            )
+                        ) || [];
+
+                } catch (error) {
+
+                    cart = [];
+
+                }
+
+
+                /* =========================
+                   1. ADD THE OUTFIT
+                   AS ITS OWN ARTICLE
+                ========================= */
+
+                if (savedOutfit) {
+
+                    const outfitItem = {
+
+                        id:
+                            "outfit-" +
+                            Date.now(),
+
+                        category:
+                            savedOutfit.category ||
+                            "SCRUB SET",
+
+                        top:
+                            savedOutfit.top ||
+                            null,
+
+                        pants:
+                            savedOutfit.pants ||
+                            null,
+
+                        color:
+                            savedOutfit.color ||
+                            savedOutfit.scrubColor ||
+                            null,
+
+                        size:
+                            savedOutfit.size ||
+                            savedOutfit.scrubSize ||
+                            null,
+
+                        scrubColor:
+                            savedOutfit.color ||
+                            savedOutfit.scrubColor ||
+                            null,
+
+                        scrubSize:
+                            savedOutfit.size ||
+                            savedOutfit.scrubSize ||
+                            null,
+
+                        motif:
+                            savedOutfit.motif ||
+                            null,
+
+                        quantity: 1
+
+                    };
+
+
+                    cart.push(
+                        outfitItem
+                    );
+
+                }
+
+
+                /* =========================
+                   2. ADD THE SOCKS
+                   AS ANOTHER ARTICLE
+                ========================= */
+
+                const compressionSockItem = {
+
+                    id:
+                        "compression-" +
+                        Date.now() +
+                        "-" +
+                        Math.random()
+                            .toString(36)
+                            .substring(2, 9),
+
+                    category:
+                        "ACCESSORY",
+
+                    product:
+                        selectedProduct,
+
+                    model:
+                        selectedProduct,
+
+                    color:
+                        selectedColor,
+
+                    size:
+                        selectedSize,
+
+                    quantity:
+                        quantity
+
+                };
+
+
+                cart.push(
+                    compressionSockItem
+                );
+
+
+                /* =========================
+                   SAVE CART
+                ========================= */
+
+                localStorage.setItem(
+                    "bequemCart",
+                    JSON.stringify(cart)
+                );
+
+
+                /* =========================
+                   REMOVE TEMPORARY OUTFIT
+                ========================= */
+
+                localStorage.removeItem(
+                    "bequemCurrentOutfit"
+                );
+
+
+                /* =========================
+                   BUTTON FEEDBACK
+                ========================= */
+
+                addToCartButton.textContent =
+                    "ADDED ✓";
+
+
+                addToCartButton.disabled =
+                    true;
+
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "cart.html";
+
+                    },
+                    700
+                );
+
+            }
         );
 
     }
@@ -48,820 +548,51 @@ document.addEventListener("DOMContentLoaded", function () {
        CART COUNT
     ===================================== */
 
-    function updateCartCount() {
-
-        let totalQuantity = 0;
-
-        cart.forEach(function (item) {
-
-            totalQuantity +=
-                Number(item.quantity) || 1;
-
-        });
-
-
-        if (cartCount) {
-
-            cartCount.textContent =
-                totalQuantity;
-
-        }
-
-    }
-
-
-    /* =====================================
-       PRODUCT IMAGE
-    ===================================== */
-
-    function getProductImage(item) {
-
-        /*
-         * TENUE
-         */
-
-        if (item.top) {
-
-            const images = {
-
-                "COL ROND":
-                    "images/col-rond.jpg",
-
-                "COL V":
-                    "images/col-v.jpg",
-
-                "ZIPPÉ":
-                    "images/zippe.jpg"
-
-            };
-
-
-            return images[item.top]
-                || "images/placeholder.jpg";
-
-        }
-
-
-        /*
-         * BAS DE CONTENTION
-         */
-
-        if (
-            item.category === "ACCESSORY" ||
-            item.product ||
-            item.model
-        ) {
-
-            return "images/placeholder.jpg";
-
-        }
-
-
-        return "images/placeholder.jpg";
-
-    }
-
-
-    /* =====================================
-       DISPLAY CART
-    ===================================== */
-
-    function renderCart() {
-
-        if (!container) {
-            return;
-        }
-
-
-        container.innerHTML = "";
-
-
-        updateCartCount();
-
-
-        if (cart.length === 0) {
-
-            if (emptyCart) {
-
-                emptyCart.style.display =
-                    "block";
-
-            }
-
-            if (cartSummary) {
-
-                cartSummary.style.display =
-                    "none";
-
-            }
-
-            container.innerHTML = `
-                <div class="empty-cart">
-                    YOUR CART IS EMPTY.
-                </div>
-            `;
-
-            return;
-
-        }
-
-
-        if (emptyCart) {
-
-            emptyCart.style.display =
-                "none";
-
-        }
-
-
-        if (cartSummary) {
-
-            cartSummary.style.display =
-                "block";
-
-        }
-
-
-        let totalItems = 0;
-
-
-        cart.forEach(function (item, index) {
-
-            const quantity =
-                Number(item.quantity) || 1;
-
-
-            totalItems += quantity;
-
-
-            const article =
-                document.createElement("article");
-
-
-            article.className =
-                "cart-item";
-
-
-            /*
-             * DETERMINE TYPE
-             */
-
-            const isOutfit =
-                !!(
-                    item.top ||
-                    item.pants
-                );
-
-
-            const isCompression =
-                item.category === "ACCESSORY" ||
-                !!item.product ||
-                !!item.model;
-
-
-            /* =================================
-               OUTFIT
-            ================================= */
-
-            if (isOutfit) {
-
-                let motifName =
-                    "NO MOTIF";
-
-                let placement =
-                    "—";
-
-                let motifDescription =
-                    "—";
-
-
-                if (item.motif) {
-
-                    motifName =
-                        item.motif.name ||
-                        "NO MOTIF";
-
-
-                    placement =
-                        item.motif.placement ||
-                        "—";
-
-
-                    motifDescription =
-                        item.motif.description ||
-                        "—";
-
-                }
-
-
-                article.innerHTML = `
-
-                    <div class="cart-image">
-
-                        <img
-                            src="${getProductImage(item)}"
-                            alt="BEQUEM SCRUBS">
-
-                    </div>
-
-
-                    <div class="cart-info">
-
-                        <div>
-
-                            <div class="cart-category">
-                                ${item.category || "BEQUEM SCRUBS"}
-                            </div>
-
-                            <h2 class="cart-title">
-                                CUSTOM SCRUB SET
-                            </h2>
-
-                        </div>
-
-
-                        <div class="cart-details">
-
-                            <div class="cart-detail">
-
-                                <span>TOP</span>
-
-                                <strong>
-                                    ${item.top || "—"}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="cart-detail">
-
-                                <span>PANTS</span>
-
-                                <strong>
-                                    ${item.pants || "—"}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="cart-detail">
-
-                                <span>COLOR</span>
-
-                                <strong>
-                                    ${
-                                        item.color ||
-                                        item.scrubColor ||
-                                        "—"
-                                    }
-                                </strong>
-
-                            </div>
-
-
-                            <div class="cart-detail">
-
-                                <span>SIZE</span>
-
-                                <strong>
-                                    ${
-                                        item.size ||
-                                        item.scrubSize ||
-                                        "—"
-                                    }
-                                </strong>
-
-                            </div>
-
-
-                            <div class="cart-detail">
-
-                                <span>MOTIF</span>
-
-                                <strong>
-                                    ${motifName}
-                                </strong>
-
-                            </div>
-
-
-                            ${
-                                item.motif
-                                ? `
-
-                                    <div class="cart-detail">
-
-                                        <span>PLACEMENT</span>
-
-                                        <strong>
-                                            ${placement}
-                                        </strong>
-
-                                    </div>
-
-
-                                    <div class="cart-detail">
-
-                                        <span>DESCRIPTION</span>
-
-                                        <strong>
-                                            ${motifDescription}
-                                        </strong>
-
-                                    </div>
-
-                                `
-                                : ""
-                            }
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="cart-actions">
-
-                        <button
-                            class="remove-button"
-                            data-index="${index}">
-
-                            REMOVE
-
-                        </button>
-
-
-                        <div class="quantity">
-
-                            <button
-                                class="minus"
-                                data-index="${index}">
-
-                                −
-
-                            </button>
-
-
-                            <span>
-                                ${quantity}
-                            </span>
-
-
-                            <button
-                                class="plus"
-                                data-index="${index}">
-
-                                +
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-
-
-            /* =================================
-               COMPRESSION SOCKS
-            ================================= */
-
-            else if (isCompression) {
-
-                const model =
-                    item.model ||
-                    item.product ||
-                    "—";
-
-
-                const color =
-                    item.color ||
-                    "—";
-
-
-                const size =
-                    item.size ||
-                    "—";
-
-
-                article.innerHTML = `
-
-                    <div class="cart-image">
-
-                        <img
-                            src="${getProductImage(item)}"
-                            alt="COMPRESSION SOCKS">
-
-                    </div>
-
-
-                    <div class="cart-info">
-
-                        <div>
-
-                            <div class="cart-category">
-                                ACCESSORY
-                            </div>
-
-                            <h2 class="cart-title">
-                                COMPRESSION SOCKS
-                            </h2>
-
-                        </div>
-
-
-                        <div class="cart-details">
-
-                            <div class="cart-detail">
-
-                                <span>MODEL</span>
-
-                                <strong>
-                                    ${model}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="cart-detail">
-
-                                <span>COLOR</span>
-
-                                <strong>
-                                    ${color}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="cart-detail">
-
-                                <span>SIZE</span>
-
-                                <strong>
-                                    ${size}
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="cart-actions">
-
-                        <button
-                            class="remove-button"
-                            data-index="${index}">
-
-                            REMOVE
-
-                        </button>
-
-
-                        <div class="quantity">
-
-                            <button
-                                class="minus"
-                                data-index="${index}">
-
-                                −
-
-                            </button>
-
-
-                            <span>
-                                ${quantity}
-                            </span>
-
-
-                            <button
-                                class="plus"
-                                data-index="${index}">
-
-                                +
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-
-
-            /* =================================
-               UNKNOWN PRODUCT
-            ================================= */
-
-            else {
-
-                article.innerHTML = `
-
-                    <div class="cart-image">
-
-                        <img
-                            src="${getProductImage(item)}"
-                            alt="PRODUCT">
-
-                    </div>
-
-
-                    <div class="cart-info">
-
-                        <div>
-
-                            <div class="cart-category">
-                                ${item.category || "PRODUCT"}
-                            </div>
-
-                            <h2 class="cart-title">
-                                ${item.name || "PRODUCT"}
-                            </h2>
-
-                        </div>
-
-
-                        <div class="cart-details">
-
-                            ${
-                                item.color
-                                ? `
-
-                                    <div class="cart-detail">
-
-                                        <span>COLOR</span>
-
-                                        <strong>
-                                            ${item.color}
-                                        </strong>
-
-                                    </div>
-
-                                `
-                                : ""
-                            }
-
-
-                            ${
-                                item.size
-                                ? `
-
-                                    <div class="cart-detail">
-
-                                        <span>SIZE</span>
-
-                                        <strong>
-                                            ${item.size}
-                                        </strong>
-
-                                    </div>
-
-                                `
-                                : ""
-                            }
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="cart-actions">
-
-                        <button
-                            class="remove-button"
-                            data-index="${index}">
-
-                            REMOVE
-
-                        </button>
-
-
-                        <div class="quantity">
-
-                            <button
-                                class="minus"
-                                data-index="${index}">
-
-                                −
-
-                            </button>
-
-
-                            <span>
-                                ${quantity}
-                            </span>
-
-
-                            <button
-                                class="plus"
-                                data-index="${index}">
-
-                                +
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-
-
-            container.appendChild(article);
-
-        });
-
-
-        if (summaryItems) {
-
-            summaryItems.textContent =
-                totalItems;
-
-        }
-
-
-        /*
-         * PRICES ARE NOT READY YET
-         */
-
-        if (summaryTotal) {
-
-            summaryTotal.textContent =
-                "PRICE TO BE ADDED";
-
-        }
-
-
-        addButtonEvents();
-
-    }
-
-
-    /* =====================================
-       BUTTON EVENTS
-    ===================================== */
-
-    function addButtonEvents() {
-
-
-        /*
-         * REMOVE
-         */
-
-        document
-            .querySelectorAll(".remove-button")
-            .forEach(function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        const index =
-                            Number(
-                                button.dataset.index
-                            );
-
-
-                        cart.splice(
-                            index,
-                            1
-                        );
-
-
-                        saveCart();
-
-                        renderCart();
-
-                    }
-                );
-
-            });
-
-
-        /*
-         * PLUS
-         */
-
-        document
-            .querySelectorAll(".plus")
-            .forEach(function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        const index =
-                            Number(
-                                button.dataset.index
-                            );
-
-
-                        cart[index].quantity =
-                            (
-                                Number(
-                                    cart[index].quantity
-                                ) || 1
-                            ) + 1;
-
-
-                        saveCart();
-
-                        renderCart();
-
-                    }
-                );
-
-            });
-
-
-        /*
-         * MINUS
-         */
-
-        document
-            .querySelectorAll(".minus")
-            .forEach(function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        const index =
-                            Number(
-                                button.dataset.index
-                            );
-
-
-                        const quantity =
-                            Number(
-                                cart[index].quantity
-                            ) || 1;
-
-
-                        if (quantity > 1) {
-
-                            cart[index].quantity =
-                                quantity - 1;
-
-                        } else {
-
-                            cart.splice(
-                                index,
-                                1
-                            );
-
-                        }
-
-
-                        saveCart();
-
-                        renderCart();
-
-                    }
-                );
-
-            });
-
-    }
-
-
-    /* =====================================
-       CHECKOUT
-    ===================================== */
-
-    const checkoutButton =
+    const cartCountElement =
         document.getElementById(
-            "checkoutButton"
+            "cartCount"
         );
 
 
-    if (checkoutButton) {
+    let currentCart = [];
 
-        checkoutButton.addEventListener(
-            "click",
-            function () {
+    try {
 
-                window.location.href =
-                    "checkout.html";
+        currentCart =
+            JSON.parse(
+                localStorage.getItem(
+                    "bequemCart"
+                )
+            ) || [];
 
-            }
-        );
+    } catch (error) {
+
+        currentCart = [];
 
     }
 
 
-    /* =====================================
-       START
-    ===================================== */
+    let total = 0;
 
-    renderCart();
+
+    currentCart.forEach(
+        function (item) {
+
+            total +=
+                Number(
+                    item.quantity
+                ) || 1;
+
+        }
+    );
+
+
+    if (cartCountElement) {
+
+        cartCountElement.textContent =
+            total;
+
+    }
 
 });
 ```
