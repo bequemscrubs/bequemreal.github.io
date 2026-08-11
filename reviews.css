@@ -308,5 +308,16 @@ footer p {
         font-size: 20px;
     }
 
+} 
+.stars button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 36px;
+    color: #111;
+    opacity: 0.25;
 }
-```
+
+.stars button.selected {
+    opacity: 1;
+}
