@@ -486,7 +486,7 @@ async function loadReviews() {
         await supabaseClient
             .from("reviews")
             .select("*")
-            .order("date", {
+            .order("created_at", {
                 ascending: true
             });
 
@@ -592,8 +592,8 @@ reviewForm.addEventListener(
             photo:
                 selectedPhoto || null,
 
-            date:
-                new Date().toISOString()
+            created_at:
+                new created_at().toISOString()
 
         };
 
