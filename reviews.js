@@ -3,8 +3,7 @@
 // ==========================================
 
 const SUPABASE_URL = "https://pakwsesbisdkgtoeywam.supabase.co";
-const SUPABASE_ANON_KEY = "TON_ANON_KEY_ICI";
-
+const SUPABASE_ANON_KEY = "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
