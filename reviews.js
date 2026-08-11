@@ -271,34 +271,46 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPendingReviews();
 
 });
-// ==========================================
-// STAR RATING
+//// ==========================================
+// STAR RATING - BEQUEM
 // ==========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    const stars = document.querySelectorAll(".star");
+    const stars = document.querySelectorAll(".rating .star");
     const ratingInput = document.getElementById("reviewRating");
 
-    if (!stars.length || !ratingInput) return;
+    console.log("STARS FOUND:", stars.length);
 
-    stars.forEach(star => {
+    if (!stars.length) {
+        console.error("No stars found");
+        return;
+    }
 
-        star.addEventListener("click", () => {
+    stars.forEach(function (star) {
 
-            const rating = Number(star.dataset.rating);
+        star.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            const rating = parseInt(
+                this.getAttribute("data-rating")
+            );
+
+            console.log("RATING:", rating);
 
             ratingInput.value = rating;
 
-            stars.forEach(s => {
+            stars.forEach(function (s) {
 
-                const starValue =
-                    Number(s.dataset.rating);
+                const value = parseInt(
+                    s.getAttribute("data-rating")
+                );
 
-                if (starValue <= rating) {
-                    s.classList.add("active");
+                if (value <= rating) {
+                    s.style.color = "#000";
                 } else {
-                    s.classList.remove("active");
+                    s.style.color = "#ccc";
                 }
 
             });
