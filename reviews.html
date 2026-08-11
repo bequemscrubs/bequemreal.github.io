@@ -160,76 +160,26 @@
 
 
 
-        <!-- RATING -->
+       <div class="form-group">
 
-        <div class="form-group">
+    <label>YOUR RATING *</label>
 
-            <label>
-                YOUR RATING *
-            </label>
+    <div class="rating" id="ratingStars">
 
+        <button type="button" class="star" data-rating="1">★</button>
+        <button type="button" class="star" data-rating="2">★</button>
+        <button type="button" class="star" data-rating="3">★</button>
+        <button type="button" class="star" data-rating="4">★</button>
+        <button type="button" class="star" data-rating="5">★</button>
 
-            <div class="rating">
+    </div>
 
-                <button type="button"
-                        class="star"
-                        data-rating="1">
-                    ★
-                </button>
+    <input
+        type="hidden"
+        id="reviewRating"
+        value="0">
 
-                <button type="button"
-                        class="star"
-                        data-rating="2">
-                    ★
-                </button>
-
-                <button type="button"
-                        class="star"
-                        data-rating="3">
-                    ★
-                </button>
-
-                <button type="button"
-                        class="star"
-                        data-rating="4">
-                    ★
-                </button>
-
-                <button type="button"
-                        class="star"
-                        data-rating="5">
-                    ★
-                </button>
-
-            </div>
-
-
-            <input
-                type="hidden"
-                id="reviewRating"
-                value="0">
-
-        </div>
-
-
-
-        <!-- REVIEW -->
-
-        <div class="form-group">
-
-            <label for="reviewText">
-                YOUR REVIEW *
-            </label>
-
-            <textarea
-                id="reviewText"
-                rows="7"
-                placeholder="Tell us about your BEQUEM experience..."
-                required></textarea>
-
-        </div>
-
-
+</div>
 
         <!-- PHOTOS -->
 
