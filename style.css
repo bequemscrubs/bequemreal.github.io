@@ -854,3 +854,46 @@ nav {
         height: auto !important;
     }
 }
+/* ================= BEQUEM LOGO ================= */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-logo-scene {
+    position: absolute !important;
+    width: 350px !important;
+    right: 20px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 2 !important;
+    pointer-events: none;
+}
+
+.hero-logo-image {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 800px) {
+
+    .hero-logo-scene {
+        width: 190px !important;
+        right: 5px !important;
+        top: auto !important;
+        bottom: 60px !important;
+        transform: none !important;
+        z-index: 2 !important;
+    }
+
+    .hero-logo-image {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+}
