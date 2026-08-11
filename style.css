@@ -801,3 +801,40 @@ nav {
     position: relative;
     left: -44px;
 }
+
+/* ================= HERO LOGO IMAGE - AJOUT UNIQUEMENT ================= */
+
+.hero-logo-scene {
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    width: min(54vw, 760px);
+    transform: translateY(-50%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.hero-logo-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* Mobile : le reste du design existant reste inchangé */
+@media (max-width: 800px) {
+    .hero-logo-scene {
+        width: 95vw;
+        right: -18%;
+        top: auto;
+        bottom: -5%;
+        transform: none;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .hero-logo-image {
+        width: 100%;
+        height: auto;
+    }
+}
