@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
 
@@ -38,25 +38,32 @@
 
     <nav>
 
-        <a href="index.html">
+        <a href="index.html"
+           data-i18n="nav-home">
             HOME
         </a>
 
-        <a href="shop.html" class="active">
+        <a href="shop.html"
+           class="active"
+           data-i18n="nav-shop">
             SHOP
         </a>
 
-        <a href="index.html#reviews">
+        <a href="index.html#reviews"
+           data-i18n="nav-reviews">
             REVIEWS
         </a>
 
-        <a href="index.html#about">
+        <a href="index.html#about"
+           data-i18n="nav-about">
             ABOUT
         </a>
 
     </nav>
 
-    <a href="index.html" class="back">
+    <a href="index.html"
+       class="back"
+       data-i18n="back">
         ← BACK
     </a>
 
@@ -68,16 +75,18 @@
 
 <section class="intro">
 
-    <p class="number">
+    <p class="number"
+       data-i18n="shop-number">
         01 / COLLECTION
     </p>
 
-    <h1>
+    <h1 data-i18n="shop-title">
         CHOOSE<br>
         YOUR STYLE.
     </h1>
 
-    <p class="intro-text">
+    <p class="intro-text"
+       data-i18n="shop-intro">
         Discover the BEQUEM SCRUBS collections
         designed for every style.
     </p>
@@ -128,13 +137,14 @@
                         01
                     </span>
 
-                    <h2>
-                        HOMMES
+                    <h2 data-i18n="men">
+                        MEN
                     </h2>
 
                 </div>
 
-                <span class="discover">
+                <span class="discover"
+                      data-i18n="discover">
                     DISCOVER →
                 </span>
 
@@ -183,13 +193,14 @@
                         02
                     </span>
 
-                    <h2>
-                        FEMMES
+                    <h2 data-i18n="women">
+                        WOMEN
                     </h2>
 
                 </div>
 
-                <span class="discover">
+                <span class="discover"
+                      data-i18n="discover">
                     DISCOVER →
                 </span>
 
@@ -238,13 +249,14 @@
                         03
                     </span>
 
-                    <h2>
+                    <h2 data-i18n="hijabi">
                         HIJABI
                     </h2>
 
                 </div>
 
-                <span class="discover">
+                <span class="discover"
+                      data-i18n="discover">
                     DISCOVER →
                 </span>
 
@@ -257,39 +269,62 @@
 
 </section>
 
+
+
 <!-- ================= ACCESSORIES ================= -->
 
 <section class="accessories-section">
 
-    <p class="number">
+    <p class="number"
+       data-i18n="accessories-number">
         02 / ACCESSORIES
     </p>
 
-    <h2>
+    <h2 data-i18n="accessories-title">
         COMPLETE<br>
         YOUR LOOK.
     </h2>
 
-    <p class="intro-text">
-        Des essentiels pensés pour compléter votre tenue médicale.
+    <p class="intro-text"
+       data-i18n="accessories-intro">
+        Essentials designed to complete your medical outfit.
     </p>
 
 
     <div class="accessories">
 
-       <a href="bas-contention.html" class="accessory">
-    BAS DE CONTENTION
-    <span>DISCOVER →</span>
-</a>
+        <a href="bas-contention.html"
+           class="accessory">
 
-<a href="underscrub.html" class="accessory">
-    UNDERSCRUB
-    <span>DISCOVER →</span>
-</a>
+            <span data-i18n="compression-socks">
+                COMPRESSION SOCKS
+            </span>
+
+            <span data-i18n="discover">
+                DISCOVER →
+            </span>
+
+        </a>
+
+
+        <a href="underscrub.html"
+           class="accessory">
+
+            <span data-i18n="underscrub">
+                UNDERSCRUB
+            </span>
+
+            <span data-i18n="discover">
+                DISCOVER →
+            </span>
+
+        </a>
 
     </div>
 
 </section>
+
+
 
 <!-- ================= FOOTER ================= -->
 
@@ -314,8 +349,12 @@
 </footer>
 
 
+
 <script src="shop.js"></script>
+
 <script src="translations.js"></script>
+
+
 </body>
 
 </html>
