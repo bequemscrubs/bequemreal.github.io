@@ -1,180 +1,918 @@
-// ==========================================
-// REVIEWS SYSTEM - SUPABASE
-// ==========================================
+```javascript
+// ======================================================
+// BEQUEM SCRUBS — REVIEWS SYSTEM
+// ======================================================
+
+// ------------------------------------------------------
+// SUPABASE
+// ------------------------------------------------------
 
 const SUPABASE_URL = "https://pakwsesbisdkgtoeywam.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
+
+// ⚠️ Mets ici TA clé Publishable / anon.
+// Ne mets JAMAIS une service_role / secret key.
+const SUPABASE_ANON_KEY = sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
+
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
 );
 
 
-// ==========================================
-// 1. AJOUTER UNE REVIEW
-// ==========================================
+// ======================================================
+// GLOBAL DATA
+// ======================================================
 
-async function submitReview(name, reviewText) {
+let approvedReviews = [];
+let currentReviewIndex = 0;
 
-    if (!name || !reviewText) {
-        alert("Please fill in all fields.");
-        return false;
+
+// ======================================================
+// DOM READY
+// ======================================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("BEQUEM REVIEWS SYSTEM LOADED");
+
+    setupStars();
+    setupReviewForm();
+    setupPhotoPreview();
+
+    loadApprovedReviews();
+    loadPendingReviews();
+
+    setupReviewSlider();
+    setupPhotoSlider();
+});
+
+
+// ======================================================
+// ⭐ STAR RATING
+// ======================================================
+
+function setupStars() {
+
+    const stars = document.querySelectorAll(
+        "#reviewForm .star"
+    );
+
+    const ratingInput =
+        document.getElementById("reviewRating");
+
+    if (!stars.length || !ratingInput) {
+        return;
     }
 
-    const { data, error } = await supabaseClient
-        .from("reviews")
-        .insert([
-            {
-                name: name,
-                review: reviewText,
-                approved: false
-            }
-        ])
-        .select();
+    stars.forEach(function (star) {
 
-    if (error) {
-        console.error("SUPABASE INSERT ERROR:", error);
-        alert("Something went wrong. Please try again.");
-        return false;
-    }
+        star.addEventListener("click", function (event) {
 
-    alert("Your review has been submitted!");
+            event.preventDefault();
 
-    return true;
+            const rating = Number(
+                star.dataset.rating
+            );
+
+            ratingInput.value = rating;
+
+            updateStars(rating);
+
+            console.log(
+                "Selected rating:",
+                rating
+            );
+
+        });
+
+    });
 }
 
 
-// ==========================================
-// 2. AFFICHER LES REVIEWS APPROUVÉES
-// ==========================================
+function updateStars(rating) {
+
+    const stars = document.querySelectorAll(
+        "#reviewForm .star"
+    );
+
+    stars.forEach(function (star) {
+
+        const starRating =
+            Number(star.dataset.rating);
+
+        star.classList.toggle(
+            "active",
+            starRating <= rating
+        );
+
+    });
+}
+
+
+// ======================================================
+// 📝 REVIEW FORM
+// ======================================================
+
+function setupReviewForm() {
+
+    const form =
+        document.getElementById("reviewForm");
+
+    if (!form) {
+        return;
+    }
+
+    form.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+            const name =
+                document
+                    .getElementById("reviewName")
+                    .value
+                    .trim();
+
+            const city =
+                document
+                    .getElementById("reviewCity")
+                    .value
+                    .trim();
+
+            const rating =
+                Number(
+                    document
+                        .getElementById("reviewRating")
+                        .value
+                );
+
+            const reviewText =
+                document
+                    .getElementById("reviewText")
+                    .value
+                    .trim();
+
+            const message =
+                document.getElementById(
+                    "reviewMessage"
+                );
+
+            const button =
+                form.querySelector(
+                    ".submit-review"
+                );
+
+
+            // ------------------------------------------
+            // VALIDATION
+            // ------------------------------------------
+
+            if (!name) {
+
+                showMessage(
+                    message,
+                    "Please enter your first name."
+                );
+
+                return;
+            }
+
+
+            if (!rating || rating < 1) {
+
+                showMessage(
+                    message,
+                    "Please choose a rating."
+                );
+
+                return;
+            }
+
+
+            if (!reviewText) {
+
+                showMessage(
+                    message,
+                    "Please write your review."
+                );
+
+                return;
+            }
+
+
+            // ------------------------------------------
+            // LOADING
+            // ------------------------------------------
+
+            button.disabled = true;
+            button.textContent = "SENDING...";
+
+            showMessage(
+                message,
+                ""
+            );
+
+
+            // ------------------------------------------
+            // INSERT
+            // ------------------------------------------
+
+            const reviewData = {
+
+                name: name,
+
+                city: city,
+
+                rating: rating,
+
+                review: reviewText,
+
+                approved: false
+
+            };
+
+
+            console.log(
+                "Sending review:",
+                reviewData
+            );
+
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+
+                .from("reviews")
+
+                .insert([reviewData])
+
+                .select();
+
+
+            // ------------------------------------------
+            // ERROR
+            // ------------------------------------------
+
+            if (error) {
+
+                console.error(
+                    "SUPABASE INSERT ERROR:",
+                    error
+                );
+
+                showMessage(
+                    message,
+                    "Something went wrong. Please try again."
+                );
+
+                button.disabled = false;
+                button.textContent =
+                    "SEND REVIEW →";
+
+                return;
+            }
+
+
+            // ------------------------------------------
+            // SUCCESS
+            // ------------------------------------------
+
+            console.log(
+                "REVIEW SUCCESS:",
+                data
+            );
+
+
+            showMessage(
+                message,
+                "Thank you! Your review has been submitted and is waiting for approval."
+            );
+
+
+            form.reset();
+
+            // Reset rating
+            const ratingInput =
+                document.getElementById(
+                    "reviewRating"
+                );
+
+            if (ratingInput) {
+                ratingInput.value = "0";
+            }
+
+            updateStars(0);
+
+
+            // Reset photo preview
+            const preview =
+                document.getElementById(
+                    "photoPreview"
+                );
+
+            if (preview) {
+                preview.innerHTML = "";
+            }
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "SEND REVIEW →";
+
+        }
+    );
+}
+
+
+// ======================================================
+// MESSAGE
+// ======================================================
+
+function showMessage(element, text) {
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent = text;
+}
+
+
+// ======================================================
+// 📸 PHOTO PREVIEW
+// ======================================================
+
+function setupPhotoPreview() {
+
+    const input =
+        document.getElementById(
+            "reviewPhotos"
+        );
+
+    const preview =
+        document.getElementById(
+            "photoPreview"
+        );
+
+    if (!input || !preview) {
+        return;
+    }
+
+
+    input.addEventListener(
+        "change",
+        function () {
+
+            preview.innerHTML = "";
+
+
+            Array.from(input.files).forEach(
+                function (file) {
+
+                    if (
+                        !file.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+                        return;
+                    }
+
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function (event) {
+
+                            const img =
+                                document.createElement(
+                                    "img"
+                                );
+
+                            img.src =
+                                event.target.result;
+
+                            img.alt =
+                                "Review photo";
+
+                            preview.appendChild(
+                                img
+                            );
+
+                        };
+
+
+                    reader.readAsDataURL(
+                        file
+                    );
+
+                }
+            );
+
+        }
+    );
+}
+
+
+// ======================================================
+// 🌐 LOAD APPROVED REVIEWS
+// ======================================================
 
 async function loadApprovedReviews() {
 
-    const container = document.getElementById("reviews-container");
+    const {
+        data,
+        error
+    } = await supabaseClient
 
-    if (!container) {
-        console.error("reviews-container not found");
-        return;
-    }
-
-    container.innerHTML = "Loading reviews...";
-
-    const { data, error } = await supabaseClient
         .from("reviews")
+
         .select("*")
+
         .eq("approved", true)
-        .order("id", { ascending: false });
+
+        .order(
+            "id",
+            {
+                ascending: false
+            }
+        );
+
 
     if (error) {
-        console.error("SUPABASE SELECT ERROR:", error);
-        container.innerHTML =
-            "<p>Unable to load reviews.</p>";
+
+        console.error(
+            "SUPABASE SELECT ERROR:",
+            error
+        );
+
         return;
     }
 
-    if (!data || data.length === 0) {
-        container.innerHTML =
-            "<p>No reviews yet.</p>";
-        return;
-    }
 
-    container.innerHTML = "";
+    approvedReviews =
+        data || [];
 
-    data.forEach(review => {
 
-        const reviewElement = document.createElement("div");
+    console.log(
+        "APPROVED REVIEWS:",
+        approvedReviews
+    );
 
-        reviewElement.className = "review";
 
-        reviewElement.innerHTML = `
-            <h3>${escapeHTML(review.name)}</h3>
-            <p>${escapeHTML(review.review)}</p>
-        `;
+    currentReviewIndex = 0;
 
-        container.appendChild(reviewElement);
-    });
+
+    renderCurrentReview();
+
+    updateReviewCounter();
 }
 
 
-// ==========================================
-// 3. CHARGER LES REVIEWS EN ATTENTE
-// ==========================================
+// ======================================================
+// ⭐ RENDER CURRENT REVIEW
+// ======================================================
+
+function renderCurrentReview() {
+
+    if (
+        !approvedReviews.length
+    ) {
+        return;
+    }
+
+
+    const review =
+        approvedReviews[
+            currentReviewIndex
+        ];
+
+
+    const name =
+        document.getElementById(
+            "displayName"
+        );
+
+    const city =
+        document.getElementById(
+            "displayCity"
+        );
+
+    const text =
+        document.getElementById(
+            "displayReview"
+        );
+
+    const stars =
+        document.getElementById(
+            "displayStars"
+        );
+
+
+    if (name) {
+
+        name.textContent =
+            review.name ||
+            "BEQUEM CUSTOMER";
+
+    }
+
+
+    if (city) {
+
+        city.textContent =
+            review.city ||
+            "—";
+
+    }
+
+
+    if (text) {
+
+        text.textContent =
+            `"${review.review || ""}"`;
+
+    }
+
+
+    if (stars) {
+
+        const rating =
+            Number(
+                review.rating || 0
+            );
+
+        stars.textContent =
+            "★".repeat(rating) +
+            "☆".repeat(5 - rating);
+
+    }
+
+
+    updateReviewCounter();
+}
+
+
+// ======================================================
+// ↔️ REVIEW SLIDER
+// ======================================================
+
+function setupReviewSlider() {
+
+    const previous =
+        document.getElementById(
+            "reviewPrev"
+        );
+
+    const next =
+        document.getElementById(
+            "reviewNext"
+        );
+
+
+    if (previous) {
+
+        previous.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    !approvedReviews.length
+                ) {
+                    return;
+                }
+
+                currentReviewIndex--;
+
+                if (
+                    currentReviewIndex < 0
+                ) {
+
+                    currentReviewIndex =
+                        approvedReviews.length - 1;
+
+                }
+
+                renderCurrentReview();
+
+            }
+        );
+
+    }
+
+
+    if (next) {
+
+        next.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    !approvedReviews.length
+                ) {
+                    return;
+                }
+
+                currentReviewIndex++;
+
+                if (
+                    currentReviewIndex >=
+                    approvedReviews.length
+                ) {
+
+                    currentReviewIndex = 0;
+
+                }
+
+                renderCurrentReview();
+
+            }
+        );
+
+    }
+}
+
+
+// ======================================================
+// COUNTER
+// ======================================================
+
+function updateReviewCounter() {
+
+    const current =
+        document.getElementById(
+            "reviewCurrent"
+        );
+
+    const total =
+        document.getElementById(
+            "reviewTotal"
+        );
+
+
+    if (current) {
+
+        current.textContent =
+            String(
+                approvedReviews.length
+                    ? currentReviewIndex + 1
+                    : 0
+            ).padStart(2, "0");
+
+    }
+
+
+    if (total) {
+
+        total.textContent =
+            String(
+                approvedReviews.length
+            ).padStart(2, "0");
+
+    }
+}
+
+
+// ======================================================
+// 👨‍💼 PENDING REVIEWS — ADMIN
+// ======================================================
 
 async function loadPendingReviews() {
 
-    const container = document.getElementById("pending-reviews");
+    const container =
+        document.getElementById(
+            "pending-reviews"
+        );
 
+
+    // Ce bloc n'existe pas sur reviews.html.
+    // Il existe uniquement sur ton application admin.
     if (!container) {
-        console.error("pending-reviews not found");
         return;
     }
 
-    container.innerHTML = "Loading...";
 
-    const { data, error } = await supabaseClient
+    container.innerHTML =
+        "Loading...";
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+
         .from("reviews")
+
         .select("*")
+
         .eq("approved", false)
-        .order("id", { ascending: false });
+
+        .order(
+            "id",
+            {
+                ascending: false
+            }
+        );
+
 
     if (error) {
-        console.error("SUPABASE PENDING ERROR:", error);
+
+        console.error(
+            "SUPABASE PENDING ERROR:",
+            error
+        );
+
         container.innerHTML =
             "<p>Unable to load pending reviews.</p>";
+
         return;
     }
 
-    if (!data || data.length === 0) {
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
         container.innerHTML =
             "<p>No pending reviews.</p>";
+
         return;
     }
+
 
     container.innerHTML = "";
 
-    data.forEach(review => {
 
-        const element = document.createElement("div");
+    data.forEach(
+        function (review) {
 
-        element.className = "pending-review";
+            const element =
+                document.createElement(
+                    "div"
+                );
 
-        element.innerHTML = `
-            <div class="review-content">
-                <h3>${escapeHTML(review.name)}</h3>
-                <p>${escapeHTML(review.review)}</p>
-            </div>
 
-            <div class="review-actions">
-                <button onclick="approveReview('${review.id}')">
-                    Approve
-                </button>
+            element.className =
+                "pending-review";
 
-                <button onclick="rejectReview('${review.id}')">
-                    Reject
-                </button>
-            </div>
-        `;
 
-        container.appendChild(element);
-    });
+            const rating =
+                Number(
+                    review.rating || 0
+                );
+
+
+            element.innerHTML = `
+
+                <div class="review-content">
+
+                    <h3>
+                        ${escapeHTML(
+                            review.name
+                        )}
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            review.review
+                        )}
+                    </p>
+
+                    <small>
+                        ${escapeHTML(
+                            review.city || ""
+                        )}
+                        —
+                        ${"★".repeat(rating)}
+                    </small>
+
+                </div>
+
+
+                <div class="review-actions">
+
+                    <button
+                        type="button"
+                        class="approve-review"
+                        data-id="${review.id}">
+
+                        Approve
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="reject-review"
+                        data-id="${review.id}">
+
+                        Reject
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                element
+            );
+
+        }
+    );
+
+
+    // ------------------------------------------
+    // APPROVE BUTTONS
+    // ------------------------------------------
+
+    container
+        .querySelectorAll(
+            ".approve-review"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        approveReview(
+                            button.dataset.id
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    // ------------------------------------------
+    // REJECT BUTTONS
+    // ------------------------------------------
+
+    container
+        .querySelectorAll(
+            ".reject-review"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        rejectReview(
+                            button.dataset.id
+                        );
+
+                    }
+                );
+
+            }
+        );
 }
 
 
-// ==========================================
-// 4. APPROUVER UNE REVIEW
-// ==========================================
+// ======================================================
+// ✅ APPROVE REVIEW
+// ======================================================
 
-async function approveReview(reviewId) {
+async function approveReview(
+    reviewId
+) {
 
-    console.log("Approving review:", reviewId);
+    console.log(
+        "APPROVING:",
+        reviewId
+    );
 
-    const { data, error } = await supabaseClient
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+
         .from("reviews")
+
         .update({
             approved: true
         })
-        .eq("id", reviewId)
+
+        .eq(
+            "id",
+            reviewId
+        )
+
         .select();
+
 
     if (error) {
 
@@ -190,35 +928,53 @@ async function approveReview(reviewId) {
         return;
     }
 
+
     console.log(
-        "Review approved successfully:",
+        "APPROVED:",
         data
     );
 
-    alert("Review approved!");
 
     await loadPendingReviews();
+
+    alert(
+        "Review approved!"
+    );
 }
 
 
-// ==========================================
-// 5. REJETER / SUPPRIMER UNE REVIEW
-// ==========================================
+// ======================================================
+// ❌ REJECT REVIEW
+// ======================================================
 
-async function rejectReview(reviewId) {
+async function rejectReview(
+    reviewId
+) {
 
-    const confirmation = confirm(
-        "Are you sure you want to reject this review?"
-    );
+    const confirmed =
+        confirm(
+            "Are you sure you want to reject this review?"
+        );
 
-    if (!confirmation) {
+
+    if (!confirmed) {
         return;
     }
 
-    const { error } = await supabaseClient
+
+    const {
+        error
+    } = await supabaseClient
+
         .from("reviews")
+
         .delete()
-        .eq("id", reviewId);
+
+        .eq(
+            "id",
+            reviewId
+        );
+
 
     if (error) {
 
@@ -234,89 +990,107 @@ async function rejectReview(reviewId) {
         return;
     }
 
-    alert("Review rejected.");
 
     await loadPendingReviews();
+
+
+    alert(
+        "Review rejected."
+    );
 }
 
 
-// ==========================================
-// 6. SÉCURITÉ HTML
-// ==========================================
+// ======================================================
+// 📸 CUSTOMER PHOTO SLIDER
+// ======================================================
+
+function setupPhotoSlider() {
+
+    const previous =
+        document.getElementById(
+            "photoPrev"
+        );
+
+    const next =
+        document.getElementById(
+            "photoNext"
+        );
+
+
+    if (previous) {
+
+        previous.addEventListener(
+            "click",
+            function () {
+
+                console.log(
+                    "Previous photo"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (next) {
+
+        next.addEventListener(
+            "click",
+            function () {
+
+                console.log(
+                    "Next photo"
+                );
+
+            }
+        );
+
+    }
+}
+
+
+// ======================================================
+// SECURITY
+// ======================================================
 
 function escapeHTML(value) {
 
-    if (value === null || value === undefined) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
         return "";
+
     }
+
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 }
-
-
-// ==========================================
-// 7. INITIALISATION
-// ==========================================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    console.log("Reviews system loaded.");
-
-    loadApprovedReviews();
-    loadPendingReviews();
-
-});
-//// ==========================================
-// STAR RATING - BEQUEM
-// ==========================================
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const stars = document.querySelectorAll(".rating .star");
-    const ratingInput = document.getElementById("reviewRating");
-
-    console.log("STARS FOUND:", stars.length);
-
-    if (!stars.length) {
-        console.error("No stars found");
-        return;
-    }
-
-    stars.forEach(function (star) {
-
-        star.addEventListener("click", function (event) {
-
-            event.preventDefault();
-
-            const rating = parseInt(
-                this.getAttribute("data-rating")
-            );
-
-            console.log("RATING:", rating);
-
-            ratingInput.value = rating;
-
-            stars.forEach(function (s) {
-
-                const value = parseInt(
-                    s.getAttribute("data-rating")
-                );
-
-                if (value <= rating) {
-                    s.style.color = "#000";
-                } else {
-                    s.style.color = "#ccc";
-                }
-
-            });
-
-        });
-
-    });
-
-});
+```
