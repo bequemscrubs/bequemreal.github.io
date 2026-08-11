@@ -2,30 +2,21 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Reviews — BEQUEM SCRUBS</title>
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reviews.css">
 
-<title>Reviews — BEQUEM SCRUBS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="stylesheet"
-      href="reviews.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-      href="https://fonts.googleapis.com"
-      crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet">
-
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 
@@ -36,48 +27,25 @@
 
 <header>
 
-    <a href="index.html"
-       class="brand">
-
+    <a href="index.html" class="brand">
         BEQUEM SCRUBS
-
     </a>
 
-
     <nav>
-
-        <a href="index.html">
-            HOME
-        </a>
-
-        <a href="shop.html">
-            SHOP
-        </a>
-
-        <a href="reviews.html"
-           class="active">
-            REVIEWS
-        </a>
-
-        <a href="cart.html">
-            CART
-        </a>
-
+        <a href="index.html">HOME</a>
+        <a href="shop.html">SHOP</a>
+        <a href="reviews.html">REVIEWS</a>
+        <a href="cart.html">CART</a>
     </nav>
 
-
-    <a href="shop.html"
-       class="back">
-
+    <a href="shop.html" class="back">
         SHOP →
-
     </a>
 
 </header>
 
 
-
-<!-- ================= INTRO ================= -->
+<!-- ================= HERO ================= -->
 
 <main>
 
@@ -87,31 +55,23 @@
         01 / BEQUEM COMMUNITY
     </p>
 
-
     <h1>
-
         WHAT DO<br>
         YOU THINK?
-
     </h1>
 
-
     <p class="intro">
-
         Your experience matters.
         Tell us what you think about
         your BEQUEM SCRUBS.
-
     </p>
 
 </section>
 
 
-
 <!-- ================= FORM ================= -->
 
 <section class="experience-section">
-
 
     <div class="section-title">
 
@@ -119,16 +79,12 @@
             02 / YOUR EXPERIENCE
         </span>
 
-
         <h2>
-
             TELL US<br>
             ABOUT IT.
-
         </h2>
 
     </div>
-
 
 
     <form id="reviewForm">
@@ -142,7 +98,6 @@
                 FIRST NAME *
             </label>
 
-
             <input
                 type="text"
                 id="reviewName"
@@ -150,7 +105,6 @@
                 required>
 
         </div>
-
 
 
         <!-- CITY -->
@@ -161,14 +115,12 @@
                 CITY
             </label>
 
-
             <input
                 type="text"
                 id="reviewCity"
                 placeholder="Your city">
 
         </div>
-
 
 
         <!-- RATING -->
@@ -179,50 +131,15 @@
                 YOUR RATING *
             </label>
 
-
             <div class="rating">
 
-                <button
-                    type="button"
-                    class="star"
-                    data-rating="1">
-                    ★
-                </button>
-
-
-                <button
-                    type="button"
-                    class="star"
-                    data-rating="2">
-                    ★
-                </button>
-
-
-                <button
-                    type="button"
-                    class="star"
-                    data-rating="3">
-                    ★
-                </button>
-
-
-                <button
-                    type="button"
-                    class="star"
-                    data-rating="4">
-                    ★
-                </button>
-
-
-                <button
-                    type="button"
-                    class="star"
-                    data-rating="5">
-                    ★
-                </button>
+                <button type="button" class="star" data-rating="1">★</button>
+                <button type="button" class="star" data-rating="2">★</button>
+                <button type="button" class="star" data-rating="3">★</button>
+                <button type="button" class="star" data-rating="4">★</button>
+                <button type="button" class="star" data-rating="5">★</button>
 
             </div>
-
 
             <input
                 type="hidden"
@@ -230,7 +147,6 @@
                 value="0">
 
         </div>
-
 
 
         <!-- REVIEW -->
@@ -241,7 +157,6 @@
                 YOUR REVIEW *
             </label>
 
-
             <textarea
                 id="reviewText"
                 rows="7"
@@ -249,7 +164,6 @@
                 required></textarea>
 
         </div>
-
 
 
         <!-- PHOTO -->
@@ -260,21 +174,16 @@
                 ADD YOUR PHOTO
             </label>
 
-
             <input
                 type="file"
                 id="reviewPhoto"
                 accept="image/*">
 
-
             <p class="upload-note">
-
                 Add a photo of you wearing BEQUEM.
-
             </p>
 
         </div>
-
 
 
         <!-- PHOTO PREVIEW -->
@@ -282,9 +191,7 @@
         <div
             id="photoPreview"
             class="photo-preview">
-
         </div>
-
 
 
         <!-- SUBMIT -->
@@ -301,20 +208,16 @@
         <p
             id="reviewMessage"
             class="review-message">
-
         </p>
-
 
     </form>
 
 </section>
 
 
-
-<!-- ================= CUSTOMER REVIEWS ================= -->
+<!-- ================= REVIEWS ================= -->
 
 <section class="customer-reviews">
-
 
     <div class="section-title">
 
@@ -322,16 +225,12 @@
             03 / CUSTOMER REVIEWS
         </span>
 
-
         <h2>
-
             HEAR IT<br>
             FROM THEM.
-
         </h2>
 
     </div>
-
 
 
     <div class="review-slider">
@@ -346,35 +245,20 @@
         </button>
 
 
-
-        <!-- REVIEW CARD -->
-
-        <article
-            class="review-card"
-            id="reviewCard">
+        <article class="review-card">
 
 
-            <!-- CUSTOMER PHOTO -->
-
-            <div
-                class="review-photo-wrapper"
-                id="reviewPhotoWrapper">
-
+            <div class="review-photo-wrapper">
 
                 <img
                     id="displayPhoto"
                     src=""
                     alt="BEQUEM customer">
 
-
             </div>
 
 
-
-            <!-- REVIEW CONTENT -->
-
             <div class="review-content">
-
 
                 <div
                     class="stars"
@@ -385,8 +269,7 @@
                 </div>
 
 
-                <blockquote
-                    id="displayReview">
+                <blockquote id="displayReview">
 
                     "Your review will appear here."
 
@@ -395,28 +278,18 @@
 
                 <div class="review-author">
 
-
                     <strong id="displayName">
-
                         BEQUEM CUSTOMER
-
                     </strong>
 
-
                     <span id="displayCity">
-
                         —
-
                     </span>
-
 
                 </div>
 
             </div>
 
-
-
-            <!-- COUNTER -->
 
             <div class="review-counter">
 
@@ -436,7 +309,6 @@
         </article>
 
 
-
         <button
             class="slider-arrow"
             id="reviewNext">
@@ -445,14 +317,11 @@
 
         </button>
 
-
     </div>
 
 </section>
 
-
 </main>
-
 
 
 <!-- ================= FOOTER ================= -->
@@ -462,7 +331,6 @@
     <h2>
         BEQUEM SCRUBS
     </h2>
-
 
     <p>
         MEDICAL WEAR • EST. 2026
@@ -475,20 +343,15 @@
 <script>
 
 /* =====================================================
-   SUPABASE CONNECTION
+   SUPABASE
 ===================================================== */
-
-/*
-   IMPORTANT:
-   REMPLACE LES DEUX VALEURS CI-DESSOUS
-   PAR TES INFORMATIONS SUPABASE.
-*/
 
 const SUPABASE_URL =
     "https://pakwsesbisdkgtoeywam.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
+    "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -496,6 +359,14 @@ const supabaseClient =
         SUPABASE_KEY
     );
 
+
+/* =====================================================
+   IMPORTANT
+   IGNORE COMPLETELY OLD LOCAL REVIEWS
+===================================================== */
+
+localStorage.removeItem("bequemReviews");
+localStorage.removeItem("reviews");
 
 
 /* =====================================================
@@ -509,7 +380,6 @@ let currentReview = 0;
 let selectedPhoto = "";
 
 
-
 /* =====================================================
    ELEMENTS
 ===================================================== */
@@ -517,30 +387,23 @@ let selectedPhoto = "";
 const reviewForm =
     document.getElementById("reviewForm");
 
-
 const ratingInput =
     document.getElementById("reviewRating");
-
 
 const stars =
     document.querySelectorAll(".star");
 
-
 const photoInput =
     document.getElementById("reviewPhoto");
-
 
 const photoPreview =
     document.getElementById("photoPreview");
 
-
 const reviewMessage =
     document.getElementById("reviewMessage");
 
-
 const submitButton =
     document.querySelector(".submit-review");
-
 
 
 /* =====================================================
@@ -549,146 +412,96 @@ const submitButton =
 
 stars.forEach(star => {
 
-
     star.addEventListener("click", () => {
 
-
         const rating =
-            Number(
-                star.dataset.rating
-            );
-
+            Number(star.dataset.rating);
 
         ratingInput.value =
             rating;
 
-
         stars.forEach(item => {
 
-
             const itemRating =
-                Number(
-                    item.dataset.rating
-                );
-
+                Number(item.dataset.rating);
 
             item.style.opacity =
                 itemRating <= rating
                     ? "1"
                     : ".2";
 
-
         });
-
 
     });
 
-
 });
-
 
 
 /* =====================================================
    PHOTO PREVIEW
 ===================================================== */
 
-photoInput.addEventListener(
-    "change",
-    () => {
+photoInput.addEventListener("change", () => {
 
+    const file =
+        photoInput.files[0];
 
-        const file =
-            photoInput.files[0];
+    if (!file) {
 
+        selectedPhoto = "";
 
-        if (!file) {
+        photoPreview.innerHTML = "";
 
-            selectedPhoto = "";
-
-            photoPreview.innerHTML = "";
-
-            return;
-
-        }
-
-
-        const reader =
-            new FileReader();
-
-
-        reader.onload =
-            function(event) {
-
-
-                selectedPhoto =
-                    event.target.result;
-
-
-                photoPreview.innerHTML = `
-
-                    <img
-                        src="${selectedPhoto}"
-                        alt="Photo preview">
-
-                `;
-
-
-            };
-
-
-        reader.readAsDataURL(file);
-
-
+        return;
     }
-);
 
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(event) {
+
+            selectedPhoto =
+                event.target.result;
+
+            photoPreview.innerHTML = `
+                <img
+                    src="${selectedPhoto}"
+                    alt="Photo preview">
+            `;
+        };
+
+    reader.readAsDataURL(file);
+
+});
 
 
 /* =====================================================
-   LOAD REVIEWS FROM SUPABASE
+   LOAD ONLY SUPABASE REVIEWS
 ===================================================== */
 
 async function loadReviews() {
 
-
-    const result =
+    const { data, error } =
         await supabaseClient
-
             .from("reviews")
-
             .select("*")
-
-            .order(
-                "date",
-                {
-                    ascending: true
-                }
-            );
-
-
-    const data =
-        result.data;
-
-
-    const error =
-        result.error;
+            .order("date", {
+                ascending: true
+            });
 
 
     if (error) {
-
 
         console.error(
             "SUPABASE LOAD ERROR:",
             error
         );
 
-
         reviewMessage.textContent =
             "UNABLE TO LOAD REVIEWS.";
 
-
         return;
-
     }
 
 
@@ -696,12 +509,11 @@ async function loadReviews() {
         data || [];
 
 
-    if (reviews.length > 0) {
+    currentReview =
+        reviews.length - 1;
 
-        currentReview =
-            reviews.length - 1;
 
-    } else {
+    if (currentReview < 0) {
 
         currentReview = 0;
 
@@ -713,7 +525,6 @@ async function loadReviews() {
 }
 
 
-
 /* =====================================================
    SEND REVIEW TO SUPABASE
 ===================================================== */
@@ -721,7 +532,6 @@ async function loadReviews() {
 reviewForm.addEventListener(
     "submit",
     async function(event) {
-
 
         event.preventDefault();
 
@@ -753,34 +563,21 @@ reviewForm.addEventListener(
             );
 
 
-
-        /* RATING REQUIRED */
-
         if (rating === 0) {
-
 
             reviewMessage.textContent =
                 "PLEASE SELECT A RATING.";
 
-
             return;
-
         }
 
-
-
-        /* BUTTON */
 
         submitButton.disabled =
             true;
 
-
         submitButton.textContent =
             "SENDING...";
 
-
-
-        /* REVIEW OBJECT */
 
         const review = {
 
@@ -801,83 +598,47 @@ reviewForm.addEventListener(
         };
 
 
-
-        /* INSERT INTO SUPABASE */
-
-        const result =
+        const { data, error } =
             await supabaseClient
-
                 .from("reviews")
-
-                .insert([
-                    review
-                ])
-
+                .insert([review])
                 .select()
-
                 .single();
 
 
-        const data =
-            result.data;
-
-
-        const error =
-            result.error;
-
-
-
-        /* ERROR */
-
         if (error) {
-
 
             console.error(
                 "SUPABASE REVIEW ERROR:",
                 error
             );
 
-
             reviewMessage.textContent =
                 "ERROR — YOUR REVIEW WAS NOT SENT.";
-
 
             submitButton.disabled =
                 false;
 
-
             submitButton.textContent =
                 "SEND REVIEW →";
 
-
             return;
-
         }
 
 
-
-        /* ADD NEW REVIEW */
-
         reviews.push(data);
-
 
         currentReview =
             reviews.length - 1;
 
 
-
-        /* RESET FORM */
-
         reviewForm.reset();
-
 
         ratingInput.value =
             "0";
 
-
         selectedPhoto =
             "";
-
 
         photoPreview.innerHTML =
             "";
@@ -891,31 +652,21 @@ reviewForm.addEventListener(
         });
 
 
-
-        /* SUCCESS MESSAGE */
-
         reviewMessage.textContent =
             "THANK YOU — YOUR REVIEW HAS BEEN SENT.";
-
 
 
         submitButton.disabled =
             false;
 
-
         submitButton.textContent =
             "SEND REVIEW →";
 
 
-
-        /* DISPLAY NEW REVIEW */
-
         displayReview();
-
 
     }
 );
-
 
 
 /* =====================================================
@@ -924,42 +675,35 @@ reviewForm.addEventListener(
 
 function displayReview() {
 
-
     const displayPhoto =
         document.getElementById(
             "displayPhoto"
         );
-
 
     const displayStars =
         document.getElementById(
             "displayStars"
         );
 
-
     const displayReview =
         document.getElementById(
             "displayReview"
         );
-
 
     const displayName =
         document.getElementById(
             "displayName"
         );
 
-
     const displayCity =
         document.getElementById(
             "displayCity"
         );
 
-
     const reviewCurrent =
         document.getElementById(
             "reviewCurrent"
         );
-
 
     const reviewTotal =
         document.getElementById(
@@ -967,61 +711,41 @@ function displayReview() {
         );
 
 
-
-    /* NO REVIEWS */
-
     if (!reviews.length) {
-
 
         displayPhoto.style.display =
             "none";
 
-
         displayStars.textContent =
             "★★★★★";
-
 
         displayReview.textContent =
             '"Your review will appear here."';
 
-
         displayName.textContent =
             "BEQUEM CUSTOMER";
-
 
         displayCity.textContent =
             "—";
 
-
         reviewCurrent.textContent =
             "01";
-
 
         reviewTotal.textContent =
             "01";
 
-
         return;
-
     }
 
 
-
-    /* SAFETY */
-
-    if (
-        currentReview >=
-        reviews.length
-    ) {
+    if (currentReview >= reviews.length) {
 
         currentReview = 0;
 
     }
 
 
-    if (
-        currentReview < 0
-    ) {
+    if (currentReview < 0) {
 
         currentReview =
             reviews.length - 1;
@@ -1029,32 +753,23 @@ function displayReview() {
     }
 
 
-
     const review =
         reviews[currentReview];
 
 
-
-    /* PHOTO */
-
     if (review.photo) {
-
 
         displayPhoto.src =
             review.photo;
 
-
         displayPhoto.style.display =
             "block";
 
-
     } else {
-
 
         displayPhoto.removeAttribute(
             "src"
         );
-
 
         displayPhoto.style.display =
             "none";
@@ -1062,144 +777,93 @@ function displayReview() {
     }
 
 
-
-    /* STARS */
-
     const rating =
         Number(review.rating);
 
 
     displayStars.textContent =
+        "★".repeat(rating) +
+        "☆".repeat(5 - rating);
 
-        "★".repeat(rating)
-
-        +
-
-        "☆".repeat(
-            5 - rating
-        );
-
-
-
-    /* TEXT */
 
     displayReview.textContent =
         `"${review.text}"`;
 
 
-
-    /* NAME */
-
     displayName.textContent =
         review.name;
 
 
-
-    /* CITY */
-
     displayCity.textContent =
-
         review.city
-
             ? "— " + review.city
-
             : "—";
 
 
-
-    /* COUNTER */
-
     reviewCurrent.textContent =
-
         String(
             currentReview + 1
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 
     reviewTotal.textContent =
-
         String(
             reviews.length
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 }
 
 
-
 /* =====================================================
-   NEXT REVIEW
+   NEXT
 ===================================================== */
 
 document
     .getElementById("reviewNext")
-    .addEventListener(
-        "click",
-        () => {
+    .addEventListener("click", () => {
 
+        if (!reviews.length)
+            return;
 
-            if (!reviews.length)
-                return;
+        currentReview++;
 
+        if (
+            currentReview >=
+            reviews.length
+        ) {
 
-            currentReview++;
-
-
-            if (
-                currentReview >=
-                reviews.length
-            ) {
-
-                currentReview = 0;
-
-            }
-
-
-            displayReview();
+            currentReview = 0;
 
         }
-    );
 
+        displayReview();
+
+    });
 
 
 /* =====================================================
-   PREVIOUS REVIEW
+   PREVIOUS
 ===================================================== */
 
 document
     .getElementById("reviewPrev")
-    .addEventListener(
-        "click",
-        () => {
+    .addEventListener("click", () => {
 
+        if (!reviews.length)
+            return;
 
-            if (!reviews.length)
-                return;
+        currentReview--;
 
+        if (currentReview < 0) {
 
-            currentReview--;
-
-
-            if (
-                currentReview < 0
-            ) {
-
-                currentReview =
-                    reviews.length - 1;
-
-            }
-
-
-            displayReview();
+            currentReview =
+                reviews.length - 1;
 
         }
-    );
 
+        displayReview();
+
+    });
 
 
 /* =====================================================
@@ -1212,5 +876,4 @@ loadReviews();
 
 
 </body>
-
 </html>
