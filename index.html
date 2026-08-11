@@ -1,971 +1,272 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>BEQUEM SCRUBS</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!-- ================= HEADER ================= -->
+<header class="header">
+    <div class="brand-area">
+        <a href="index.html" class="brand">BEQUEM SCRUBS</a>
 
-    <header class="header">
-
-        <div class="brand-area">
-
-            <a href="index.html" class="brand">
-                BEQUEM SCRUBS
+        <div class="socials">
+            <a href="https://wa.me/+2130781952022" target="_blank" class="social" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .2 5.3.2 11.9c0 2.1.6 4.1 1.6 5.8L.1 24l6.5-1.7c1.7.9 3.5 1.3 5.4 1.3h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.3-6.1-3.5-8.2ZM12.1 21.5c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3c-1-1.5-1.5-3.3-1.5-5.1C2.5 6.6 6.8 2.3 12.1 2.3c2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.3 2.9 7 0 5.3-4.3 9.6-9.9 9.6Zm5.3-7.2c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-2-.9-3.3-1.7-4.6-3.9-.4-.7.4-.7 1-2.2.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6 0 1.5 1.1 2.9 1.3 3.1.2.2 2.2 3.4 5.4 4.7 2 .9 2.8 1 3.8.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/>
+                </svg>
             </a>
 
-            <!-- RESEAUX SOCIAUX -->
+            <a href="https://www.instagram.com/bequem.world?igsh=dDY4cWtzZ3g2eHVt" target="_blank" class="social" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+                </svg>
+            </a>
 
-            <div class="socials">
+            <a href="https://www.tiktok.com/" target="_blank" class="social" aria-label="TikTok">
+                <svg viewBox="0 0 24 24">
+                    <path d="M15 3c.3 2.2 1.5 3.7 3.8 4v3.1c-1.3 0-2.6-.4-3.8-1.1v6.4c0 4-2.7 6.3-6.2 6.3C5.4 21.7 3 19.6 3 16.4c0-3.1 2.5-5.5 5.8-5.5.3 0 .6 0 .9.1v3.2c-.3-.1-.6-.2-.9-.2-1.4 0-2.6 1-2.6 2.4 0 1.5 1.1 2.5 2.6 2.5 1.6 0 2.9-1 2.9-3.3V3H15Z"/>
+                </svg>
+            </a>
 
-                <!-- WHATSAPP -->
-                <a href="https://wa.me/+2130781952022"
-                   target="_blank"
-                   class="social"
-                   aria-label="WhatsApp">
+            <a href="https://www.facebook.com/" target="_blank" class="social" aria-label="Facebook">
+                <svg viewBox="0 0 24 24">
+                    <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V4c-.3 0-1.4-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8h3.4Z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
 
-                    <svg viewBox="0 0 24 24">
-                        <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .2 5.3.2 11.9c0 2.1.6 4.1 1.6 5.8L.1 24l6.5-1.7c1.7.9 3.5 1.3 5.4 1.3h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.3-6.1-3.5-8.2ZM12.1 21.5c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3c-1-1.5-1.5-3.3-1.5-5.1C2.5 6.6 6.8 2.3 12.1 2.3c2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.3 2.9 7 0 5.3-4.3 9.6-9.9 9.6Zm5.3-7.2c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-2-.9-3.3-1.7-4.6-3.9-.4-.7.4-.7 1-2.2.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6 0 1.5 1.1 2.9 1.3 3.1.2.2 2.2 3.4 5.4 4.7 2 .9 2.8 1 3.8.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/>
-                    </svg>
+    <nav class="menu">
+        <a href="index.html">HOME</a>
+        <a href="shop.html">SHOP</a>
+        <a href="reviews.html">REVIEWS</a>
+        <a href="cart.html" class="cart">CART <span id="cartCount">0</span></a>
+    </nav>
+</header>
 
-                </a>
+<main>
+    <section class="hero">
+        <div class="hero-text">
+            <p class="small-title">MEDICAL WEAR • EST. 2026</p>
+            <h1>BEQUEM<br>SCRUBS</h1>
+            <p class="description">Medical wear designed around you.</p>
+            <a href="shop.html" class="shop-button">SHOP NOW →</a>
+        </div>
+    </section>
 
+    <section class="bequem-story">
+        <div class="section-number">01 / THE BEQUEM SCRUB</div>
 
-                <!-- INSTAGRAM -->
-                <a href="https://www.instagram.com/bequem.world?igsh=dDY4cWtzZ3g2eHVt"
-                   target="_blank"
-                   class="social"
-                   aria-label="Instagram">
-
-                    <svg viewBox="0 0 24 24" fill="none">
-
-                        <rect x="3"
-                              y="3"
-                              width="18"
-                              height="18"
-                              rx="5"
-                              stroke="currentColor"
-                              stroke-width="2"/>
-
-                        <circle cx="12"
-                                cy="12"
-                                r="4"
-                                stroke="currentColor"
-                                stroke-width="2"/>
-
-                        <circle cx="17.5"
-                                cy="6.5"
-                                r="1.2"
-                                fill="currentColor"/>
-
-                    </svg>
-
-                </a>
-
-
-                <!-- TIKTOK -->
-                <a href="bequem.world"
-                   target="_blank"
-                   class="social"
-                   aria-label="TikTok">
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M15 3c.3 2.2 1.5 3.7 3.8 4v3.1c-1.3 0-2.6-.4-3.8-1.1v6.4c0 4-2.7 6.3-6.2 6.3C5.4 21.7 3 19.6 3 16.4c0-3.1 2.5-5.5 5.8-5.5.3 0 .6 0 .9.1v3.2c-.3-.1-.6-.2-.9-.2-1.4 0-2.6 1-2.6 2.4 0 1.5 1.1 2.5 2.6 2.5 1.6 0 2.9-1 2.9-3.3V3H15Z"/>
-                    </svg>
-
-                </a>
-
-
-                <!-- FACEBOOK -->
-                <a href="bequem.world"
-                   target="_blank"
-                   class="social"
-                   aria-label="Facebook">
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V4c-.3 0-1.4-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8h3.4Z"/>
-                    </svg>
-
-                </a>
-
+        <div class="story-header">
+            <h2>BUILT FOR<br>THE SHIFT.</h2>
+            <div class="story-intro">
+                <p>I know the reality of working in healthcare. Long shifts, constant movement, countless washes — and clothes that don't always keep up.</p>
+                <p>BEQUEM SCRUBS was created from that experience. I wanted medical wear that feels good, moves with you and still looks good after the shift is over.</p>
             </div>
-
         </div>
 
+        <div class="bequem-qualities">
+            <div class="quality"><span>01</span><h3>ANTI-PILLING</h3><p>Designed to stay smooth and clean-looking, wash after wash.</p></div>
+            <div class="quality"><span>02</span><h3>STRETCH & COMFORT</h3><p>A flexible fabric that moves with you without feeling restrictive.</p></div>
+            <div class="quality"><span>03</span><h3>SOFT FEEL</h3><p>Comfortable against the skin, even during long shifts.</p></div>
+            <div class="quality"><span>04</span><h3>EASY CARE</h3><p>Made for the reality of medical work and frequent washing.</p></div>
+        </div>
 
-        <!-- MENU -->
+        <div class="bequem-statement">
+            <p>YOUR SHIFT.<br>YOUR COMFORT.<br>YOUR BEQUEM.</p>
+            <span>BEQUEM — COMFORTABLE IN GERMAN.</span>
+        </div>
+    </section>
 
-        <nav class="menu">
+    <section class="complete">
+        <div class="section-number"></div>
+    </section>
 
-            <a href="index.html">
-                HOME
-            </a>
+    <section class="reviews" id="reviews">
+        <div class="section-number">02 / REVIEWS</div>
+        <h2>OUR<br>COMMUNITY.</h2>
+        <p class="reviews-intro">Votre confort. Votre style. Votre expérience.</p>
 
-            <a href="shop.html">
-                SHOP
-            </a>
+        <div class="home-review-slider">
+            <button class="home-review-arrow" id="homeReviewPrev">←</button>
 
-            <a href="reviews.html">
-                REVIEWS
-            </a>
-
-            <a href="cart.html" class="cart">
-                CART <span id="cartCount">0</span>
-            </a>
-
-        </nav>
-
-    </header>
-
-
-
-    <!-- ================= HERO ================= -->
-
-    <main>
-
-        <section class="hero">
-
-            <div class="hero-text">
-
-                <p class="small-title">
-                    MEDICAL WEAR • EST. 2026
-                </p>
-
-                <h1>
-                    BEQUEM<br>
-                    SCRUBS
-                </h1>
-
-                <p class="description">
-                    Medical wear designed around you.
-                </p>
-
-                <a href="shop.html" class="shop-button">
-                    SHOP NOW →
-                </a>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ================= THE BEQUEM SCRUB ================= -->
-
-        <section class="bequem-story">
-
-            <div class="section-number">
-                01 / THE BEQUEM SCRUB
-            </div>
-
-            <div class="story-header">
-
-                <h2>
-                    BUILT FOR<br>
-                    THE SHIFT.
-                </h2>
-
-                <div class="story-intro">
-
-                    <p>
-                        I know the reality of working in healthcare.
-                        Long shifts, constant movement, countless washes —
-                        and clothes that don't always keep up.
-                    </p>
-
-                    <p>
-                        BEQUEM SCRUBS was created from that experience.
-                        I wanted medical wear that feels good, moves with you
-                        and still looks good after the shift is over.
-                    </p>
-
+            <article class="home-review-card" id="homeReviewCard">
+                <div class="home-review-photo" id="homeReviewPhoto">
+                    <img id="homeReviewImage" src="" alt="BEQUEM customer">
                 </div>
 
-            </div>
-
-
-            <!-- ================= QUALITIES ================= -->
-
-            <div class="bequem-qualities">
-
-                <div class="quality">
-
-                    <span>01</span>
-
-                    <h3>
-                        ANTI-PILLING
-                    </h3>
-
-                    <p>
-                        Designed to stay smooth and clean-looking,
-                        wash after wash.
-                    </p>
-
-                </div>
-
-
-                <div class="quality">
-
-                    <span>02</span>
-
-                    <h3>
-                        STRETCH & COMFORT
-                    </h3>
-
-                    <p>
-                        A flexible fabric that moves with you
-                        without feeling restrictive.
-                    </p>
-
-                </div>
-
-
-                <div class="quality">
-
-                    <span>03</span>
-
-                    <h3>
-                        SOFT FEEL
-                    </h3>
-
-                    <p>
-                        Comfortable against the skin,
-                        even during long shifts.
-                    </p>
-
-                </div>
-
-
-                <div class="quality">
-
-                    <span>04</span>
-
-                    <h3>
-                        EASY CARE
-                    </h3>
-
-                    <p>
-                        Made for the reality of medical work
-                        and frequent washing.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- ================= STATEMENT ================= -->
-
-            <div class="bequem-statement">
-
-                <p>
-                    YOUR SHIFT.<br>
-                    YOUR COMFORT.<br>
-                    YOUR BEQUEM.
-                </p>
-
-                <span>
-                    BEQUEM — COMFORTABLE IN GERMAN.
-                </span>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ================= COMPLETE YOUR LOOK ================= -->
-
-        <section class="complete">
-
-            <div class="section-number">
-            </div>
-
-        </section>
-
-
-
-        <!-- ================= REVIEWS ================= -->
-
-        <section class="reviews" id="reviews">
-
-            <div class="section-number">
-                02 / REVIEWS
-            </div>
-
-
-            <h2>
-                OUR<br>
-                COMMUNITY.
-            </h2>
-
-
-            <p class="reviews-intro">
-                Votre confort. Votre style. Votre expérience.
-            </p>
-
-
-
-            <div class="home-review-slider">
-
-
-                <button
-                    class="home-review-arrow"
-                    id="homeReviewPrev">
-
-                    ←
-
-                </button>
-
-
-
-                <article
-                    class="home-review-card"
-                    id="homeReviewCard">
-
-
-                    <!-- PHOTO + AVIS = MÊME CLIENT -->
-
-                    <div
-                        class="home-review-photo"
-                        id="homeReviewPhoto">
-
-                        <img
-                            id="homeReviewImage"
-                            src=""
-                            alt="BEQUEM customer">
-
+                <div class="home-review-content">
+                    <div class="home-review-stars" id="homeReviewStars">★★★★★</div>
+                    <blockquote id="homeReviewText">"Your review will appear here."</blockquote>
+
+                    <div class="home-review-author">
+                        <strong id="homeReviewName">BEQUEM CUSTOMER</strong>
+                        <span id="homeReviewCity">—</span>
                     </div>
-
-
-
-                    <div class="home-review-content">
-
-                        <div
-                            class="home-review-stars"
-                            id="homeReviewStars">
-
-                            ★★★★★
-
-                        </div>
-
-
-                        <blockquote
-                            id="homeReviewText">
-
-                            "Your review will appear here."
-
-                        </blockquote>
-
-
-                        <div class="home-review-author">
-
-                            <strong
-                                id="homeReviewName">
-
-                                BEQUEM CUSTOMER
-
-                            </strong>
-
-
-                            <span
-                                id="homeReviewCity">
-
-                                —
-
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="home-review-counter">
-
-                        <span id="homeReviewCurrent">
-                            01
-                        </span>
-
-                        /
-
-                        <span id="homeReviewTotal">
-                            01
-                        </span>
-
-                    </div>
-
-
-                </article>
-
-
-
-                <button
-                    class="home-review-arrow"
-                    id="homeReviewNext">
-
-                    →
-
-                </button>
-
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <h2>
-            BEQUEM SCRUBS
-        </h2>
-
-        <p>
-            MEDICAL WEAR • EST. 2026
-        </p>
-
-    </footer>
-
-
-
-    <!-- ================= CART ================= -->
-
-    <script>
-
-        const cartCount =
-            document.getElementById("cartCount");
-
-        const cart =
-            JSON.parse(
-                localStorage.getItem("bequemCart") || "[]"
-            );
-
-        if (cartCount) {
-            cartCount.textContent = cart.length;
-        }
-
-    </script>
-
-
-
-    <!-- ================= HOME REVIEWS — SUPABASE ================= -->
-
-    <script>
-
-        const SUPABASE_URL =
-            "https://pakwsesbisdkgtoeywam.supabase.co";
-
-        const SUPABASE_KEY =
-            "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
-
-        let homeReviews = [];
-
-        let homeReviewIndex = 0;
-
-
-
-        /* =========================================
-           LOAD APPROVED REVIEWS
-        ========================================= */
-
-        async function loadHomeReviews() {
-
-            try {
-
-                const response =
-                    await fetch(
-                        SUPABASE_URL +
-                        "/rest/v1/reviews" +
-                        "?select=id,name,city,rating,review,photo_urls,created_at" +
-                        "&approved=eq.true" +
-                        "&order=created_at.desc",
-                        {
-                            method: "GET",
-
-                            headers: {
-                                "apikey":
-                                    SUPABASE_KEY,
-
-                                "Authorization":
-                                    "Bearer " +
-                                    SUPABASE_KEY
-                            }
-                        }
-                    );
-
-
-                if (!response.ok) {
-
-                    console.error(
-                        "SUPABASE REVIEWS ERROR:",
-                        await response.text()
-                    );
-
-                    return;
-
+                </div>
+
+                <div class="home-review-counter">
+                    <span id="homeReviewCurrent">01</span> /
+                    <span id="homeReviewTotal">01</span>
+                </div>
+            </article>
+
+            <button class="home-review-arrow" id="homeReviewNext">→</button>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <h2>BEQUEM SCRUBS</h2>
+    <p>MEDICAL WEAR • EST. 2026</p>
+</footer>
+
+<script>
+const cartCount = document.getElementById("cartCount");
+const cart = JSON.parse(localStorage.getItem("bequemCart") || "[]");
+if (cartCount) cartCount.textContent = cart.length;
+</script>
+
+<script>
+const SUPABASE_URL = "https://pakwsesbisdkgtoeywam.supabase.co";
+const SUPABASE_KEY = "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
+
+let homeReviews = [];
+let homeReviewIndex = 0;
+
+async function loadHomeReviews() {
+    try {
+        const response = await fetch(
+            SUPABASE_URL +
+            "/rest/v1/reviews" +
+            "?select=id,name,city,rating,review,photo_urls,created_at" +
+            "&approved=eq.true" +
+            "&order=created_at.desc",
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": "Bearer " + SUPABASE_KEY
                 }
-
-
-                const data =
-                    await response.json();
-
-
-                console.log(
-                    "HOME REVIEWS FROM SUPABASE:",
-                    data
-                );
-
-
-                homeReviews =
-                    Array.isArray(data)
-                        ? data
-                        : [];
-
-
-                homeReviewIndex = 0;
-
-
-                displayHomeReview();
-
-
-            } catch (error) {
-
-                console.error(
-                    "HOME REVIEWS CONNECTION ERROR:",
-                    error
-                );
-
             }
-
-        }
-
-
-
-        /* =========================================
-           DISPLAY REVIEW
-        ========================================= */
-
-        function displayHomeReview() {
-
-            const image =
-                document.getElementById(
-                    "homeReviewImage"
-                );
-
-            const photo =
-                document.getElementById(
-                    "homeReviewPhoto"
-                );
-
-            const stars =
-                document.getElementById(
-                    "homeReviewStars"
-                );
-
-            const text =
-                document.getElementById(
-                    "homeReviewText"
-                );
-
-            const name =
-                document.getElementById(
-                    "homeReviewName"
-                );
-
-            const city =
-                document.getElementById(
-                    "homeReviewCity"
-                );
-
-            const current =
-                document.getElementById(
-                    "homeReviewCurrent"
-                );
-
-            const total =
-                document.getElementById(
-                    "homeReviewTotal"
-                );
-
-
-            if (
-                !image ||
-                !photo ||
-                !stars ||
-                !text ||
-                !name ||
-                !city ||
-                !current ||
-                !total
-            ) {
-
-                console.error(
-                    "HOME REVIEW HTML ELEMENTS ARE MISSING."
-                );
-
-                return;
-
-            }
-
-
-
-            /* =====================================
-               NO APPROVED REVIEWS
-            ===================================== */
-
-            if (!homeReviews.length) {
-
-                photo.style.display =
-                    "none";
-
-                stars.textContent =
-                    "★★★★★";
-
-                text.textContent =
-                    '"Your review will appear here."';
-
-                name.textContent =
-                    "BEQUEM CUSTOMER";
-
-                city.textContent =
-                    "—";
-
-                current.textContent =
-                    "01";
-
-                total.textContent =
-                    "01";
-
-                return;
-
-            }
-
-
-
-            /* =====================================
-               CURRENT REVIEW
-            ===================================== */
-
-            if (
-                homeReviewIndex >=
-                homeReviews.length
-            ) {
-
-                homeReviewIndex = 0;
-
-            }
-
-
-            const review =
-                homeReviews[homeReviewIndex];
-
-
-
-            /* =====================================
-               STARS
-            ===================================== */
-
-            let rating =
-                Number(review.rating);
-
-            if (
-                !Number.isFinite(rating) ||
-                rating < 0
-            ) {
-
-                rating = 0;
-
-            }
-
-            if (rating > 5) {
-
-                rating = 5;
-
-            }
-
-
-            stars.textContent =
-                "★".repeat(rating) +
-                "☆".repeat(5 - rating);
-
-
-
-            /* =====================================
-               TEXT
-            ===================================== */
-
-            text.textContent =
-                '"' +
-                (review.review || "") +
-                '"';
-
-
-
-            /* =====================================
-               NAME
-            ===================================== */
-
-            name.textContent =
-                review.name ||
-                "BEQUEM CUSTOMER";
-
-
-
-            /* =====================================
-               CITY
-            ===================================== */
-
-            city.textContent =
-                review.city
-                    ? "— " + review.city
-                    : "—";
-
-
-
-            /* =====================================
-               COUNTER
-            ===================================== */
-
-            current.textContent =
-                String(
-                    homeReviewIndex + 1
-                ).padStart(2, "0");
-
-
-            total.textContent =
-                String(
-                    homeReviews.length
-                ).padStart(2, "0");
-
-
-
-            /* =====================================
-               PHOTO
-            ===================================== */
-
-            let photoUrl = null;
-
-
-            if (review.photo_urls) {
-
-                try {
-
-                    if (
-                        typeof review.photo_urls ===
-                        "string"
-                    ) {
-
-                        const value =
-                            review.photo_urls.trim();
-
-
-                        if (
-                            value.startsWith("[")
-                        ) {
-
-                            const parsed =
-                                JSON.parse(value);
-
-
-                            if (
-                                Array.isArray(parsed) &&
-                                parsed.length > 0
-                            ) {
-
-                                photoUrl =
-                                    parsed[0];
-
-                            }
-
-                        } else {
-
-                            photoUrl =
-                                value;
-
-                        }
-
-                    }
-
-                } catch (error) {
-
-                    console.error(
-                        "PHOTO URL ERROR:",
-                        error
-                    );
-
-                }
-
-            }
-
-
-            if (photoUrl) {
-
-                image.src =
-                    photoUrl;
-
-                image.style.display =
-                    "block";
-
-                photo.style.display =
-                    "block";
-
-            } else {
-
-                image.removeAttribute(
-                    "src"
-                );
-
-                image.style.display =
-                    "none";
-
-                photo.style.display =
-                    "none";
-
-            }
-
-        }
-
-
-
-        /* =========================================
-           NEXT REVIEW
-        ========================================= */
-
-        const homeReviewNext =
-            document.getElementById(
-                "homeReviewNext"
-            );
-
-
-        if (homeReviewNext) {
-
-            homeReviewNext.addEventListener(
-                "click",
-                function () {
-
-                    if (!homeReviews.length) {
-                        return;
-                    }
-
-
-                    homeReviewIndex++;
-
-
-                    if (
-                        homeReviewIndex >=
-                        homeReviews.length
-                    ) {
-
-                        homeReviewIndex = 0;
-
-                    }
-
-
-                    displayHomeReview();
-
-                }
-            );
-
-        }
-
-
-
-        /* =========================================
-           PREVIOUS REVIEW
-        ========================================= */
-
-        const homeReviewPrev =
-            document.getElementById(
-                "homeReviewPrev"
-            );
-
-
-        if (homeReviewPrev) {
-
-            homeReviewPrev.addEventListener(
-                "click",
-                function () {
-
-                    if (!homeReviews.length) {
-                        return;
-                    }
-
-
-                    homeReviewIndex--;
-
-
-                    if (
-                        homeReviewIndex < 0
-                    ) {
-
-                        homeReviewIndex =
-                            homeReviews.length - 1;
-
-                    }
-
-
-                    displayHomeReview();
-
-                }
-            );
-
-        }
-
-
-
-        /* =========================================
-           AUTOMATIC SLIDER
-        ========================================= */
-
-        setInterval(
-            function () {
-
-                if (!homeReviews.length) {
-                    return;
-                }
-
-
-                homeReviewIndex++;
-
-
-                if (
-                    homeReviewIndex >=
-                    homeReviews.length
-                ) {
-
-                    homeReviewIndex = 0;
-
-                }
-
-
-                displayHomeReview();
-
-            },
-            5000
         );
 
+        if (!response.ok) {
+            console.error("SUPABASE REVIEWS ERROR:", await response.text());
+            return;
+        }
 
+        const data = await response.json();
+        console.log("HOME REVIEWS FROM SUPABASE:", data);
 
-        /* =========================================
-           START
-        ========================================= */
+        homeReviews = Array.isArray(data) ? data : [];
+        homeReviewIndex = 0;
+        displayHomeReview();
+    } catch (error) {
+        console.error("HOME REVIEWS CONNECTION ERROR:", error);
+    }
+}
 
-        loadHomeReviews();
+function displayHomeReview() {
+    const image = document.getElementById("homeReviewImage");
+    const photo = document.getElementById("homeReviewPhoto");
+    const stars = document.getElementById("homeReviewStars");
+    const text = document.getElementById("homeReviewText");
+    const name = document.getElementById("homeReviewName");
+    const city = document.getElementById("homeReviewCity");
+    const current = document.getElementById("homeReviewCurrent");
+    const total = document.getElementById("homeReviewTotal");
 
-    </script>
+    if (!image || !photo || !stars || !text || !name || !city || !current || !total) {
+        console.error("HOME REVIEW HTML ELEMENTS ARE MISSING.");
+        return;
+    }
+
+    if (!homeReviews.length) {
+        photo.style.display = "none";
+        stars.textContent = "★★★★★";
+        text.textContent = '"Your review will appear here."';
+        name.textContent = "BEQUEM CUSTOMER";
+        city.textContent = "—";
+        current.textContent = "01";
+        total.textContent = "01";
+        return;
+    }
+
+    if (homeReviewIndex >= homeReviews.length) homeReviewIndex = 0;
+
+    const review = homeReviews[homeReviewIndex];
+
+    let rating = Number(review.rating);
+    if (!Number.isFinite(rating)) rating = 0;
+    rating = Math.max(0, Math.min(5, Math.round(rating)));
+
+    stars.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
+    text.textContent = '"' + (review.review || "") + '"';
+    name.textContent = review.name || "BEQUEM CUSTOMER";
+    city.textContent = review.city ? "— " + review.city : "—";
+
+    current.textContent = String(homeReviewIndex + 1).padStart(2, "0");
+    total.textContent = String(homeReviews.length).padStart(2, "0");
+
+    let photoUrl = null;
+
+    if (review.photo_urls) {
+        try {
+            if (typeof review.photo_urls === "string") {
+                const value = review.photo_urls.trim();
+
+                if (value.startsWith("[")) {
+                    const parsed = JSON.parse(value);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        photoUrl = parsed[0];
+                    }
+                } else {
+                    photoUrl = value;
+                }
+            }
+        } catch (error) {
+            console.error("PHOTO URL ERROR:", error);
+        }
+    }
+
+    if (photoUrl) {
+        image.src = photoUrl;
+        image.style.display = "block";
+        photo.style.display = "block";
+    } else {
+        image.removeAttribute("src");
+        image.style.display = "none";
+        photo.style.display = "none";
+    }
+}
+
+document.getElementById("homeReviewNext").addEventListener("click", function () {
+    if (!homeReviews.length) return;
+    homeReviewIndex = (homeReviewIndex + 1) % homeReviews.length;
+    displayHomeReview();
+});
+
+document.getElementById("homeReviewPrev").addEventListener("click", function () {
+    if (!homeReviews.length) return;
+    homeReviewIndex--;
+    if (homeReviewIndex < 0) homeReviewIndex = homeReviews.length - 1;
+    displayHomeReview();
+});
+
+setInterval(function () {
+    if (!homeReviews.length) return;
+    homeReviewIndex = (homeReviewIndex + 1) % homeReviews.length;
+    displayHomeReview();
+}, 5000);
+
+loadHomeReviews();
+</script>
 
 </body>
-
 </html>
