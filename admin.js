@@ -2,11 +2,19 @@
 // BEQUEM SCRUBS — ADMIN
 // ======================================================
 //
-// The password is NOT stored in this file. Authentication is
-// handled by Supabase Auth, and what actually protects the data
-// are the RLS policies on the "reviews" table: the public key
-// alone can only read approved reviews and insert pending ones.
-// Approving, editing and deleting require a logged in user.
+// READ THIS BEFORE CHANGING ANYTHING.
+//
+// The login below is a convenience gate, NOT security. The username
+// and password sit in this file, which anyone can read from the
+// browser, and the RLS policies let the public key read, approve and
+// delete reviews on its own. Someone who opens the console can do
+// everything this page does without ever seeing the password.
+//
+// This is a deliberate trade-off to avoid creating a Supabase Auth
+// account for now. To make it actually safe later:
+//   1. run the "SECURE VERSION" block in supabase-setup.sql
+//   2. create a user in Supabase -> Authentication -> Users
+//   3. swap this gate for client.auth.signInWithPassword()
 //
 // ======================================================
 
@@ -16,8 +24,16 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
     "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
 
+// Change these two. They are public, so do not reuse a password
+// you use anywhere else.
+const ADMIN_USERNAME = "bequem";
+const ADMIN_PASSWORD = "bequem2026";
+
+const SESSION_KEY = "bequem_admin_session";
+
 let client = null;
 let currentFilter = "pending";
+let allReviews = [];
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -26,7 +42,7 @@ document.addEventListener("DOMContentLoaded", init);
 // START
 // ======================================================
 
-async function init() {
+function init() {
     if (
         !window.supabase ||
         typeof window.supabase.createClient !== "function"
@@ -45,10 +61,8 @@ async function init() {
     initLogout();
     initTabs();
 
-    const { data } = await client.auth.getSession();
-
-    if (data && data.session) {
-        showDashboard(data.session);
+    if (localStorage.getItem(SESSION_KEY) === ADMIN_USERNAME) {
+        showDashboard(ADMIN_USERNAME);
     } else {
         showLogin();
     }
@@ -66,40 +80,26 @@ function initLoginForm() {
         return;
     }
 
-    const button = document.getElementById("loginButton");
     const message = document.getElementById("loginMessage");
 
-    form.addEventListener("submit", async function (event) {
+    form.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const email = document.getElementById("loginEmail").value.trim();
+        const user = document.getElementById("loginUser").value.trim();
         const password = document.getElementById("loginPassword").value;
 
-        if (!email || !password) {
-            setMessage(message, "Enter your email and password.", true);
+        if (user !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+            setMessage(message, "Wrong username or password.", true);
             return;
         }
 
-        button.disabled = true;
-        button.textContent = "CHECKING...";
         setMessage(message, "");
-
-        const { data, error } = await client.auth.signInWithPassword({
-            email: email,
-            password: password
-        });
-
-        button.disabled = false;
-        button.textContent = "LOG IN →";
-
-        if (error) {
-            setMessage(message, "Login failed: " + error.message, true);
-            return;
-        }
 
         document.getElementById("loginPassword").value = "";
 
-        showDashboard(data.session);
+        localStorage.setItem(SESSION_KEY, ADMIN_USERNAME);
+
+        showDashboard(ADMIN_USERNAME);
     });
 }
 
@@ -110,8 +110,8 @@ function initLogout() {
         return;
     }
 
-    button.addEventListener("click", async function () {
-        await client.auth.signOut();
+    button.addEventListener("click", function () {
+        localStorage.removeItem(SESSION_KEY);
         showLogin();
     });
 }
@@ -125,16 +125,15 @@ function showLogin() {
     document.getElementById("loginSection").hidden = false;
     document.getElementById("dashboardSection").hidden = true;
     document.getElementById("logoutButton").hidden = true;
-    document.getElementById("adminEmail").textContent = "";
+    document.getElementById("adminUser").textContent = "";
 }
 
-function showDashboard(session) {
+function showDashboard(user) {
     document.getElementById("loginSection").hidden = true;
     document.getElementById("dashboardSection").hidden = false;
     document.getElementById("logoutButton").hidden = false;
 
-    document.getElementById("adminEmail").textContent =
-        session && session.user ? session.user.email : "";
+    document.getElementById("adminUser").textContent = user;
 
     loadReviews();
 }
@@ -168,8 +167,6 @@ function initTabs() {
 // ======================================================
 // DATA
 // ======================================================
-
-let allReviews = [];
 
 async function loadReviews() {
     const list = document.getElementById("reviewList");
@@ -351,7 +348,9 @@ async function setApproved(id, approved, button) {
 async function deleteReview(id, name, button) {
     if (
         !confirm(
-            "Permanently delete the review from " + (name || "this customer") + "?"
+            "Permanently delete the review from " +
+                (name || "this customer") +
+                "?"
         )
     ) {
         return;

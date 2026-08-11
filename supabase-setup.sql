@@ -2,95 +2,106 @@
 -- BEQUEM SCRUBS — SUPABASE SETUP
 -- ======================================================
 --
--- Run this once in the Supabase dashboard: SQL Editor -> New query
+-- Run this once: Supabase dashboard -> SQL Editor -> New query
 -- -> paste -> Run.
 --
--- What it does:
---   1. Locks down the "reviews" table with RLS
---   2. Lets anonymous visitors read approved reviews and submit new ones
---   3. Lets a logged in admin read, approve and delete everything
---   4. Creates the public storage bucket used for review photos
+-- ------------------------------------------------------
+-- WHAT THIS DOES, IN PLAIN TERMS
+-- ------------------------------------------------------
 --
--- The admin password is never stored in the website code. It lives in
--- Supabase Auth, and these policies are what actually protect the data.
+-- It opens the "reviews" table to the public key: reading every
+-- review (including the ones waiting for approval), inserting,
+-- approving and deleting.
+--
+-- That is what makes admin.html work without a Supabase account.
+-- It also means the login on that page is a convenience gate, not
+-- protection: the public key is visible in the page source, so
+-- anyone who opens the browser console can approve or delete
+-- reviews without ever seeing the password.
+--
+-- This is a deliberate trade-off. The SECURE VERSION at the bottom
+-- of this file closes it back down when you are ready.
 --
 -- ======================================================
 
 
 -- ======================================================
--- 1. REVIEWS TABLE
+-- 1. REVIEWS TABLE — OPEN ACCESS
 -- ======================================================
 
 alter table public.reviews enable row level security;
 
 
--- --- Anonymous visitors ---
+-- Clean up any policy from a previous run of this file.
 
--- Read: only approved reviews are ever exposed publicly.
-
-drop policy if exists "bequem_public_read_approved" on public.reviews;
-
-create policy "bequem_public_read_approved"
-on public.reviews
-for select
-to anon
-using (approved = true);
-
-
--- Insert: anyone can submit a review, but it always lands unapproved.
--- The "with check" is what stops someone from self-approving.
-
+drop policy if exists "bequem_public_read_approved"  on public.reviews;
 drop policy if exists "bequem_public_insert_pending" on public.reviews;
+drop policy if exists "bequem_admin_read_all"        on public.reviews;
+drop policy if exists "bequem_admin_update"          on public.reviews;
+drop policy if exists "bequem_admin_delete"          on public.reviews;
 
-create policy "bequem_public_insert_pending"
-on public.reviews
-for insert
-to anon
-with check (approved = false);
+drop policy if exists "bequem_anon_select_all" on public.reviews;
+drop policy if exists "bequem_anon_insert"     on public.reviews;
+drop policy if exists "bequem_anon_update"     on public.reviews;
+drop policy if exists "bequem_anon_delete"     on public.reviews;
 
 
--- --- Admin (logged in) ---
+-- Read every review.
+-- reviews.html still only displays approved ones: it filters with
+-- .eq("approved", true) in the query itself.
 
-drop policy if exists "bequem_admin_read_all" on public.reviews;
-
-create policy "bequem_admin_read_all"
+create policy "bequem_anon_select_all"
 on public.reviews
 for select
-to authenticated
+to anon
 using (true);
 
 
-drop policy if exists "bequem_admin_update" on public.reviews;
+-- Submit a review from the public form.
 
-create policy "bequem_admin_update"
+create policy "bequem_anon_insert"
+on public.reviews
+for insert
+to anon
+with check (true);
+
+
+-- Approve / unpublish, used by admin.html.
+
+create policy "bequem_anon_update"
 on public.reviews
 for update
-to authenticated
+to anon
 using (true)
 with check (true);
 
 
-drop policy if exists "bequem_admin_delete" on public.reviews;
+-- Delete, used by admin.html.
 
-create policy "bequem_admin_delete"
+create policy "bequem_anon_delete"
 on public.reviews
 for delete
-to authenticated
+to anon
 using (true);
 
 
 -- ======================================================
 -- 2. STORAGE BUCKET FOR REVIEW PHOTOS
 -- ======================================================
+--
+-- This bucket does not exist yet, which is why photo upload
+-- currently fails with "Bucket not found" and reviews are saved
+-- without their photos.
 
 insert into storage.buckets (id, name, public)
 values ('review-photos', 'review-photos', true)
 on conflict (id) do update set public = true;
 
 
--- Anyone can upload a photo attached to their review...
-
 drop policy if exists "bequem_public_upload_photos" on storage.objects;
+drop policy if exists "bequem_public_read_photos"   on storage.objects;
+drop policy if exists "bequem_admin_delete_photos"  on storage.objects;
+
 
 create policy "bequem_public_upload_photos"
 on storage.objects
@@ -99,10 +110,6 @@ to anon
 with check (bucket_id = 'review-photos');
 
 
--- ...and anyone can view them (the bucket is public).
-
-drop policy if exists "bequem_public_read_photos" on storage.objects;
-
 create policy "bequem_public_read_photos"
 on storage.objects
 for select
@@ -110,36 +117,64 @@ to anon, authenticated
 using (bucket_id = 'review-photos');
 
 
--- Only the admin can delete a photo.
-
-drop policy if exists "bequem_admin_delete_photos" on storage.objects;
-
 create policy "bequem_admin_delete_photos"
 on storage.objects
 for delete
-to authenticated
+to anon
 using (bucket_id = 'review-photos');
 
 
 -- ======================================================
--- 3. IMPORTANT — AFTER RUNNING THIS
+-- 3. SECURE VERSION — FOR LATER
 -- ======================================================
 --
--- The admin policies above trust ANY logged in user. That is safe only
--- if you are the only account that can exist. So:
+-- When you want real protection, do these three things:
 --
---   Dashboard -> Authentication -> Sign In / Providers -> Email
---   -> turn OFF "Allow new users to sign up"
+--   a) Supabase -> Authentication -> Users -> Add user
+--      -> Create new user, your email + a strong password,
+--         tick "Auto Confirm User"
 --
--- Then create your own account manually:
+--   b) Supabase -> Authentication -> Sign In / Providers -> Email
+--      -> turn OFF "Allow new users to sign up"
 --
---   Dashboard -> Authentication -> Users -> Add user
---   -> "Create new user", enter your email + a strong password,
---      tick "Auto Confirm User"
+--   c) run the block below, then swap the password gate in admin.js
+--      for client.auth.signInWithPassword()
 --
--- Optional, stricter: restrict the admin policies to your user id only.
--- Copy your id from Authentication -> Users, then replace the three
--- admin policies above with `using (auth.uid() = 'your-uuid-here')`.
--- That stays safe even if sign-ups are ever re-enabled.
+-- After that the public key can only read approved reviews and
+-- submit new ones. Approving and deleting require being logged in,
+-- and it is Supabase that enforces it, not the page.
+--
+-- ------------------------------------------------------
+--
+-- drop policy if exists "bequem_anon_select_all" on public.reviews;
+-- drop policy if exists "bequem_anon_insert"     on public.reviews;
+-- drop policy if exists "bequem_anon_update"     on public.reviews;
+-- drop policy if exists "bequem_anon_delete"     on public.reviews;
+--
+-- create policy "bequem_public_read_approved"
+-- on public.reviews for select to anon
+-- using (approved = true);
+--
+-- create policy "bequem_public_insert_pending"
+-- on public.reviews for insert to anon
+-- with check (approved = false);
+--
+-- create policy "bequem_admin_read_all"
+-- on public.reviews for select to authenticated
+-- using (true);
+--
+-- create policy "bequem_admin_update"
+-- on public.reviews for update to authenticated
+-- using (true) with check (true);
+--
+-- create policy "bequem_admin_delete"
+-- on public.reviews for delete to authenticated
+-- using (true);
+--
+-- drop policy if exists "bequem_admin_delete_photos" on storage.objects;
+--
+-- create policy "bequem_admin_delete_photos"
+-- on storage.objects for delete to authenticated
+-- using (bucket_id = 'review-photos');
 --
 -- ======================================================
