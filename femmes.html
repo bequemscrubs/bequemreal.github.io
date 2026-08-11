@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Femmes — BEQUEM SCRUBS</title>
+
+    <link rel="stylesheet" href="femmes.css">
+</head>
+
+<body>
+
+<header>
+
+    <a href="index.html" class="logo">
+        BEQUEM SCRUBS
+    </a>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="shop.html">SHOP</a>
+        <a href="index.html#reviews">REVIEWS</a>
+    </nav>
+
+    <a href="cart.html" class="cart-link">
+        🛒 CART
+    </a>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <p>01 / WOMEN'S COLLECTION</p>
+
+    <h1>
+        BUILD<br>
+        YOUR SET.
+    </h1>
+
+    <span>
+        Choose every detail of your scrub.
+    </span>
+
+</section>
+
+
+<!-- =========================
+     TOP
+========================= -->
+
+<section class="selection">
+
+    <div class="section-title">
+
+        <span>01</span>
+
+        <h2>CHOOSE YOUR TOP</h2>
+
+        <p>
+            Select the knit model you prefer.
+        </p>
+
+    </div>
+
+
+    <div class="selector-wrapper">
+
+        <button class="arrow" id="topPrev">
+            ←
+        </button>
+
+
+        <div class="products-grid" id="topProducts">
+
+            <div
+                class="product-card top-card"
+                data-value="COL ROND"
+                data-index="0">
+
+                <div class="photo">
+
+                    <img
+                        src="images/col-rond.jpg"
+                        alt="Col rond">
+
+                </div>
+
+                <div class="product-info">
+
+                    <span>01</span>
+
+                    <h3>COL ROND</h3>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="product-card top-card"
+                data-value="COL V"
+                data-index="1">
+
+                <div class="photo">
+
+                    <img
+                        src="images/col-v.jpg"
+                        alt="Col V">
+
+                </div>
+
+                <div class="product-info">
+
+                    <span>02</span>
+
+                    <h3>COL V</h3>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="product-card top-card"
+                data-value="ZIPPÉ"
+                data-index="2">
+
+                <div class="photo">
+
+                    <img
+                        src="images/zippe.jpg"
+                        alt="Haut zippé">
+
+                </div>
+
+                <div class="product-info">
+
+                    <span>03</span>
+
+                    <h3>ZIPPÉ</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="arrow" id="topNext">
+            →
+        </button>
+
+    </div>
+
+
+    <p class="selected-text">
+
+        TOP SELECTED :
+
+        <strong id="selectedTop">
+            NONE
+        </strong>
+
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     PANTS
+========================= -->
+
+<section class="selection">
+
+    <div class="section-title">
+
+        <span>02</span>
+
+        <h2>CHOOSE YOUR PANTS</h2>
+
+        <p>
+            Select the cut that fits your style.
+        </p>
+
+    </div>
+
+
+    <div class="selector-wrapper">
+
+        <button class="arrow" id="pantsPrev">
+            ←
+        </button>
+
+
+        <div class="products-grid" id="pantsProducts">
+
+
+            <div
+                class="product-card pants-card"
+                data-value="DROIT"
+                data-index="0">
+
+                <div class="photo">
+
+                    <img
+                        src="images/pantalon-droit.jpg"
+                        alt="Pantalon droit">
+
+                </div>
+
+                <div class="product-info">
+
+                    <span>01</span>
+
+                    <h3>DROIT</h3>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="product-card pants-card"
+                data-value="CARGO"
+                data-index="1">
+
+                <div class="photo">
+
+                    <img
+                        src="images/pantalon-cargo.jpg"
+                        alt="Pantalon cargo">
+
+                </div>
+
+                <div class="product-info">
+
+                    <span>02</span>
+
+                    <h3>CARGO</h3>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="product-card pants-card"
+                data-value="SLIM"
+                data-index="2">
+
+                <div class="photo">
+
+                    <img
+                        src="images/pantalon-slim.jpg"
+                        alt="Pantalon slim">
+
+                </div>
+
+                <div class="product-info">
+
+                    <span>03</span>
+
+                    <h3>SLIM</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="arrow" id="pantsNext">
+            →
+        </button>
+
+    </div>
+
+
+    <p class="selected-text">
+
+        PANTS SELECTED :
+
+        <strong id="selectedPants">
+            NONE
+        </strong>
+
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     PERSONALIZATION
+========================= -->
+
+<section class="options">
+
+    <p>
+        03 / PERSONALIZE
+    </p>
+
+    <h2>
+        YOUR DETAILS
+    </h2>
+
+
+    <!-- COLOR -->
+
+    <div class="option">
+
+        <h3>
+            COLOR *
+        </h3>
+
+        <div class="choices">
+
+            <button
+                class="color-choice"
+                data-color="BLACK">
+
+                BLACK
+
+            </button>
+
+
+            <button
+                class="color-choice"
+                data-color="GREY">
+
+                GREY
+
+            </button>
+
+
+            <button
+                class="color-choice"
+                data-color="WHITE">
+
+                WHITE
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SIZE -->
+
+    <div class="option">
+
+        <h3>
+            SIZE *
+        </h3>
+
+        <div class="choices">
+
+            <button
+                class="size-choice"
+                data-size="XS">
+
+                XS
+
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="S">
+
+                S
+
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="M">
+
+                M
+
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="L">
+
+                L
+
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="XL">
+
+                XL
+
+            </button>
+
+
+            <button
+                class="size-choice"
+                data-size="XXL">
+
+                XXL
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MOTIFS -->
+
+    <div class="option motif-section">
+
+        <h3>
+
+            MOTIF
+
+            <span>
+                — OPTIONAL
+            </span>
+
+        </h3>
+
+
+        <div class="motif-grid">
+
+            <button
+                class="motif-choice selected"
+                data-motif="NO MOTIF">
+
+                NO MOTIF
+
+            </button>
+
+
+            <button
+                class="motif-choice"
+                data-motif="MOTIF 01">
+
+                MOTIF 01
+
+            </button>
+
+
+            <button
+                class="motif-choice"
+                data-motif="MOTIF 02">
+
+                MOTIF 02
+
+            </button>
+
+
+            <button
+                class="motif-choice"
+                data-motif="MOTIF 03">
+
+                MOTIF 03
+
+            </button>
+
+        </div>
+
+
+
+        <!-- MOTIF DETAILS -->
+
+        <div
+            class="motif-details"
+            id="motifDetails">
+
+            <h4>
+                WHERE DO YOU WANT THE MOTIF?
+            </h4>
+
+
+            <div class="choices">
+
+                <button
+                    class="placement-choice"
+                    data-placement="DOS">
+
+                    DOS
+
+                </button>
+
+
+                <button
+                    class="placement-choice"
+                    data-placement="MANCHE">
+
+                    MANCHE
+
+                </button>
+
+
+                <button
+                    class="placement-choice"
+                    data-placement="POITRINE">
+
+                    POITRINE
+
+                </button>
+
+            </div>
+
+
+            <h4 class="description-title">
+
+                DESCRIBE YOUR MOTIF
+
+            </h4>
+
+
+            <textarea
+                id="motifDescription"
+                placeholder="Describe your motif, initials, text, design..."
+                rows="4"></textarea>
+
+        </div>
+
+    </div>
+
+
+
+<!-- =========================
+     COMPLETE YOUR LOOK
+========================= -->
+
+<div class="complete-look">
+
+    <p class="complete-look-number">
+
+        04 / COMPLETE YOUR LOOK
+
+    </p>
+
+
+    <h2>
+
+        COMPLETE<br>
+        YOUR LOOK.
+
+    </h2>
+
+
+    <p>
+
+        Add our compression socks to complete
+        your medical outfit.
+
+    </p>
+
+
+    <a
+        href="bas-contention.html"
+        class="compression-link"
+        id="compressionLink">
+
+
+        <div class="compression-image">
+
+            <span>
+                🧦
+            </span>
+
+        </div>
+
+
+        <div class="compression-info">
+
+
+            <div>
+
+                <span>
+                    ACCESSORY
+                </span>
+
+
+                <h3>
+
+                    BAS DE CONTENTION
+
+                </h3>
+
+            </div>
+
+
+            <span>
+
+                DISCOVER →
+
+            </span>
+
+        </div>
+
+    </a>
+
+</div>
+
+
+
+<!-- =========================
+     SUMMARY
+========================= -->
+
+<div class="summary">
+
+    <p>
+        YOUR SET
+    </p>
+
+
+    <h2 id="summaryTop">
+
+        TOP NOT SELECTED
+
+    </h2>
+
+
+    <h3 id="summaryPants">
+
+        PANTS NOT SELECTED
+
+    </h3>
+
+
+    <div class="summary-details">
+
+
+        <p>
+
+            COLOR:
+
+            <strong id="summaryColor">
+                —
+            </strong>
+
+        </p>
+
+
+        <p>
+
+            SIZE:
+
+            <strong id="summarySize">
+                —
+            </strong>
+
+        </p>
+
+
+        <p>
+
+            MOTIF:
+
+            <strong id="summaryMotif">
+                NO MOTIF
+            </strong>
+
+        </p>
+
+
+        <p>
+
+            PLACEMENT:
+
+            <strong id="summaryPlacement">
+                —
+            </strong>
+
+        </p>
+
+    </div>
+
+
+    <p id="selectionStatus">
+
+        Choose your top, pants, color and size.
+
+    </p>
+
+
+    <button
+        class="cart"
+        id="addToCart">
+
+        ADD TO CART →
+
+    </button>
+
+</div>
+
+</section>
+
+
+
+<footer>
+
+    <h2>
+        BEQUEM SCRUBS
+    </h2>
+
+    <p>
+        MEDICAL WEAR • EST. 2026
+    </p>
+
+</footer>
+
+
+<script src="femmes.js"></script>
+
+</body>
+
+</html>
