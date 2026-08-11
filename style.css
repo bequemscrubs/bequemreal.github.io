@@ -128,10 +128,15 @@ body {
             #f7f7f5 50%,
             #eeeeec 100%
         );
+
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-text {
     max-width: 700px;
+    position: relative;
+    z-index: 3;
 }
 
 .small-title {
@@ -180,6 +185,32 @@ body {
 .shop-button:hover {
     background: #111;
     color: white;
+}
+
+/* ================= BEQUEM LOGO ================= */
+
+.hero-logo-scene {
+    position: absolute;
+
+    right: 20px;
+    top: 50%;
+
+    width: 350px;
+
+    transform: translateY(-50%);
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+.hero-logo-image {
+    width: 100%;
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
 }
 
 /* ================= THE BEQUEM SCRUB ================= */
@@ -371,13 +402,9 @@ body {
     min-height: 800px;
 }
 
-/* NUMBER */
-
 .reviews .section-number {
     color: #111111;
 }
-
-/* TITLE */
 
 .reviews h2 {
     color: #111111;
@@ -388,8 +415,6 @@ body {
 
     margin: 35px 0 25px;
 }
-
-/* INTRO */
 
 .reviews-intro {
     color: #111111;
@@ -630,10 +655,16 @@ footer p {
         padding-left: 10px;
     }
 
+    /* ================= MOBILE HERO ================= */
+
     .hero {
         min-height: 600px;
 
         padding: 70px 25px;
+    }
+
+    .hero-text {
+        max-width: 100%;
     }
 
     .hero h1 {
@@ -641,6 +672,26 @@ footer p {
 
         letter-spacing: -4px;
     }
+
+    .hero-logo-scene {
+        width: 170px;
+
+        right: 5px;
+
+        top: auto;
+        bottom: 45px;
+
+        transform: none;
+
+        z-index: 2;
+    }
+
+    .hero-logo-image {
+        width: 100%;
+        height: auto;
+    }
+
+    /* ================= STORY ================= */
 
     .bequem-story {
         padding: 80px 20px;
@@ -691,6 +742,8 @@ footer p {
         max-width: 100%;
     }
 
+    /* ================= STATEMENT ================= */
+
     .bequem-statement {
         margin-top: 80px;
 
@@ -707,6 +760,8 @@ footer p {
         letter-spacing: -3px;
     }
 
+    /* ================= COMPLETE ================= */
+
     .complete {
         padding: 80px 20px;
 
@@ -722,6 +777,8 @@ footer p {
 
         font-size: 20px;
     }
+
+    /* ================= REVIEWS ================= */
 
     .reviews {
         padding: 80px 5vw 100px;
@@ -796,104 +853,10 @@ footer p {
         background: #eeeeec !important;
     }
 }
+
 /* Décaler le menu du haut vers la gauche */
+
 nav {
     position: relative;
     left: -44px;
-}
-
-/* ================= BEQUEM LOGO ================= */
-
-.hero {
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-logo-scene {
-    position: absolute !important;
-    width: 350px !important;
-
-    right: 20px !important;
-    top: 50% !important;
-
-    transform: translateY(-50%) !important;
-
-    z-index: 2;
-    pointer-events: none;
-}
-
-.hero-logo-image {
-    display: block;
-    width: 100% !important;
-    height: auto !important;
-
-    object-fit: contain;
-
-    mix-blend-mode: normal;
-}
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 800px) {
-
-    .hero-logo-scene {
-        width: 160px !important;
-
-        right: -5px !important;
-        bottom: 10px !important;
-
-        top: auto !important;
-        transform: none !important;
-
-        z-index: 1;
-        pointer-events: none;
-    }
-
-    .hero-logo-image {
-        width: 100% !important;
-        height: auto !important;
-    }
-}
-/* ================= BEQUEM LOGO ================= */
-
-.hero {
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-logo-scene {
-    position: absolute !important;
-    width: 350px !important;
-    right: 20px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    z-index: 2 !important;
-    pointer-events: none;
-}
-
-.hero-logo-image {
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    object-fit: contain;
-}
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 800px) {
-
-    .hero-logo-scene {
-        width: 190px !important;
-        right: 5px !important;
-        top: auto !important;
-        bottom: 60px !important;
-        transform: none !important;
-        z-index: 2 !important;
-    }
-
-    .hero-logo-image {
-        display: block !important;
-        width: 100% !important;
-        height: auto !important;
-    }
 }
