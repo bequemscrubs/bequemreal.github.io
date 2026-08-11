@@ -526,3 +526,302 @@ footer p {
     }
 
 }
+/* =========================================
+   HOME — REVIEWS
+========================================= */
+
+.reviews {
+    background: #ffffff;
+    color: #000000;
+    padding: 120px 7vw 140px;
+    min-height: 800px;
+}
+
+
+/* NUMBER */
+
+.reviews .section-number {
+    color: #000000;
+}
+
+
+/* TITLE */
+
+.reviews h2 {
+    color: #000000;
+    font-size: clamp(55px, 8vw, 120px);
+    line-height: .88;
+    letter-spacing: -4px;
+    margin: 35px 0 25px;
+}
+
+
+/* INTRO */
+
+.reviews-intro {
+    color: #000000;
+    font-size: 16px;
+    margin-bottom: 70px;
+}
+
+
+/* =========================================
+   SLIDER
+========================================= */
+
+.home-review-slider {
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 70px 1fr 70px;
+
+    align-items: center;
+    gap: 25px;
+}
+
+
+/* =========================================
+   REVIEW CARD
+========================================= */
+
+.home-review-card {
+    width: 100%;
+    min-height: 500px;
+
+    border: 1px solid #000000;
+
+    display: grid;
+    grid-template-columns: 42% 58%;
+
+    position: relative;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   PHOTO
+========================================= */
+
+.home-review-photo {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+
+    background: #eeeeee;
+
+    overflow: hidden;
+}
+
+
+.home-review-photo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.home-review-content {
+    padding: 65px 65px 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* STARS */
+
+.home-review-stars {
+    font-size: 24px;
+    letter-spacing: 4px;
+
+    margin-bottom: 35px;
+
+    color: #000000;
+}
+
+
+/* REVIEW TEXT */
+
+.home-review-content blockquote {
+    font-size: clamp(30px, 3.2vw, 52px);
+
+    line-height: 1.05;
+
+    font-weight: 500;
+
+    letter-spacing: -1.5px;
+
+    color: #000000;
+
+    margin: 0 0 50px;
+
+    max-width: 800px;
+}
+
+
+/* AUTHOR */
+
+.home-review-author {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.home-review-author strong {
+    font-size: 15px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    color: #000000;
+}
+
+
+.home-review-author span {
+    font-size: 12px;
+
+    color: #555555;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   COUNTER
+========================================= */
+
+.home-review-counter {
+    position: absolute;
+
+    right: 35px;
+    bottom: 28px;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    color: #000000;
+}
+
+
+/* =========================================
+   ARROWS
+========================================= */
+
+.home-review-arrow {
+    width: 60px;
+    height: 60px;
+
+    border: 1px solid #000000;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+
+.home-review-arrow:hover {
+    background: #000000;
+    color: #ffffff;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .reviews {
+        padding: 80px 5vw 100px;
+        min-height: auto;
+    }
+
+
+    .reviews h2 {
+        font-size: 60px;
+        letter-spacing: -2px;
+    }
+
+
+    .reviews-intro {
+        margin-bottom: 40px;
+    }
+
+
+    .home-review-slider {
+        grid-template-columns: 42px 1fr 42px;
+        gap: 10px;
+    }
+
+
+    .home-review-card {
+        min-height: 620px;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .home-review-photo {
+        min-height: 260px;
+        height: 260px;
+    }
+
+
+    .home-review-content {
+        padding: 35px 25px 70px;
+    }
+
+
+    .home-review-stars {
+        font-size: 18px;
+        margin-bottom: 22px;
+    }
+
+
+    .home-review-content blockquote {
+        font-size: 28px;
+        line-height: 1.08;
+
+        margin-bottom: 30px;
+    }
+
+
+    .home-review-author strong {
+        font-size: 12px;
+    }
+
+
+    .home-review-arrow {
+        width: 42px;
+        height: 42px;
+
+        font-size: 16px;
+    }
+
+}
