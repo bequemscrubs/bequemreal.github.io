@@ -301,92 +301,117 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    /* =====================================
-       CUSTOMER PHOTOS
-    ===================================== */
+  /* =====================================
+   CUSTOMER PHOTOS
+===================================== */
 
-   const customerPhotos = [];
+const customerPhotos = [];
 
-    ];
+const displayPhoto =
+    document.getElementById("displayPhoto");
 
-
-    const displayPhoto =
-        document.getElementById("displayPhoto");
-
-
-    let currentPhoto = 0;
+let currentPhoto = 0;
 
 
-    function displayCustomerPhoto(index) {
+function displayCustomerPhoto(index) {
+
+    if (!customerPhotos.length) {
+
+        displayPhoto.style.display = "none";
+
+        return;
+
+    }
+
+    displayPhoto.style.display = "block";
+
+    displayPhoto.style.opacity = "0";
+
+    setTimeout(function () {
+
+        displayPhoto.src =
+            customerPhotos[index];
+
+        displayPhoto.style.opacity =
+            "1";
+
+    }, 150);
+
+}
+
+
+displayCustomerPhoto(currentPhoto);
+
+
+
+/* =====================================
+   NEXT PHOTO
+===================================== */
+
+document
+    .getElementById("photoNext")
+    .addEventListener("click", function () {
 
         if (!customerPhotos.length) {
             return;
         }
 
+        currentPhoto++;
 
-        displayPhoto.style.opacity = "0";
+        if (currentPhoto >= customerPhotos.length) {
+            currentPhoto = 0;
+        }
+
+        displayCustomerPhoto(currentPhoto);
+
+    });
 
 
-        setTimeout(function () {
 
-            displayPhoto.src =
-                customerPhotos[index];
+/* =====================================
+   PREVIOUS PHOTO
+===================================== */
 
-            displayPhoto.style.opacity =
-                "1";
+document
+    .getElementById("photoPrev")
+    .addEventListener("click", function () {
 
-        }, 150);
+        if (!customerPhotos.length) {
+            return;
+        }
 
+        currentPhoto--;
+
+        if (currentPhoto < 0) {
+            currentPhoto =
+                customerPhotos.length - 1;
+        }
+
+        displayCustomerPhoto(currentPhoto);
+
+    });
+
+
+
+/* =====================================
+   AUTOMATIC PHOTO SLIDER
+===================================== */
+
+setInterval(function () {
+
+    if (!customerPhotos.length) {
+        return;
     }
 
+    currentPhoto++;
+
+    if (currentPhoto >= customerPhotos.length) {
+        currentPhoto = 0;
+    }
 
     displayCustomerPhoto(currentPhoto);
 
-
-
-    /* =====================================
-       NEXT PHOTO
-    ===================================== */
-
-    document
-        .getElementById("photoNext")
-        .addEventListener("click", function () {
-
-            currentPhoto++;
-
-            if (currentPhoto >= customerPhotos.length) {
-
-                currentPhoto = 0;
-
-            }
-
-            displayCustomerPhoto(currentPhoto);
-
-        });
-
-
-
-    /* =====================================
-       PREVIOUS PHOTO
-    ===================================== */
-
-    document
-        .getElementById("photoPrev")
-        .addEventListener("click", function () {
-
-            currentPhoto--;
-
-            if (currentPhoto < 0) {
-
-                currentPhoto =
-                    customerPhotos.length - 1;
-
-            }
-
-            displayCustomerPhoto(currentPhoto);
-
-        });
-
+}, 4500);
 
 
     /* =====================================
