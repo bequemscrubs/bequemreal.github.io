@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+
     /* =====================================
        VARIABLES
     ===================================== */
@@ -9,6 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let selectedColor = null;
     let selectedSize = null;
+
+
+    /*
+       Chaque motif possède ses propres informations.
+       Ils ne se mélangent PAS.
+    */
 
     let motifs = {
 
@@ -28,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     };
+
 
     let selectedMotif = "NO MOTIF";
 
@@ -52,7 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
             index = 0;
         }
 
+
         topIndex = index;
+
 
         topCards.forEach(function (card) {
 
@@ -72,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById("selectedTop")
             .textContent = selectedTop;
+
 
         document.getElementById("summaryTop")
             .textContent = selectedTop;
@@ -155,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("selectedPants")
             .textContent = selectedPants;
 
+
         document.getElementById("summaryPants")
             .textContent = selectedPants;
 
@@ -204,6 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             button.addEventListener("click", function () {
 
+
                 document
                     .querySelectorAll(".color-choice")
                     .forEach(function (item) {
@@ -241,6 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .forEach(function (button) {
 
             button.addEventListener("click", function () {
+
 
                 document
                     .querySelectorAll(".size-choice")
@@ -301,7 +315,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             description.value = "";
 
-
             placementButtons.forEach(function (button) {
 
                 button.classList.remove("selected");
@@ -354,6 +367,7 @@ document.addEventListener("DOMContentLoaded", function () {
     motifButtons.forEach(function (button) {
 
         button.addEventListener("click", function () {
+
 
             motifButtons.forEach(function (item) {
 
@@ -513,6 +527,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function buildCurrentOutfit() {
 
+
         let motifData = null;
 
 
@@ -536,7 +551,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return {
 
-            category: "FEMMES",
+            category: "femmes",
 
             top: selectedTop,
 
@@ -705,7 +720,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const product = {
 
-                category: "FEMMES",
+                category: "femmes",
 
                 top: selectedTop,
 
@@ -741,6 +756,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             );
 
+
+            /* L'ancienne configuration
+               n'est plus nécessaire */
 
             localStorage.removeItem(
                 "bequemCurrentOutfit"
@@ -789,23 +807,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /*
-           IMPORTANT :
-           Only restore an outfit that belongs
-           to the WOMEN collection.
-        */
-
-        if (saved.category !== "FEMMES") {
+        if (saved.category !== "femmes") {
 
             return;
 
         }
 
 
-
-        /* =====================================
-           TOP
-        ===================================== */
+        /* TOP */
 
         const savedTopIndex =
             Array.from(topCards)
@@ -827,9 +836,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        /* =====================================
-           PANTS
-        ===================================== */
+        /* PANTS */
 
         const savedPantsIndex =
             Array.from(pantsCards)
@@ -851,9 +858,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        /* =====================================
-           COLOR
-        ===================================== */
+        /* COLOR */
 
         if (saved.color) {
 
@@ -873,9 +878,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        /* =====================================
-           SIZE
-        ===================================== */
+        /* SIZE */
 
         if (saved.size) {
 
@@ -895,14 +898,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        /* =====================================
-           MOTIF
-        ===================================== */
+        /* MOTIF */
 
         if (
             saved.motif &&
             saved.motif.name
         ) {
+
 
             const motifButton =
                 document.querySelector(
