@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
-
+document.addEventListener("DOMContentLoaded", async function () {
 
     /* =====================================
        SUPABASE
@@ -32,20 +31,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             ratingInput.value = rating;
 
-
             stars.forEach(function (item) {
 
                 const itemRating =
                     Number(item.dataset.rating);
 
                 if (itemRating <= rating) {
-
                     item.classList.add("selected");
-
                 } else {
-
                     item.classList.remove("selected");
-
                 }
 
             });
@@ -67,56 +61,59 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("photoPreview");
 
 
-    photoInput.addEventListener(
-        "change",
-        function () {
+    if (photoInput) {
 
-            photoPreview.innerHTML = "";
+        photoInput.addEventListener(
+            "change",
+            function () {
 
+                photoPreview.innerHTML = "";
 
-            const files =
-                Array.from(photoInput.files);
-
-
-            files.forEach(function (file) {
-
-                if (!file.type.startsWith("image/")) {
-                    return;
-                }
+                const files =
+                    Array.from(photoInput.files);
 
 
-                const reader =
-                    new FileReader();
+                files.forEach(function (file) {
+
+                    if (!file.type.startsWith("image/")) {
+                        return;
+                    }
 
 
-                reader.onload =
-                    function (event) {
-
-                        const img =
-                            document.createElement("img");
-
-                        img.src =
-                            event.target.result;
-
-                        img.alt =
-                            "BEQUEM customer photo";
-
-                        photoPreview.appendChild(img);
-
-                    };
+                    const reader =
+                        new FileReader();
 
 
-                reader.readAsDataURL(file);
+                    reader.onload =
+                        function (event) {
 
-            });
+                            const img =
+                                document.createElement("img");
 
-        }
-    );
+                            img.src =
+                                event.target.result;
+
+                            img.alt =
+                                "BEQUEM customer photo";
+
+                            photoPreview.appendChild(img);
+
+                        };
+
+
+                    reader.readAsDataURL(file);
+
+                });
+
+            }
+        );
+
+    }
 
 
 
     /* =====================================
-       SAMPLE REVIEWS
+       DEFAULT REVIEWS
     ===================================== */
 
     let reviews = [
@@ -129,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 "The most comfortable scrubs I've ever worn. They move with me during long shifts and still look great."
         },
 
-
         {
             name: "AMINE",
             city: "SIDI BEL ABBÈS",
@@ -138,7 +134,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Really comfortable and the fabric feels amazing. I can wear them for hours without feeling restricted."
         },
 
-
         {
             name: "LINA",
             city: "ALGIERS",
@@ -146,7 +141,6 @@ document.addEventListener("DOMContentLoaded", function () {
             text:
                 "I love the fit. The scrub stays comfortable throughout my whole shift and the design is so clean."
         },
-
 
         {
             name: "YASMINE",
@@ -161,7 +155,114 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================
-       REVIEW SLIDER ELEMENTS
+       LOAD APPROVED REVIEWS
+    ===================================== */
+
+    async function getReviewsFromSupabase() {
+
+        try {
+
+            const url =
+                SUPABASE_URL +
+                "/rest/v1/reviews" +
+                "?select=name,city,rating,review,created_at" +
+                "&approved=eq.true" +
+                "&order=created_at.desc";
+
+
+            const response =
+                await fetch(url, {
+
+                    method: "GET",
+
+                    headers: {
+                        "apikey": SUPABASE_KEY
+                    }
+
+                });
+
+
+            if (!response.ok) {
+
+                const error =
+                    await response.text();
+
+                console.error(
+                    "SUPABASE GET ERROR:",
+                    error
+                );
+
+                return [];
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "APPROVED REVIEWS FROM SUPABASE:",
+                data
+            );
+
+
+            if (!Array.isArray(data)) {
+                return [];
+            }
+
+
+            return data.map(function (item) {
+
+                return {
+
+                    name:
+                        item.name || "CUSTOMER",
+
+                    city:
+                        item.city || "",
+
+                    rating:
+                        Number(item.rating) || 5,
+
+                    text:
+                        item.review || ""
+
+                };
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "SUPABASE CONNECTION ERROR:",
+                error
+            );
+
+            return [];
+
+        }
+
+    }
+
+
+
+    /* =====================================
+       ADD SUPABASE REVIEWS
+    ===================================== */
+
+    const approvedReviews =
+        await getReviewsFromSupabase();
+
+
+    reviews =
+        reviews.concat(approvedReviews);
+
+
+
+    /* =====================================
+       REVIEW SLIDER
     ===================================== */
 
     const reviewCard =
@@ -189,11 +290,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentReview = 0;
 
 
-
-    /* =====================================
-       UPDATE REVIEW COUNTER
-    ===================================== */
-
     function updateReviewCounter() {
 
         reviewTotal.textContent =
@@ -201,11 +297,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
-
-    /* =====================================
-       DISPLAY REVIEW
-    ===================================== */
 
     function displayReviewItem(index) {
 
@@ -251,7 +342,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
     updateReviewCounter();
 
     displayReviewItem(currentReview);
@@ -262,28 +352,28 @@ document.addEventListener("DOMContentLoaded", function () {
        NEXT REVIEW
     ===================================== */
 
-    document
-        .getElementById("reviewNext")
-        .addEventListener("click", function () {
+    const reviewNext =
+        document.getElementById("reviewNext");
 
-            if (!reviews.length) {
-                return;
+
+    if (reviewNext) {
+
+        reviewNext.addEventListener(
+            "click",
+            function () {
+
+                currentReview++;
+
+                if (currentReview >= reviews.length) {
+                    currentReview = 0;
+                }
+
+                displayReviewItem(currentReview);
+
             }
+        );
 
-
-            currentReview++;
-
-
-            if (currentReview >= reviews.length) {
-
-                currentReview = 0;
-
-            }
-
-
-            displayReviewItem(currentReview);
-
-        });
+    }
 
 
 
@@ -291,29 +381,29 @@ document.addEventListener("DOMContentLoaded", function () {
        PREVIOUS REVIEW
     ===================================== */
 
-    document
-        .getElementById("reviewPrev")
-        .addEventListener("click", function () {
+    const reviewPrev =
+        document.getElementById("reviewPrev");
 
-            if (!reviews.length) {
-                return;
+
+    if (reviewPrev) {
+
+        reviewPrev.addEventListener(
+            "click",
+            function () {
+
+                currentReview--;
+
+                if (currentReview < 0) {
+                    currentReview =
+                        reviews.length - 1;
+                }
+
+                displayReviewItem(currentReview);
+
             }
+        );
 
-
-            currentReview--;
-
-
-            if (currentReview < 0) {
-
-                currentReview =
-                    reviews.length - 1;
-
-            }
-
-
-            displayReviewItem(currentReview);
-
-        });
+    }
 
 
 
@@ -332,127 +422,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         if (currentReview >= reviews.length) {
-
             currentReview = 0;
-
         }
 
 
         displayReviewItem(currentReview);
 
     }, 5000);
-
-
-
-    /* =====================================
-       LOAD APPROVED REVIEWS FROM SUPABASE
-    ===================================== */
-
-    async function loadApprovedReviews() {
-
-        try {
-
-            const response =
-                await fetch(
-                    SUPABASE_URL +
-                    "/rest/v1/reviews" +
-                    "?select=name,city,rating,review,created_at" +
-                    "&approved=eq.true" +
-                    "&order=created_at.desc",
-                    {
-
-                        method: "GET",
-
-                        headers: {
-
-                            "apikey":
-                                SUPABASE_KEY
-
-                        }
-
-                    }
-                );
-
-
-            if (!response.ok) {
-
-                const error =
-                    await response.text();
-
-                console.error(
-                    "Supabase reviews error:",
-                    error
-                );
-
-                return;
-
-            }
-
-
-            const approvedReviews =
-                await response.json();
-
-
-            if (!Array.isArray(approvedReviews)) {
-                return;
-            }
-
-
-            /* =========================
-               ADD APPROVED REVIEWS
-            ========================= */
-
-            approvedReviews.forEach(function (item) {
-
-                reviews.push({
-
-                    name:
-                        item.name || "CUSTOMER",
-
-                    city:
-                        item.city || "",
-
-                    rating:
-                        Number(item.rating) || 5,
-
-                    text:
-                        item.review || ""
-
-                });
-
-            });
-
-
-            /* =========================
-               UPDATE SLIDER
-            ========================= */
-
-            updateReviewCounter();
-
-
-            if (currentReview >= reviews.length) {
-
-                currentReview = 0;
-
-            }
-
-
-            displayReviewItem(currentReview);
-
-
-        } catch (error) {
-
-            console.error(
-                "Could not load approved reviews:",
-                error
-            );
-
-        }
-
-    }
-
-
-    loadApprovedReviews();
 
 
 
@@ -474,7 +450,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!customerPhotos.length) {
 
-            displayPhoto.style.display = "none";
+            if (displayPhoto) {
+                displayPhoto.style.display = "none";
+            }
 
             return;
 
@@ -507,28 +485,32 @@ document.addEventListener("DOMContentLoaded", function () {
        NEXT PHOTO
     ===================================== */
 
-    document
-        .getElementById("photoNext")
-        .addEventListener("click", function () {
+    const photoNext =
+        document.getElementById("photoNext");
 
-            if (!customerPhotos.length) {
-                return;
+
+    if (photoNext) {
+
+        photoNext.addEventListener(
+            "click",
+            function () {
+
+                if (!customerPhotos.length) {
+                    return;
+                }
+
+                currentPhoto++;
+
+                if (currentPhoto >= customerPhotos.length) {
+                    currentPhoto = 0;
+                }
+
+                displayCustomerPhoto(currentPhoto);
+
             }
+        );
 
-
-            currentPhoto++;
-
-
-            if (currentPhoto >= customerPhotos.length) {
-
-                currentPhoto = 0;
-
-            }
-
-
-            displayCustomerPhoto(currentPhoto);
-
-        });
+    }
 
 
 
@@ -536,29 +518,33 @@ document.addEventListener("DOMContentLoaded", function () {
        PREVIOUS PHOTO
     ===================================== */
 
-    document
-        .getElementById("photoPrev")
-        .addEventListener("click", function () {
+    const photoPrev =
+        document.getElementById("photoPrev");
 
-            if (!customerPhotos.length) {
-                return;
+
+    if (photoPrev) {
+
+        photoPrev.addEventListener(
+            "click",
+            function () {
+
+                if (!customerPhotos.length) {
+                    return;
+                }
+
+                currentPhoto--;
+
+                if (currentPhoto < 0) {
+                    currentPhoto =
+                        customerPhotos.length - 1;
+                }
+
+                displayCustomerPhoto(currentPhoto);
+
             }
+        );
 
-
-            currentPhoto--;
-
-
-            if (currentPhoto < 0) {
-
-                currentPhoto =
-                    customerPhotos.length - 1;
-
-            }
-
-
-            displayCustomerPhoto(currentPhoto);
-
-        });
+    }
 
 
 
@@ -572,16 +558,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-
         currentPhoto++;
 
-
         if (currentPhoto >= customerPhotos.length) {
-
             currentPhoto = 0;
-
         }
-
 
         displayCustomerPhoto(currentPhoto);
 
@@ -600,186 +581,174 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("reviewMessage");
 
 
-    reviewForm.addEventListener(
-        "submit",
-        async function (event) {
+    if (reviewForm) {
 
-            event.preventDefault();
+        reviewForm.addEventListener(
+            "submit",
+            async function (event) {
 
-
-            const name =
-                document
-                    .getElementById("reviewName")
-                    .value
-                    .trim();
+                event.preventDefault();
 
 
-            const city =
-                document
-                    .getElementById("reviewCity")
-                    .value
-                    .trim();
-
-
-            const rating =
-                Number(
+                const name =
                     document
-                        .getElementById("reviewRating")
+                        .getElementById("reviewName")
                         .value
-                );
+                        .trim();
 
 
-            const text =
-                document
-                    .getElementById("reviewText")
-                    .value
-                    .trim();
+                const city =
+                    document
+                        .getElementById("reviewCity")
+                        .value
+                        .trim();
 
 
-            /* =========================
-               VALIDATION
-            ========================= */
-
-            if (!name) {
-
-                reviewMessage.textContent =
-                    "Please enter your first name.";
-
-                return;
-
-            }
-
-
-            if (!rating) {
-
-                reviewMessage.textContent =
-                    "Please choose a rating.";
-
-                return;
-
-            }
-
-
-            if (!text) {
-
-                reviewMessage.textContent =
-                    "Please write your review.";
-
-                return;
-
-            }
-
-
-            /* =========================
-               SENDING
-            ========================= */
-
-            reviewMessage.textContent =
-                "Sending your review...";
-
-
-            try {
-
-                const response =
-                    await fetch(
-                        SUPABASE_URL +
-                        "/rest/v1/reviews",
-                        {
-
-                            method: "POST",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json",
-
-                                "apikey":
-                                    SUPABASE_KEY,
-
-                                "Prefer":
-                                    "return=minimal"
-
-                            },
-
-                            body: JSON.stringify({
-
-                                name: name,
-
-                                city: city,
-
-                                rating: rating,
-
-                                review: text,
-
-                                approved: false
-
-                            })
-
-                        }
+                const rating =
+                    Number(
+                        document
+                            .getElementById("reviewRating")
+                            .value
                     );
 
 
-                /* =========================
-                   CHECK RESPONSE
-                ========================= */
+                const text =
+                    document
+                        .getElementById("reviewText")
+                        .value
+                        .trim();
 
-                if (!response.ok) {
 
-                    const error =
-                        await response.text();
+                if (!name) {
 
-                    console.error(
-                        "Supabase error:",
-                        error
-                    );
+                    reviewMessage.textContent =
+                        "Please enter your first name.";
 
-                    throw new Error(
-                        "Supabase request failed"
-                    );
+                    return;
 
                 }
 
 
-                /* =========================
-                   SUCCESS
-                ========================= */
+                if (!rating) {
+
+                    reviewMessage.textContent =
+                        "Please choose a rating.";
+
+                    return;
+
+                }
+
+
+                if (!text) {
+
+                    reviewMessage.textContent =
+                        "Please write your review.";
+
+                    return;
+
+                }
+
 
                 reviewMessage.textContent =
-                    "Thank you for your review. It has been submitted for approval.";
+                    "Sending your review...";
 
 
-                reviewForm.reset();
+                try {
+
+                    const response =
+                        await fetch(
+                            SUPABASE_URL +
+                            "/rest/v1/reviews",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "apikey":
+                                        SUPABASE_KEY,
+
+                                    "Prefer":
+                                        "return=minimal"
+
+                                },
+
+                                body: JSON.stringify({
+
+                                    name: name,
+
+                                    city: city,
+
+                                    rating: rating,
+
+                                    review: text,
+
+                                    approved: false
+
+                                })
+
+                            }
+                        );
 
 
-                ratingInput.value = 0;
+                    if (!response.ok) {
+
+                        const error =
+                            await response.text();
+
+                        console.error(
+                            "SUPABASE INSERT ERROR:",
+                            error
+                        );
+
+                        throw new Error(
+                            "Review could not be submitted."
+                        );
+
+                    }
 
 
-                stars.forEach(function (star) {
+                    reviewMessage.textContent =
+                        "Thank you for your review. It has been submitted for approval.";
 
-                    star.classList.remove(
-                        "selected"
+
+                    reviewForm.reset();
+
+
+                    ratingInput.value = 0;
+
+
+                    stars.forEach(function (star) {
+
+                        star.classList.remove(
+                            "selected"
+                        );
+
+                    });
+
+
+                    photoPreview.innerHTML = "";
+
+
+                } catch (error) {
+
+                    console.error(
+                        "REVIEW SUBMISSION ERROR:",
+                        error
                     );
 
-                });
 
+                    reviewMessage.textContent =
+                        "Something went wrong. Please try again.";
 
-                photoPreview.innerHTML = "";
-
-
-            } catch (error) {
-
-                console.error(
-                    "Review submission error:",
-                    error
-                );
-
-
-                reviewMessage.textContent =
-                    "Something went wrong. Please try again.";
+                }
 
             }
+        );
 
-        }
-    );
+    }
 
 });
