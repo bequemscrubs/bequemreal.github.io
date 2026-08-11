@@ -305,11 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
        CUSTOMER PHOTOS
     ===================================== */
 
-    const customerPhotos = [
-
-        "images/customer1.jpg",
-        "images/customer2.jpg",
-        "images/customer3.jpg"
+   const customerPhotos = [];
 
     ];
 
