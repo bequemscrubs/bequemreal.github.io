@@ -608,23 +608,16 @@ reviewForm.addEventListener(
 
         if (error) {
 
-            console.error(
-                "SUPABASE REVIEW ERROR:",
-                error
-            );
+    console.error("SUPABASE REVIEW ERROR:", error);
 
-            reviewMessage.textContent =
-                "ERROR — YOUR REVIEW WAS NOT SENT.";
+    reviewMessage.textContent =
+        "SUPABASE ERROR: " + error.message;
 
-            submitButton.disabled =
-                false;
+    submitButton.disabled = false;
+    submitButton.textContent = "SEND REVIEW →";
 
-            submitButton.textContent =
-                "SEND REVIEW →";
-
-            return;
-        }
-
+    return;
+}
 
         reviews.push(data);
 
