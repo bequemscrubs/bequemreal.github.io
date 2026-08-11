@@ -837,12 +837,20 @@ nav {
 @media (max-width: 800px) {
 
     .hero-logo-scene {
-        width: 260px !important;
+        width: 160px !important;
 
-        right: -20px !important;
+        right: -5px !important;
+        bottom: 10px !important;
+
         top: auto !important;
-        bottom: 0 !important;
-
         transform: none !important;
+
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .hero-logo-image {
+        width: 100% !important;
+        height: auto !important;
     }
 }
