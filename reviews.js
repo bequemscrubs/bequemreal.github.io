@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
        SAMPLE REVIEWS
     ===================================== */
 
-    const reviews = [
+    let reviews = [
 
         {
             name: "SARAH",
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================
-       REVIEW SLIDER
+       REVIEW SLIDER ELEMENTS
     ===================================== */
 
     const reviewCard =
@@ -189,11 +189,30 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentReview = 0;
 
 
-    reviewTotal.textContent =
-        String(reviews.length).padStart(2, "0");
 
+    /* =====================================
+       UPDATE REVIEW COUNTER
+    ===================================== */
+
+    function updateReviewCounter() {
+
+        reviewTotal.textContent =
+            String(reviews.length).padStart(2, "0");
+
+    }
+
+
+
+    /* =====================================
+       DISPLAY REVIEW
+    ===================================== */
 
     function displayReviewItem(index) {
+
+        if (!reviews.length) {
+            return;
+        }
+
 
         const review =
             reviews[index];
@@ -232,6 +251,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+
+    updateReviewCounter();
+
     displayReviewItem(currentReview);
 
 
@@ -244,13 +266,20 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("reviewNext")
         .addEventListener("click", function () {
 
+            if (!reviews.length) {
+                return;
+            }
+
+
             currentReview++;
+
 
             if (currentReview >= reviews.length) {
 
                 currentReview = 0;
 
             }
+
 
             displayReviewItem(currentReview);
 
@@ -266,7 +295,13 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("reviewPrev")
         .addEventListener("click", function () {
 
+            if (!reviews.length) {
+                return;
+            }
+
+
             currentReview--;
+
 
             if (currentReview < 0) {
 
@@ -274,6 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     reviews.length - 1;
 
             }
+
 
             displayReviewItem(currentReview);
 
@@ -287,7 +323,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setInterval(function () {
 
+        if (!reviews.length) {
+            return;
+        }
+
+
         currentReview++;
+
 
         if (currentReview >= reviews.length) {
 
@@ -295,123 +337,229 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+
         displayReviewItem(currentReview);
 
     }, 5000);
 
 
 
-  /* =====================================
-   CUSTOMER PHOTOS
-===================================== */
+    /* =====================================
+       LOAD APPROVED REVIEWS FROM SUPABASE
+    ===================================== */
 
-const customerPhotos = [];
+    async function loadApprovedReviews() {
 
-const displayPhoto =
-    document.getElementById("displayPhoto");
+        try {
 
-let currentPhoto = 0;
+            const response =
+                await fetch(
+                    SUPABASE_URL +
+                    "/rest/v1/reviews" +
+                    "?select=name,city,rating,review,created_at" +
+                    "&approved=eq.true" +
+                    "&order=created_at.desc",
+                    {
+
+                        method: "GET",
+
+                        headers: {
+
+                            "apikey":
+                                SUPABASE_KEY
+
+                        }
+
+                    }
+                );
 
 
-function displayCustomerPhoto(index) {
+            if (!response.ok) {
 
-    if (!customerPhotos.length) {
+                const error =
+                    await response.text();
 
-        displayPhoto.style.display = "none";
+                console.error(
+                    "Supabase reviews error:",
+                    error
+                );
 
-        return;
+                return;
+
+            }
+
+
+            const approvedReviews =
+                await response.json();
+
+
+            if (!Array.isArray(approvedReviews)) {
+                return;
+            }
+
+
+            /* =========================
+               ADD APPROVED REVIEWS
+            ========================= */
+
+            approvedReviews.forEach(function (item) {
+
+                reviews.push({
+
+                    name:
+                        item.name || "CUSTOMER",
+
+                    city:
+                        item.city || "",
+
+                    rating:
+                        Number(item.rating) || 5,
+
+                    text:
+                        item.review || ""
+
+                });
+
+            });
+
+
+            /* =========================
+               UPDATE SLIDER
+            ========================= */
+
+            updateReviewCounter();
+
+
+            if (currentReview >= reviews.length) {
+
+                currentReview = 0;
+
+            }
+
+
+            displayReviewItem(currentReview);
+
+
+        } catch (error) {
+
+            console.error(
+                "Could not load approved reviews:",
+                error
+            );
+
+        }
 
     }
 
-    displayPhoto.style.display = "block";
 
-    displayPhoto.style.opacity = "0";
-
-    setTimeout(function () {
-
-        displayPhoto.src =
-            customerPhotos[index];
-
-        displayPhoto.style.opacity =
-            "1";
-
-    }, 150);
-
-}
-
-
-displayCustomerPhoto(currentPhoto);
+    loadApprovedReviews();
 
 
 
-/* =====================================
-   NEXT PHOTO
-===================================== */
+    /* =====================================
+       CUSTOMER PHOTOS
+    ===================================== */
 
-document
-    .getElementById("photoNext")
-    .addEventListener("click", function () {
+    const customerPhotos = [];
+
+
+    const displayPhoto =
+        document.getElementById("displayPhoto");
+
+
+    let currentPhoto = 0;
+
+
+    function displayCustomerPhoto(index) {
 
         if (!customerPhotos.length) {
+
+            displayPhoto.style.display = "none";
+
             return;
+
         }
 
-        currentPhoto++;
 
-        if (currentPhoto >= customerPhotos.length) {
-            currentPhoto = 0;
-        }
+        displayPhoto.style.display = "block";
 
-        displayCustomerPhoto(currentPhoto);
-
-    });
+        displayPhoto.style.opacity = "0";
 
 
+        setTimeout(function () {
 
-/* =====================================
-   PREVIOUS PHOTO
-===================================== */
+            displayPhoto.src =
+                customerPhotos[index];
 
-document
-    .getElementById("photoPrev")
-    .addEventListener("click", function () {
+            displayPhoto.style.opacity =
+                "1";
 
-        if (!customerPhotos.length) {
-            return;
-        }
+        }, 150);
 
-        currentPhoto--;
-
-        if (currentPhoto < 0) {
-            currentPhoto =
-                customerPhotos.length - 1;
-        }
-
-        displayCustomerPhoto(currentPhoto);
-
-    });
-
-
-
-/* =====================================
-   AUTOMATIC PHOTO SLIDER
-===================================== */
-
-setInterval(function () {
-
-    if (!customerPhotos.length) {
-        return;
     }
 
-    currentPhoto++;
-
-    if (currentPhoto >= customerPhotos.length) {
-        currentPhoto = 0;
-    }
 
     displayCustomerPhoto(currentPhoto);
 
-}, 4500);
+
+
+    /* =====================================
+       NEXT PHOTO
+    ===================================== */
+
+    document
+        .getElementById("photoNext")
+        .addEventListener("click", function () {
+
+            if (!customerPhotos.length) {
+                return;
+            }
+
+
+            currentPhoto++;
+
+
+            if (currentPhoto >= customerPhotos.length) {
+
+                currentPhoto = 0;
+
+            }
+
+
+            displayCustomerPhoto(currentPhoto);
+
+        });
+
+
+
+    /* =====================================
+       PREVIOUS PHOTO
+    ===================================== */
+
+    document
+        .getElementById("photoPrev")
+        .addEventListener("click", function () {
+
+            if (!customerPhotos.length) {
+                return;
+            }
+
+
+            currentPhoto--;
+
+
+            if (currentPhoto < 0) {
+
+                currentPhoto =
+                    customerPhotos.length - 1;
+
+            }
+
+
+            displayCustomerPhoto(currentPhoto);
+
+        });
+
 
 
     /* =====================================
@@ -420,13 +568,20 @@ setInterval(function () {
 
     setInterval(function () {
 
+        if (!customerPhotos.length) {
+            return;
+        }
+
+
         currentPhoto++;
+
 
         if (currentPhoto >= customerPhotos.length) {
 
             currentPhoto = 0;
 
         }
+
 
         displayCustomerPhoto(currentPhoto);
 
