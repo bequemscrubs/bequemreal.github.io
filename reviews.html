@@ -1,37 +1,83 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Reviews — BEQUEM SCRUBS</title>
 
-    <link rel="stylesheet" href="reviews.css">
+    <link
+        rel="stylesheet"
+        href="reviews.css"
+    >
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
 </head>
+
 
 <body>
 
+
 <header>
-    <a href="index.html" class="brand">BEQUEM SCRUBS</a>
+
+    <a
+        href="index.html"
+        class="brand"
+    >
+        BEQUEM SCRUBS
+    </a>
+
 
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="shop.html">SHOP</a>
-        <a href="reviews.html">REVIEWS</a>
-        <a href="cart.html">CART</a>
+
+        <a href="index.html">
+            HOME
+        </a>
+
+        <a href="shop.html">
+            SHOP
+        </a>
+
+        <a href="reviews.html">
+            REVIEWS
+        </a>
+
+        <a href="cart.html">
+            CART
+        </a>
+
     </nav>
 
-    <a href="shop.html" class="back">SHOP →</a>
+
+    <a
+        href="shop.html"
+        class="back"
+    >
+        SHOP →
+    </a>
+
 </header>
+
 
 
 <main>
 
+
 <section class="hero">
-    <p>01 / BEQUEM COMMUNITY</p>
+
+    <p>
+        01 / BEQUEM COMMUNITY
+    </p>
 
     <h1>
         WHAT DO<br>
@@ -40,101 +86,171 @@
 
     <span>
         Your experience matters.
-        Tell us what you think about BEQUEM SCRUBS.
+        Tell us what you think about
+        your BEQUEM SCRUBS.
     </span>
+
 </section>
+
 
 
 <section class="form-section">
 
+
     <div class="section-title">
-        <p>02 / YOUR EXPERIENCE</p>
+
+        <p>
+            02 / YOUR EXPERIENCE
+        </p>
 
         <h2>
             TELL US<br>
             ABOUT IT.
         </h2>
+
     </div>
+
 
 
     <form id="reviewForm">
 
-        <label for="name">FIRST NAME *</label>
+
+        <label for="reviewName">
+            FIRST NAME *
+        </label>
 
         <input
-            id="name"
+            id="reviewName"
             type="text"
             placeholder="Your first name"
-            required>
+            required
+        >
 
 
-        <label for="city">CITY</label>
+
+        <label for="reviewCity">
+            CITY
+        </label>
 
         <input
-            id="city"
+            id="reviewCity"
             type="text"
-            placeholder="Your city">
+            placeholder="Your city"
+        >
 
 
-        <label>YOUR RATING *</label>
+
+        <label>
+            YOUR RATING *
+        </label>
+
 
         <div class="stars">
 
-            <button type="button" data-rating="1">★</button>
-            <button type="button" data-rating="2">★</button>
-            <button type="button" data-rating="3">★</button>
-            <button type="button" data-rating="4">★</button>
-            <button type="button" data-rating="5">★</button>
+            <button
+                type="button"
+                data-rating="1"
+            >
+                ★
+            </button>
+
+            <button
+                type="button"
+                data-rating="2"
+            >
+                ★
+            </button>
+
+            <button
+                type="button"
+                data-rating="3"
+            >
+                ★
+            </button>
+
+            <button
+                type="button"
+                data-rating="4"
+            >
+                ★
+            </button>
+
+            <button
+                type="button"
+                data-rating="5"
+            >
+                ★
+            </button>
 
         </div>
 
+
         <input
             type="hidden"
-            id="rating"
-            value="0">
+            id="reviewRating"
+            value="0"
+        >
 
 
-        <label for="review">YOUR REVIEW *</label>
+
+        <label for="reviewText">
+            YOUR REVIEW *
+        </label>
 
         <textarea
-            id="review"
+            id="reviewText"
             rows="7"
             placeholder="Tell us about your BEQUEM experience..."
-            required></textarea>
+            required
+        ></textarea>
 
 
-        <label for="photo">ADD YOUR PHOTO</label>
+
+        <label for="reviewPhoto">
+            ADD YOUR PHOTO
+        </label>
 
         <input
-            id="photo"
+            id="reviewPhoto"
             type="file"
-            accept="image/*">
+            accept="image/*"
+        >
 
 
-        <div id="preview"></div>
+        <div
+            id="photoPreview"
+            class="photo-preview"
+        ></div>
+
 
 
         <button
             type="submit"
-            id="submitButton">
-
+            id="submitReview"
+        >
             SEND REVIEW →
-
         </button>
 
 
-        <p id="message"></p>
+        <p
+            id="reviewMessage"
+        ></p>
+
 
     </form>
 
 </section>
 
 
+
 <section class="reviews-section">
+
 
     <div class="section-title">
 
-        <p>03 / CUSTOMER REVIEWS</p>
+        <p>
+            03 / CUSTOMER REVIEWS
+        </p>
 
         <h2>
             HEAR IT<br>
@@ -144,524 +260,105 @@
     </div>
 
 
-    <div class="review-box">
 
-        <button id="previous">←</button>
+    <div class="review-slider">
 
 
-        <article>
+        <button
+            id="previousReview"
+            class="arrow"
+            type="button"
+        >
+            ←
+        </button>
+
+
+
+        <article class="review-card">
+
 
             <img
-                id="reviewPhoto"
-                alt="Customer photo">
+                id="displayPhoto"
+                alt="BEQUEM customer"
+            >
 
-            <div>
 
-                <div id="reviewStars">
+            <div class="review-content">
+
+
+                <div
+                    id="displayStars"
+                    class="display-stars"
+                >
                     ☆☆☆☆☆
                 </div>
 
-                <blockquote id="reviewContent">
+
+                <blockquote
+                    id="displayReview"
+                >
                     "Your review will appear here."
                 </blockquote>
 
-                <strong id="reviewName">
+
+                <strong
+                    id="displayName"
+                >
                     BEQUEM CUSTOMER
                 </strong>
 
-                <span id="reviewCity">
+
+                <span
+                    id="displayCity"
+                >
                     —
                 </span>
 
+
             </div>
+
 
         </article>
 
 
-        <button id="next">→</button>
+
+        <button
+            id="nextReview"
+            class="arrow"
+            type="button"
+        >
+            →
+        </button>
+
 
     </div>
 
+
 </section>
+
 
 </main>
 
 
+
 <footer>
 
-    <h2>BEQUEM SCRUBS</h2>
+    <h2>
+        BEQUEM SCRUBS
+    </h2>
 
-    <p>MEDICAL WEAR • EST. 2026</p>
+    <p>
+        MEDICAL WEAR • EST. 2026
+    </p>
 
 </footer>
 
 
-<script>
 
-/* ==========================================
-   SUPABASE
-========================================== */
+<script src="reviews.js"></script>
 
-const SUPABASE_URL =
-    "https://pakwsesbisdkgtoeywam.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-/* ==========================================
-   VARIABLES
-========================================== */
-
-let reviews = [];
-
-let currentIndex = 0;
-
-let selectedPhoto = null;
-
-
-/* ==========================================
-   ELEMENTS
-========================================== */
-
-const form =
-    document.getElementById("reviewForm");
-
-const ratingInput =
-    document.getElementById("rating");
-
-const message =
-    document.getElementById("message");
-
-const submitButton =
-    document.getElementById("submitButton");
-
-const photoInput =
-    document.getElementById("photo");
-
-const preview =
-    document.getElementById("preview");
-
-
-/* ==========================================
-   RATING
-========================================== */
-
-document
-    .querySelectorAll(".stars button")
-    .forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            const rating =
-                Number(button.dataset.rating);
-
-            ratingInput.value = rating;
-
-            document
-                .querySelectorAll(".stars button")
-                .forEach(star => {
-
-                    const value =
-                        Number(star.dataset.rating);
-
-                    star.classList.toggle(
-                        "selected",
-                        value <= rating
-                    );
-
-                });
-
-        });
-
-    });
-
-
-/* ==========================================
-   PHOTO
-========================================== */
-
-photoInput.addEventListener(
-    "change",
-    () => {
-
-        const file =
-            photoInput.files[0];
-
-        if (!file) {
-
-            selectedPhoto = null;
-
-            preview.innerHTML = "";
-
-            return;
-        }
-
-
-        const reader =
-            new FileReader();
-
-
-        reader.onload = event => {
-
-            selectedPhoto =
-                event.target.result;
-
-            preview.innerHTML = `
-                <img src="${selectedPhoto}"
-                     alt="Preview">
-            `;
-
-        };
-
-
-        reader.readAsDataURL(file);
-
-    }
-);
-
-
-/* ==========================================
-   SEND REVIEW
-========================================== */
-
-form.addEventListener(
-    "submit",
-    async event => {
-
-        event.preventDefault();
-
-
-        const name =
-            document
-                .getElementById("name")
-                .value
-                .trim();
-
-
-        const city =
-            document
-                .getElementById("city")
-                .value
-                .trim();
-
-
-        const review =
-            document
-                .getElementById("review")
-                .value
-                .trim();
-
-
-        const rating =
-            Number(ratingInput.value);
-
-
-        if (rating < 1) {
-
-            message.textContent =
-                "PLEASE SELECT A RATING.";
-
-            return;
-        }
-
-
-        submitButton.disabled = true;
-
-        submitButton.textContent =
-            "SENDING...";
-
-
-        message.textContent = "";
-
-
-        const reviewData = {
-
-            name: name,
-
-            city: city || null,
-
-            rating: rating,
-
-            review: review,
-
-            photo_urls:
-                selectedPhoto || null,
-
-            approved: false
-
-        };
-
-
-        console.log(
-            "Sending review:",
-            reviewData
-        );
-
-
-        const { data, error } =
-            await supabaseClient
-                .from("reviews_v2")
-                .insert(reviewData)
-                .select()
-                .single();
-
-
-        if (error) {
-
-            console.error(
-                "SUPABASE ERROR:",
-                error
-            );
-
-            message.textContent =
-                "SUPABASE ERROR: " +
-                error.message;
-
-            submitButton.disabled = false;
-
-            submitButton.textContent =
-                "SEND REVIEW →";
-
-            return;
-        }
-
-
-        console.log(
-            "Review successfully created:",
-            data
-        );
-
-
-        message.textContent =
-            "THANK YOU — YOUR REVIEW HAS BEEN SENT.";
-
-
-        form.reset();
-
-        ratingInput.value = 0;
-
-        selectedPhoto = null;
-
-        preview.innerHTML = "";
-
-
-        document
-            .querySelectorAll(".stars button")
-            .forEach(star => {
-
-                star.classList.remove("selected");
-
-            });
-
-
-        submitButton.disabled = false;
-
-        submitButton.textContent =
-            "SEND REVIEW →";
-
-    }
-);
-
-
-/* ==========================================
-   LOAD APPROVED REVIEWS
-========================================== */
-
-async function loadReviews() {
-
-    const { data, error } =
-        await supabaseClient
-            .from("reviews_v2")
-            .select("*")
-            .eq("approved", true)
-            .order("created_at", {
-                ascending: true
-            });
-
-
-    if (error) {
-
-        console.error(
-            "LOAD ERROR:",
-            error
-        );
-
-        return;
-    }
-
-
-    reviews =
-        data || [];
-
-
-    currentIndex =
-        reviews.length - 1;
-
-
-    if (currentIndex < 0)
-        currentIndex = 0;
-
-
-    displayReview();
-
-}
-
-
-/* ==========================================
-   DISPLAY
-========================================== */
-
-function displayReview() {
-
-    const image =
-        document.getElementById("reviewPhoto");
-
-    const stars =
-        document.getElementById("reviewStars");
-
-    const content =
-        document.getElementById("reviewContent");
-
-    const name =
-        document.getElementById("reviewName");
-
-    const city =
-        document.getElementById("reviewCity");
-
-
-    if (!reviews.length) {
-
-        image.style.display = "none";
-
-        stars.textContent =
-            "☆☆☆☆☆";
-
-        content.textContent =
-            '"Your review will appear here."';
-
-        name.textContent =
-            "BEQUEM CUSTOMER";
-
-        city.textContent =
-            "—";
-
-        return;
-    }
-
-
-    const review =
-        reviews[currentIndex];
-
-
-    if (review.photo_urls) {
-
-        image.src =
-            review.photo_urls;
-
-        image.style.display =
-            "block";
-
-    } else {
-
-        image.style.display =
-            "none";
-
-    }
-
-
-    stars.textContent =
-        "★".repeat(review.rating) +
-        "☆".repeat(5 - review.rating);
-
-
-    content.textContent =
-        `"${review.review}"`;
-
-
-    name.textContent =
-        review.name;
-
-
-    city.textContent =
-        review.city
-            ? "— " + review.city
-            : "—";
-
-}
-
-
-/* ==========================================
-   NEXT
-========================================== */
-
-document
-    .getElementById("next")
-    .addEventListener(
-        "click",
-        () => {
-
-            if (!reviews.length)
-                return;
-
-            currentIndex++;
-
-            if (
-                currentIndex >=
-                reviews.length
-            ) {
-
-                currentIndex = 0;
-
-            }
-
-            displayReview();
-
-        }
-    );
-
-
-/* ==========================================
-   PREVIOUS
-========================================== */
-
-document
-    .getElementById("previous")
-    .addEventListener(
-        "click",
-        () => {
-
-            if (!reviews.length)
-                return;
-
-            currentIndex--;
-
-            if (currentIndex < 0) {
-
-                currentIndex =
-                    reviews.length - 1;
-
-            }
-
-            displayReview();
-
-        }
-    );
-
-
-/* ==========================================
-   START
-========================================== */
-
-loadReviews();
-
-</script>
 
 </body>
+
 </html>
+```
