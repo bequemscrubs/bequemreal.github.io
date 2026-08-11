@@ -825,3 +825,104 @@ footer p {
     }
 
 }
+/* =========================================
+   HOME — REVIEWS
+   SAME STYLE AS THE BEQUEM SCRUB
+========================================= */
+
+.reviews {
+    background: #ffffff !important;
+    color: #111111 !important;
+
+    border-top: none !important;
+
+    padding-top: 120px;
+    padding-bottom: 140px;
+}
+
+
+/* Tout le texte de Reviews en noir */
+
+.reviews .section-number,
+.reviews h2,
+.reviews p {
+    color: #111111 !important;
+}
+
+
+/* Intro */
+
+.reviews-intro {
+    color: #111111 !important;
+}
+
+
+/* =========================================
+   REVIEW CARD
+========================================= */
+
+.home-review-card {
+    background: #ffffff !important;
+    color: #111111 !important;
+
+    border: 1px solid #111111 !important;
+}
+
+
+/* Texte de l'avis */
+
+.home-review-content blockquote {
+    color: #111111 !important;
+}
+
+
+/* étoiles */
+
+.home-review-stars {
+    color: #111111 !important;
+}
+
+
+/* nom */
+
+.home-review-author strong {
+    color: #111111 !important;
+}
+
+
+/* ville */
+
+.home-review-author span {
+    color: #555555 !important;
+}
+
+
+/* compteur */
+
+.home-review-counter {
+    color: #111111 !important;
+}
+
+
+/* flèches */
+
+.home-review-arrow {
+    background: #ffffff !important;
+    color: #111111 !important;
+
+    border: 1px solid #111111 !important;
+}
+
+.home-review-arrow:hover {
+    background: #111111 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================
+   PHOTO
+========================================= */
+
+.home-review-photo {
+    background: #eeeeee;
+}
