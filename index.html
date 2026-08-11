@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>BEQUEM SCRUBS</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,7 +15,10 @@
 
     <div class="brand-area">
 
-        <a href="index.html" class="brand">BEQUEM SCRUBS</a>
+        <!-- NOM DE MARQUE : NE SERA JAMAIS TRADUIT -->
+        <a href="index.html" class="brand">
+            BEQUEM SCRUBS
+        </a>
 
         <div class="socials">
 
@@ -21,55 +26,117 @@
                target="_blank"
                class="social"
                aria-label="WhatsApp">
+
                 <svg viewBox="0 0 24 24">
                     <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .2 5.3.2 11.9c0 2.1.6 4.1 1.6 5.8L.1 24l6.5-1.7c1.7.9 3.5 1.3 5.4 1.3h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.3-6.1-3.5-8.2ZM12.1 21.5c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3c-1-1.5-1.5-3.3-1.5-5.1C2.5 6.6 6.8 2.3 12.1 2.3c2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.3 2.9 7 0 5.3-4.3 9.6-9.9 9.6Zm5.3-7.2c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-2-.9-3.3-1.7-4.6-3.9-.4-.7.4-.7 1-2.2.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6 0 1.5 1.1 2.9 1.3 3.1.2.2 2.2 3.4 5.4 4.7 2 .9 2.8 1 3.8.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/>
                 </svg>
+
             </a>
+
 
             <a href="https://www.instagram.com/bequem.world?igsh=dDY4cWtzZ3g2eHVt"
                target="_blank"
                class="social"
                aria-label="Instagram">
+
                 <svg viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="3" width="18" height="18" rx="5"
+                    <rect x="3" y="3"
+                          width="18"
+                          height="18"
+                          rx="5"
                           stroke="currentColor"
                           stroke-width="2"/>
-                    <circle cx="12" cy="12" r="4"
+
+                    <circle cx="12"
+                            cy="12"
+                            r="4"
                             stroke="currentColor"
                             stroke-width="2"/>
-                    <circle cx="17.5" cy="6.5" r="1.2"
+
+                    <circle cx="17.5"
+                            cy="6.5"
+                            r="1.2"
                             fill="currentColor"/>
                 </svg>
+
             </a>
+
 
             <a href="https://www.tiktok.com/"
                target="_blank"
                class="social"
                aria-label="TikTok">
+
                 <svg viewBox="0 0 24 24">
                     <path d="M15 3c.3 2.2 1.5 3.7 3.8 4v3.1c-1.3 0-2.6-.4-3.8-1.1v6.4c0 4-2.7 6.3-6.2 6.3C5.4 21.7 3 19.6 3 16.4c0-3.1 2.5-5.5 5.8-5.5.3 0 .6 0 .9.1v3.2c-.3-.1-.6-.2-.9-.2-1.4 0-2.6 1-2.6 2.4 0 1.5 1.1 2.5 2.6 2.5 1.6 0 2.9-1 2.9-3.3V3H15Z"/>
                 </svg>
+
             </a>
+
 
             <a href="https://www.facebook.com/"
                target="_blank"
                class="social"
                aria-label="Facebook">
+
                 <svg viewBox="0 0 24 24">
                     <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V4c-.3 0-1.4-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8h3.4Z"/>
                 </svg>
+
             </a>
 
         </div>
+
     </div>
 
+
     <nav class="menu">
-        <a href="index.html">HOME</a>
-        <a href="shop.html">SHOP</a>
-        <a href="reviews.html">REVIEWS</a>
-        <a href="cart.html" class="cart">
-            CART <span id="cartCount">0</span>
+
+        <a href="index.html"
+           data-i18n="nav-home">
+            HOME
         </a>
+
+        <a href="shop.html"
+           data-i18n="nav-shop">
+            SHOP
+        </a>
+
+        <a href="reviews.html"
+           data-i18n="nav-reviews">
+            REVIEWS
+        </a>
+
+        <a href="cart.html"
+           class="cart"
+           data-i18n="nav-cart">
+            CART
+            <span id="cartCount">0</span>
+        </a>
+
+        <!-- LANGUAGE -->
+        <div class="language-switcher">
+
+            <button
+                class="lang-btn active"
+                data-lang="fr">
+                FR
+            </button>
+
+            <button
+                class="lang-btn"
+                data-lang="en">
+                EN
+            </button>
+
+            <button
+                class="lang-btn"
+                data-lang="ar">
+                AR
+            </button>
+
+        </div>
+
     </nav>
 
 </header>
@@ -83,35 +150,44 @@
 
         <div class="hero-text">
 
-            <p class="small-title">
+            <p class="small-title"
+               data-i18n="hero-small">
                 MEDICAL WEAR • EST. 2026
             </p>
+
+
+            <!-- MARQUE : NE PAS TRADUIRE -->
 
             <h1>
                 BEQUEM<br>
                 SCRUBS
             </h1>
 
-            <p class="description">
+
+            <p class="description"
+               data-i18n="hero-description">
                 Medical wear designed around you.
             </p>
 
-            <a href="shop.html" class="shop-button">
+
+            <a href="shop.html"
+               class="shop-button"
+               data-i18n="hero-button">
                 SHOP NOW →
             </a>
 
         </div>
 
 
-        <!-- LOGO / PERSONNAGES -->
+        <!-- LOGO : NE PAS TRADUIRE -->
 
-        <div class="hero-logo-scene" aria-hidden="true">
+        <div class="hero-logo-scene"
+             aria-hidden="true">
 
             <img
                 src="./BEQUEM-LOGO-transparent.png"
                 alt=""
-                class="hero-logo-image"
-            >
+                class="hero-logo-image">
 
         </div>
 
@@ -126,22 +202,25 @@
             01 / THE BEQUEM SCRUB
         </div>
 
+
         <div class="story-header">
 
-            <h2>
+            <h2 data-i18n="story-title">
                 BUILT FOR<br>
                 THE SHIFT.
             </h2>
 
+
             <div class="story-intro">
 
-                <p>
+                <p data-i18n="story-p1">
                     I know the reality of working in healthcare.
                     Long shifts, constant movement, countless washes —
                     and clothes that don't always keep up.
                 </p>
 
-                <p>
+
+                <p data-i18n="story-p2">
                     BEQUEM SCRUBS was created from that experience.
                     I wanted medical wear that feels good, moves with you
                     and still looks good after the shift is over.
@@ -155,39 +234,66 @@
         <div class="bequem-qualities">
 
             <div class="quality">
+
                 <span>01</span>
-                <h3>ANTI-PILLING</h3>
-                <p>
+
+                <h3 data-i18n="quality-1-title">
+                    ANTI-PILLING
+                </h3>
+
+                <p data-i18n="quality-1-text">
                     Designed to stay smooth and clean-looking,
                     wash after wash.
                 </p>
+
             </div>
 
+
             <div class="quality">
+
                 <span>02</span>
-                <h3>STRETCH &amp; COMFORT</h3>
-                <p>
+
+                <h3 data-i18n="quality-2-title">
+                    STRETCH &amp; COMFORT
+                </h3>
+
+                <p data-i18n="quality-2-text">
                     A flexible fabric that moves with you
                     without feeling restrictive.
                 </p>
+
             </div>
 
+
             <div class="quality">
+
                 <span>03</span>
-                <h3>SOFT FEEL</h3>
-                <p>
+
+                <h3 data-i18n="quality-3-title">
+                    SOFT FEEL
+                </h3>
+
+                <p data-i18n="quality-3-text">
                     Comfortable against the skin,
                     even during long shifts.
                 </p>
+
             </div>
 
+
             <div class="quality">
+
                 <span>04</span>
-                <h3>EASY CARE</h3>
-                <p>
+
+                <h3 data-i18n="quality-4-title">
+                    EASY CARE
+                </h3>
+
+                <p data-i18n="quality-4-text">
                     Made for the reality of medical work
                     and frequent washing.
                 </p>
+
             </div>
 
         </div>
@@ -195,13 +301,13 @@
 
         <div class="bequem-statement">
 
-            <p>
+            <p data-i18n="statement">
                 YOUR SHIFT.<br>
                 YOUR COMFORT.<br>
                 YOUR BEQUEM.
             </p>
 
-            <span>
+            <span data-i18n="statement-small">
                 BEQUEM — COMFORTABLE IN GERMAN.
             </span>
 
@@ -214,26 +320,32 @@
 
     <section class="complete">
 
-        <div class="section-number"></div>
+        <div class="section-number">
+            02 / BEQUEM
+        </div>
 
     </section>
 
 
     <!-- ================= REVIEWS ================= -->
 
-    <section class="reviews" id="reviews">
+    <section class="reviews"
+             id="reviews">
 
         <div class="section-number">
-            02 / REVIEWS
+            03 / REVIEWS
         </div>
 
-        <h2>
+
+        <h2 data-i18n="reviews-title">
             OUR<br>
             COMMUNITY.
         </h2>
 
-        <p class="reviews-intro">
-            Votre confort. Votre style. Votre expérience.
+
+        <p class="reviews-intro"
+           data-i18n="reviews-intro">
+            Your comfort. Your style. Your experience.
         </p>
 
 
@@ -246,13 +358,11 @@
             </button>
 
 
-            <article
-                class="home-review-card"
-                id="homeReviewCard">
+            <article class="home-review-card"
+                     id="homeReviewCard">
 
-                <div
-                    class="home-review-photo"
-                    id="homeReviewPhoto">
+                <div class="home-review-photo"
+                     id="homeReviewPhoto">
 
                     <img
                         id="homeReviewImage"
@@ -264,9 +374,8 @@
 
                 <div class="home-review-content">
 
-                    <div
-                        class="home-review-stars"
-                        id="homeReviewStars">
+                    <div class="home-review-stars"
+                         id="homeReviewStars">
                         ★★★★★
                     </div>
 
@@ -325,6 +434,8 @@
 
 <footer>
 
+    <!-- MARQUE : NE PAS TRADUIRE -->
+
     <h2>
         BEQUEM SCRUBS
     </h2>
@@ -340,11 +451,13 @@
 
 <script>
 
-const cartCount = document.getElementById("cartCount");
+const cartCount =
+    document.getElementById("cartCount");
 
-const cart = JSON.parse(
-    localStorage.getItem("bequemCart") || "[]"
-);
+const cart =
+    JSON.parse(
+        localStorage.getItem("bequemCart") || "[]"
+    );
 
 if (cartCount) {
     cartCount.textContent = cart.length;
@@ -353,7 +466,7 @@ if (cartCount) {
 </script>
 
 
-<!-- ================= SUPABASE REVIEWS ================= -->
+<!-- ================= REVIEWS ================= -->
 
 <script>
 
@@ -363,9 +476,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_-efPH13YWeBGHCuid9sYWw_Nm_vaaz9";
 
-
 let homeReviews = [];
-
 let homeReviewIndex = 0;
 
 
@@ -385,16 +496,11 @@ async function loadHomeReviews() {
                 method: "GET",
 
                 headers: {
-
                     "apikey": SUPABASE_KEY,
-
                     "Authorization":
                         "Bearer " + SUPABASE_KEY
-
                 }
-
             }
-
         );
 
 
@@ -406,17 +512,11 @@ async function loadHomeReviews() {
             );
 
             return;
-
         }
 
 
-        const data = await response.json();
-
-
-        console.log(
-            "HOME REVIEWS FROM SUPABASE:",
-            data
-        );
+        const data =
+            await response.json();
 
 
         homeReviews =
@@ -439,7 +539,6 @@ async function loadHomeReviews() {
         );
 
     }
-
 }
 
 
@@ -496,13 +595,7 @@ function displayHomeReview() {
         !current ||
         !total
     ) {
-
-        console.error(
-            "HOME REVIEW HTML ELEMENTS ARE MISSING."
-        );
-
         return;
-
     }
 
 
@@ -525,7 +618,6 @@ function displayHomeReview() {
         total.textContent = "01";
 
         return;
-
     }
 
 
@@ -533,9 +625,7 @@ function displayHomeReview() {
         homeReviewIndex >=
         homeReviews.length
     ) {
-
         homeReviewIndex = 0;
-
     }
 
 
@@ -622,7 +712,7 @@ function displayHomeReview() {
 
                     if (
                         Array.isArray(parsed) &&
-                        parsed.length > 0
+                        parsed.length
                     ) {
 
                         photoUrl =
@@ -630,12 +720,9 @@ function displayHomeReview() {
 
                     }
 
-                }
+                } else {
 
-                else {
-
-                    photoUrl =
-                        value;
+                    photoUrl = value;
 
                 }
 
@@ -659,19 +746,21 @@ function displayHomeReview() {
 
         image.src = photoUrl;
 
-        image.style.display = "block";
+        image.style.display =
+            "block";
 
-        photo.style.display = "block";
+        photo.style.display =
+            "block";
 
-    }
-
-    else {
+    } else {
 
         image.removeAttribute("src");
 
-        image.style.display = "none";
+        image.style.display =
+            "none";
 
-        photo.style.display = "none";
+        photo.style.display =
+            "none";
 
     }
 
@@ -748,6 +837,11 @@ setInterval(
 loadHomeReviews();
 
 </script>
+
+
+<!-- ================= TRANSLATIONS ================= -->
+
+<script src="translations.js"></script>
 
 </body>
 </html>
