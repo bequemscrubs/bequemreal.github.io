@@ -1,3 +1,4 @@
+```javascript
 document.addEventListener("DOMContentLoaded", function () {
 
 
@@ -127,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelectorAll(".color-choice")
         .forEach(function (button) {
 
-
             button.addEventListener(
                 "click",
                 function () {
@@ -160,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                     updateStatus();
+
 
                 }
 
@@ -211,6 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     updateStatus();
 
+
                 }
 
             );
@@ -236,9 +238,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 summaryQuantity.textContent =
                     quantity;
 
+
             }
 
         );
+
 
 
     document
@@ -257,6 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 summaryQuantity.textContent =
                     quantity;
+
 
             }
 
@@ -287,6 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
             status.textContent =
                 "Choose your color and size.";
 
+
         }
 
     }
@@ -303,6 +309,10 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
+
+                /* =================================
+                   VALIDATION
+                ================================= */
 
                 if (!selectedColor) {
 
@@ -327,6 +337,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+                /* =================================
+                   LOAD EXISTING CART
+                ================================= */
+
                 let cart =
                     JSON.parse(
                         localStorage.getItem(
@@ -336,113 +350,121 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-                /*
-                   BAS DE CONTENTION
-                   + TENUE
-                   = UN SEUL ARTICLE
-                   DANS LE PANIER
-                */
+                /* =================================
+                   1. ADD THE OUTFIT
+                   AS A SEPARATE CART ITEM
+                ================================= */
 
-                const item = {
+                if (savedOutfit) {
 
+                    const outfitItem = {
 
-                    id:
-                        "outfit-" +
-                        Date.now(),
+                        id:
+                            "outfit-" +
+                            Date.now(),
 
+                        category:
+                            savedOutfit.category ||
+                            "HOMMES",
 
-                    category:
-                        savedOutfit
-                            ? savedOutfit.category
-                            : "ACCESSORY",
+                        top:
+                            savedOutfit.top ||
+                            null,
 
-
-
-                    /* TENUE */
-
-                    top:
-                        savedOutfit
-                            ? savedOutfit.top
-                            : null,
-
-
-                    pants:
-                        savedOutfit
-                            ? savedOutfit.pants
-                            : null,
-
-
-                    scrubColor:
-                        savedOutfit
-                            ? savedOutfit.color
-                            : null,
-
-
-                    scrubSize:
-                        savedOutfit
-                            ? savedOutfit.size
-                            : null,
-
-
-                    motif:
-                        savedOutfit
-                            ? savedOutfit.motif
-                            : null,
-
-
-
-                    /* BAS */
-
-                    compressionSock: {
-
-                        model:
-                            selectedProduct,
+                        pants:
+                            savedOutfit.pants ||
+                            null,
 
                         color:
-                            selectedColor,
+                            savedOutfit.color ||
+                            null,
 
                         size:
-                            selectedSize,
+                            savedOutfit.size ||
+                            null,
 
-                        quantity:
-                            quantity
+                        motif:
+                            savedOutfit.motif ||
+                            null,
 
-                    },
+                        quantity: 1
+
+                    };
 
 
-                    quantity: 1
+                    cart.push(outfitItem);
+
+                }
+
+
+
+                /* =================================
+                   2. ADD THE COMPRESSION SOCKS
+                   AS A SEPARATE CART ITEM
+                ================================= */
+
+                const compressionSockItem = {
+
+                    id:
+                        "compression-" +
+                        Date.now() +
+                        "-" +
+                        Math.random()
+                            .toString(36)
+                            .substring(2, 9),
+
+                    category:
+                        "ACCESSORY",
+
+                    product:
+                        selectedProduct,
+
+                    model:
+                        selectedProduct,
+
+                    color:
+                        selectedColor,
+
+                    size:
+                        selectedSize,
+
+                    quantity:
+                        quantity
 
                 };
 
 
+                cart.push(
+                    compressionSockItem
+                );
 
-                cart.push(item);
 
 
+                /* =================================
+                   SAVE CART
+                ================================= */
 
                 localStorage.setItem(
-
                     "bequemCart",
-
                     JSON.stringify(cart)
-
                 );
 
 
 
-                /*
-                   On supprime la tenue
-                   temporaire parce qu'elle
-                   est maintenant dans le panier.
-                */
+                /* =================================
+                   OUTFIT NO LONGER NEEDED
+                   AS TEMPORARY DATA
+                ================================= */
 
                 localStorage.removeItem(
-
                     "bequemCurrentOutfit"
-
                 );
 
 
+
+                /* =================================
+                   BUTTON FEEDBACK
+                ================================= */
 
                 const button =
                     document.getElementById(
@@ -454,7 +476,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     "ADDED ✓";
 
 
-
                 setTimeout(
                     function () {
 
@@ -464,6 +485,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                     700
                 );
+
 
             }
 
@@ -503,4 +525,6 @@ document.addEventListener("DOMContentLoaded", function () {
     cartCount.textContent =
         total;
 
+
 });
+```
