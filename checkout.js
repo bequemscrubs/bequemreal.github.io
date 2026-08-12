@@ -130,23 +130,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getCategory(item) {
 
-        if (item.category === "FEMMES") {
+    const category = (item.category || "").toUpperCase();
 
-            return "FEMME";
-
-        }
-
-
-        if (item.category === "HIJABI") {
-
-            return "HIJAB";
-
-        }
-
-
-        return "HOMME";
-
+    if (category === "FEMMES") {
+        return "FEMME";
     }
+
+    if (category === "HIJABI") {
+        return "HIJAB";
+    }
+
+    return "HOMME";
+
+}
 
 
     /* =========================================
